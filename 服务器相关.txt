@@ -1,0 +1,240 @@
+linux下安装nodejs 通用全局模式
+# wget https://nodejs.org/dist/v10.9.0/node-v10.9.0-linux-x64.tar.xz    // 下载nodejs版本
+# tar xf  node-v10.9.0-linux-x64.tar.xz       // 解压xz
+# tar -zvxf node-v8.11.4-linux-x64.tar.gz     //解压gz
+
+# cd node-v10.9.0-linux-x64/                  // 进入解压目录
+# ./bin/node -v                               // 执行node命令 查看版本
+//
+ln -s /files/node-v8.11.4-linux-x64/bin/npm   /usr/local/bin/ //前面路径为自己解压目录路径，后面不变
+ln -s /files/node-v8.11.4-linux-x64/bin/node  /usr/local/bin/ //前面路径为自己解压目录路径，后面不变
+卸载参考：https://www.runoob.com/w3cnote/nvm-manager-node-versions.html
+
+nvm安装nodejs
+
+wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
+重启
+nvm install stable
+
+screen 将程序挂在后台运行
+screen -S yourname -> 新建一个叫yourname的session
+screen -ls -> 列出当前所有的session
+screen -r yourname -> 回到yourname这个session
+screen -d yourname -> 远程detach某个session
+screen -d -r yourname -> 结束当前session并回到yourname这个session
+在screen窗口键入C-a d，Screen会给出detached提示,ctrl+a后马上ctrl+d就会挂起
+
+mkdir 创建文件夹
+rm -rf 删除文件
+ps  aux | grep 进程名 查看进程名是否运行
+ps -A 查看所有进程
+kill id ->干掉id的进程
+
+ASF steam云挂卡 centos 7
+1、安装一些依赖包
+yum install libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev libcurl4-openssl-dev libssl-dev uuid-dev unzip
+2、安装.NET Core（不确定是否必须）
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[packages-microsoft-com-prod]\nname=packages-microsoft-com-prod \nbaseurl= https://packages.microsoft.com/yumrepos/microsoft-rhel7.3-prod\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/dotnetdev.repo'
+3、安装 .NET Core SDK
+sudo yum update
+sudo yum install libunwind libicu
+sudo yum install dotnet-sdk-2.1.103
+4、下载ASF
+https://github.com/JustArchi/ArchiSteamFarm/releases 找到对应版本url，然后vps wget命令下载，这里以ArchiSteamFarm V3.3.0.3为例
+下载前可以先建一个专属文件夹:mkdir /files/asf
+cd /files/asf
+wget https://github.com/JustArchi/ArchiSteamFarm/releases/download/3.3.0.3/ASF-linux-x64.zip
+unzip ./ASF-linux-x64.zip //解压
+chmod +x ArchiSteamFarm //修改权限
+5、配置ASF
+在 https://justarchi.github.io/ArchiSteamFarm/#/bot 进行配置
+在Name中输入配置文件的名字，注意使用英文不要加空格
+SteamLogin中输入steam账号id
+SteamPassword中输入steam密码
+Enabled选√
+IsBotAccount选×
+然后下载
+通过xftp5 传到刚刚解压的文件夹的config下
+6、开始挂卡
+创建screen后台挂起
+screen -S asf
+/files/asf/ArchiSteamFarm
+然后根据提示操作
+
+此时可退出SSH了，如果需要进行其他操作可ctrl+a ctrl+d挂起screen
+
+
+
+自建代理教程 https://lolico.moe/tutorial/shadowsocksr.html
+1、前期准备
+服务器可选：
+cloudcone：https://app.cloudcone.com/
+vultr：https://www.vultr.com/
+bandwagonhost：https://bandwagonhost.com/
+
+除此之外还有其他服务器，请自行选择，再选服务器前先自行百度看看有没有优惠信息
+
+这里以vultr为准
+vultr 选择洛杉矶服务器，5美元版本即可 可以把IPV6勾上，开到服务器之后本地ping一下能不能通，因为有些ip可能被墙了,ping值高的服务器也不推荐，遇到不合适的ip就把当前服务器注销掉再开一个，vultr是按小时收费，每开一个是0.01美元，一个月就是5美元
+
+服务器开好后在控制台拿到密码，用xshell连接服务器  xshell可选择去英文官网下载家庭/学校免费版本 https://www.netsarang.com/download/down_form.html?code=622
+第一步可以先修改服务器连接密码
+
+修改root ssh 密码：passwd
+2、安装代理
+步骤：1、安装基础软件：SS|SSR 2、安装加速软件：锐速|BBR
+
+懒人可直接往下翻看一键脚本安装版即可
+
+//手动安装SS锐速版
+
+curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+python get-pip.py
+pip install shadowsocks
+yum install vim
+vim /etc/ss.json
+//直接参考多账号
+ {
+
+    "server":"1.1.1.1",             #ss服务器IP
+
+    "server_port":1035,             #端口
+
+    "local_address": "127.0.0.1",   #本地ip
+
+    "local_port":1080,              #本地端口
+
+    "password":"password",          #连接ss密码
+
+    "timeout":300,                  #等待超时
+
+    "method":"rc4-md5",             #加密方式
+
+    "fast_open": false,             # true 或 false。如果你的服务器 Linux 内核在3.7+，可以开启 fast_open 以降低延迟。查看方法：uname -a 或cat /proc/version，开启方法： echo 3 > /proc/sys/net/ipv4/tcp_fastopen 开启之后，将 fast_open 的配置设置为 true 即可
+
+    "workers": 1                    # 工作线程数
+
+}
+
+多个账号的看下面
+{
+    "server":"你的iP",
+    "local_address":"127.0.0.1",
+    "local_port":1080,
+    "port_password":{
+         "端口":"密码",
+         "端口":"密码",
+         "端口":"密码",
+         "端口":"密码",
+         "端口":"密码"
+    },
+    "timeout":600,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}
+
+
+s.s的启动和停止都很简单：
+ssserver -c /etc/ss.json -d start
+ssserver -c /etc/ss.json -d stop
+防火墙的设置：
+firewall-cmd --zone=public --add-port=12345（这里填入你要设置的端口号）/tcp --permanent
+firewall-cmd --zone=public --add-port=8888/tcp --permanent
+
+
+安装锐速
+
+对于centos7，内核更换为： 3.10.0-229.1.2.el7.x86_64
+rpm -ivh http://soft.91yun.org/ISO/Linux/CentOS/kernel/kernel-3.10.0-229.1.2.el7.x86_64.rpm --force
+
+更换内核后需要重启服务器(reboot)才能生效。
+然后可以安装锐速：
+wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh && bash serverspeeder-all.sh
+
+启动锐速：
+service serverSpeeder start
+
+然后启动S.S，搞定。
+
+添加账号之后重启机器reboot 再启动锐速和SS就可以了
+
+锐速命令
+状态：service serverSpeeder status
+
+统计：service serverSpeeder stats
+
+参考
+https://www.91yun.co/
+https://jasper-1024.github.io/2016/06/26/VPS%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%95%99%E7%A8%8B%E7%B3%BB%E5%88%97/
+
+
+一键安装版+BBR加速，建议选择SSR版本
+
+不存在wget命令安装wget (正常不用)
+# CentOS
+yum install -y wget
+# Debian / Ubuntu
+apt-get install -y wget
+
+原版SS https://lolico.moe/yoimono/arukas.html (不推荐，选下面的SSR)
+wget --no-check-certificate -O shadowsocks.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh && chmod +x shadowsocks.sh
+./shadowsocks.sh 2>&1 | tee shadowsocks.log
+
+然后根据脚本提示选择酸酸配置
+
+ss设置建议：
+加密：aes-256-gcm或者chacha20-ietf-poly1305，总之使用 AEAD 加密
+
+秋水逸冰一键脚本 ss的多个版本  https://teddysun.com/486.html
+wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh && chmod +x shadowsocks-all.sh
+./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log
+选择shadowsocks-r版本
+
+ssr设置建议：
+加密：none =>1
+协议：auth_chain_a =>7
+混淆：根据你自己的需求，选择plain或者http_simple =>1
+不建议使用tls1.2_ticket_auth系列混淆
+
+ssr命令
+/etc/init.d/shadowsocks-r start | stop | restart | status 分别是启动|停止|重启|状态
+/etc/shadowsocks-r/config.json 配置文件位置 一般不用改
+
+ssr安装完就装下面的BBR加速，不安装会很慢
+
+uname -r 这个是查看linux内核版本 大于4.9即可安装，小于的请参照上面的锐速
+查看内核版本，显示为最新版就表示 OK 了
+
+3、一键安装BBR 加速 https://teddysun.com/489.html
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh && chmod +x bbr.sh && ./bbr.sh
+
+安装完会重启 重启之后ssr会自动启动 没有启动自行用命令启动
+
+//检查BBR是否安装成功
+
+sysctl net.ipv4.tcp_available_congestion_control
+返回值一般为：
+net.ipv4.tcp_available_congestion_control = bbr cubic reno
+或者为：
+net.ipv4.tcp_available_congestion_control = reno cubic bbr
+
+sysctl net.ipv4.tcp_congestion_control
+返回值一般为：
+net.ipv4.tcp_congestion_control = bbr
+
+sysctl net.core.default_qdisc
+返回值一般为：
+net.core.default_qdisc = fq
+
+lsmod | grep bbr
+返回值有 tcp_bbr 模块即说明 bbr 已启动。注意：并不是所有的 VPS 都会有此返回值，若没有也属正常。
+
+都检查完就ok 可以用ssr客服端连接服务器了
+
+各种客户端
+ss-window版：https://github.com/shadowsocks/shadowsocks-windows/releases
+ss-安卓版：https://github.com/shadowsocks/shadowsocks-android/releases
+
+ssr-window版：https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases
+ssr-安卓版：https://github.com/shadowsocksrr/shadowsocksr-android/releases
