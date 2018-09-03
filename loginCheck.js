@@ -4,11 +4,15 @@ const config = require('../config');
 async function checkLimitPage (ctx, next) {
   //一些需要登录的页面没有登录则跳转登录页
   let path = ctx.path;
-  let keyReg = /member|shopcart|order|pay|landingPlatform|shenqing|coupon\/directional|subApply|subSuccess/i;
+  if (path === 'login.html') {
+    return;
+  }
+  let keyReg = /member|order|pay|landingPlatform|shenqing|coupon\/directional|subApply|subSuccess/i;
   let otherReg = /onlinePay|bankPay|prePay|paySecurity|payment/i; //例外情况
   if (keyReg.test(path) && !otherReg.test(path)) {
-    ctx.redirect(config.tlsDomain + '/login.html?rurl=' + config.domain + path + ctx.search);
-    return;
+    ctx.redirect(config.tlsDomain + '/login.html?rurl=' + encodeURIComponent(config.domain + path + ctx.search));
+  } else {
+    return await next();
   }
 }
 
@@ -26,6 +30,7 @@ module.exports = async function (ctx, next) {
   ctx.state.userInfo = null;
   if (!cookies.get('usid') && !cookies.get('remindMe')) {
     await checkLimitPage(ctx, next);
+    return;
   }
   let res = await axios.post(apiPath + '/ucenter/getLoginUserInfo', {}, {
     headers: {
@@ -50,7 +55,7 @@ module.exports = async function (ctx, next) {
         }
       }
     }
-    ctx.redirect(config.tlsDomain + '/login.html?rurl=' + config.domain + path + ctx.search);
+    ctx.redirect(config.tlsDomain + '/login.html?rurl=' + encodeURIComponent(config.domain + path + ctx.search));
     return;
   }
 
@@ -76,6 +81,7 @@ module.exports = async function (ctx, next) {
     }
   } else {
     await checkLimitPage(ctx, next);
+    return;
   }
   ctx.userInfo = userInfo;
   ctx.state.userInfo = userInfo;
