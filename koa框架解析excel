@@ -1,0 +1,19 @@
+const axios = require("axios");
+const XLSX = require("xlsx");
+
+module.exports = async function (ctx, next) {
+  //获取excel文件并进行解析
+  const workbook  = await axios.get(`${url}`,{
+    responseType:`arraybuffer`
+  }).then(response => {
+    const wb =  XLSX.read(response.data, {type:'buffer'});
+    return wb;
+  });
+  await ctx.render('htmlFilePath', {
+
+  });
+  await next();
+};
+
+
+
