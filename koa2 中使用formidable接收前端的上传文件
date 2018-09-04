@@ -11,27 +11,21 @@ router.post('/apis/upload', async function (ctx, next) {
   // form.maxFields = 1000;//设置最大可接收字段数，用于防止内存溢出，默认值为1000
   // form.hash = false;//是否对上传文件进行hash较验，可设置为'sha1' 或 'md5'
 
-  var targetDir = path.join(__dirname, '../upload');
-  // 检查目标目录，不存在则创建
-  // await fs.access(targetDir, async function (err) {
-  //   if (err) {
-  //     fs.mkdirSync(targetDir);
-  //   }
-  //   console.log(1111)
-  //   await _fileParse();
-  // });
   let filesUrl = [];
   await _fileParse();
   ctx.status = 200;
   ctx.body = { code: 0, data: { filesUrl } };
   // 文件解析与保存
   async function _fileParse () {
-
-    return form.parse(ctx.req, await function (err, fields, files) {
-      console.log(2222)
+    form.parse(ctx.req, await function (err, fields, files) {
       if (err) throw err;
       var errCount = 0;
       var keys = Object.keys(files);
+      //文件移动的目录文件夹，不存在时创建目标文件夹
+      var targetDir = path.join(__dirname, '../upload');
+      if (!fs.existsSync(targetDir)) {
+        fs.mkdir(targetDir);
+      }
       keys.forEach(function (key) {
         var filePath = files[key].path;
         var fileExt = filePath.substring(filePath.lastIndexOf('.'));
