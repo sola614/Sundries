@@ -1,0 +1,89 @@
+const formidable = require("formidable");
+const fs = require("fs");
+const path = require("path");
+router.post('/apis/upload', async function (ctx, next) {
+
+  var form = new formidable.IncomingForm();
+  form.uploadDir = path.join(__dirname, '../files');//设置文件接收后保存的文件夹。此文件夹一般为上传后的临时文件夹，上传后调用 fs.rename()对文件进行移动及重命名。默认保存路径为os.tmpDir()
+  form.keepExtensions = true;        //使用文件的原扩展名
+  // form.type//'multipart'或'urlencoded'类型的请求在formidable都支持，可通过上传文件的type属性查看文件类型
+  // form.maxFieldsSize = 2 * 1024 * 1024;//设置上传文件的大小，默认值为2M
+  // form.maxFields = 1000;//设置最大可接收字段数，用于防止内存溢出，默认值为1000
+  // form.hash = false;//是否对上传文件进行hash较验，可设置为'sha1' 或 'md5'
+
+  var targetDir = path.join(__dirname, '../upload');
+  // 检查目标目录，不存在则创建
+  // await fs.access(targetDir, async function (err) {
+  //   if (err) {
+  //     fs.mkdirSync(targetDir);
+  //   }
+  //   console.log(1111)
+  //   await _fileParse();
+  // });
+  let filesUrl = [];
+  await _fileParse();
+  ctx.status = 200;
+  ctx.body = { code: 0, data: { filesUrl } };
+  // 文件解析与保存
+  async function _fileParse () {
+
+    return form.parse(ctx.req, await function (err, fields, files) {
+      console.log(2222)
+      if (err) throw err;
+      var errCount = 0;
+      var keys = Object.keys(files);
+      keys.forEach(function (key) {
+        var filePath = files[key].path;
+        var fileExt = filePath.substring(filePath.lastIndexOf('.'));
+        if (('.jpg.jpeg.png.gif').indexOf(fileExt.toLowerCase()) === -1) {
+          errCount += 1;
+        } else {
+          //以当前时间戳对上传文件进行重命名
+          var fileName = new Date().getTime() + fileExt;
+          var targetFile = path.join(targetDir, fileName);
+          //移动文件
+          fs.renameSync(filePath, targetFile);//跨盘移动会报错，如果没设置form.uploadDir需用下面方法
+          // var is = fs.createReadStream(filePath);
+          // var os = fs.createWriteStream(targetFile);
+          // is.pipe(os);
+          // is.on('end', function () {
+          //   fs.unlinkSync(filePath);
+          // });
+          // 文件的Url（相对路径）
+          filesUrl.push('/upload/' + fileName);
+        }
+      });
+    });
+  }
+
+});
+
+
+
+html代码
+  <div>
+    <form name="form1" id="form1">
+      <p><input type="file" name="photo" id="photo"></p>
+      <p><input type="button" name="b1" value="submit" onclick="fsubmit()"></p>
+    </form>
+  </div>
+  <script>
+    function fsubmit() {
+      var data = new FormData($('#form1')[0]);
+      console.log(data);
+      $.ajax({
+        url: '/apis/upload',
+        data: data,
+        type: 'post',
+        processData: false,
+        contentType: false,
+        success: function (res) {
+          console.log(res)
+        },
+        error: function (res) {
+          alert('错误')
+        }
+      });
+      return false;
+    }
+  </script>
