@@ -1,0 +1,8 @@
+1、ie存在iframe input 失去光标问题
+解决：在iframe加载后用$('id').focus();
+
+2、360和ie存在中文输入法输入时val为空的bug
+解决：可用event.key或者event.keyCode 判断 if (val || (!val && (e.key && e.key != "Backspace" || e.keyCode && e.keyCode != 8))) {do something}
+
+3、ie和safari不支持日期用'-'分割
+解决：用'/'代替
