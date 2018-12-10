@@ -1,5 +1,14 @@
 1、ie存在iframe input 失去光标问题
-解决：在iframe加载后用$('id').focus();
+解决：在iframe关闭时插入一个不可见的input，把焦点移到上面，注意这个input的位置，可能会造成页面跳动，请自行找好位置
+var Browser =navigator.userAgent;
+if (Browser.indexOf("Trident") > -1){
+  if (!$('#ieBlur')[0]) {
+    $('body').append('<input type="text" id="ieBlur" style="position:fixed;left:-100px;width:0;">');
+  }else{
+
+  }
+  $('#ieBlur').focus();
+}
 
 2、360和ie存在中文输入法输入时val为空的bug
 解决：可用event.key或者event.keyCode 判断 if (val || (!val && (e.key && e.key != "Backspace" || e.keyCode && e.keyCode != 8))) {do something}
