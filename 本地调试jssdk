@@ -1,0 +1,20 @@
+
+本地调试jssdk
+
+1、注册微信测试号并关注，拿到appid和appsecret，js域名填写你本地页面的ip即可如192.168.1.23
+2、通过 https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET 获取access_token
+3、通过https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi 获取jsapi_ticket
+4、利用https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=jsapisign 获取签名
+5、引入jssdk，调用
+wx.config({
+  debug: true,
+  appId: '', // 必填，公众号的唯一标识
+  timestamp: '1548311463', // 必填，生成签名的时间戳
+  nonceStr: 'Wm3WZYTPz0wzccnW', // 必填，生成签名的随机串
+  signature: 'c04e779fd3e385e723d145f8fda4ba758a37ab03', // 必填，签名
+  jsApiList: ['onMenuShareTimeline', 'updateTimelineShareData']
+})
+
+window.wx.ready(function () {
+  //做各种操作
+})
