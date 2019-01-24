@@ -1,7 +1,8 @@
 
 本地调试jssdk
 
-1、注册微信测试号（https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index）并关注，拿到appid和appsecret，js域名填写你本地页面的ip即可如192.168.1.23
+1、注册微信测试号（https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index）并关注，拿到appid和appsecret，
+js域名填写你本地页面的ip即可如192.168.1.23
 2、通过 https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET 获取access_token
 3、通过https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi 获取jsapi_ticket
 4、利用https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=jsapisign 获取签名
