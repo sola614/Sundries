@@ -18,3 +18,8 @@ wx.config({
 window.wx.ready(function () {
   //做各种操作
 })
+
+
+坑
+1、新版1.4版本分享设置updateTimelineShareData和updateAppMessageShareData必须把所有参数都设置，缺一无效
+2、截止2019.1.24 1.4版本分享还需要在jsApiList声明onMenuShareTimeline、onMenuShareAppMessage、onMenuShareQQ、onMenuShareQZone，否则无效
