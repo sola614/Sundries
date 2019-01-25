@@ -22,3 +22,36 @@ if (Browser.indexOf("Trident") > -1){
 <script>
   !function (a, b, c) { function d (a) { var c = "default"; a.self_redirect === !0 ? c = "true" : a.self_redirect === !1 && (c = "false"); var d = b.createElement("iframe"), e = "https://open.weixin.qq.com/connect/qrconnect?appid=" + a.appid + "&scope=" + a.scope + "&redirect_uri=" + a.redirect_uri + "&state=" + a.state + "&login_type=jssdk&self_redirect=" + c; e += a.style ? "&style=" + a.style : "", e += a.href ? "&href=" + a.href : "", d.src = e, d.frameBorder = "0", d.allowTransparency = "true", d.scrolling = "no", d.width = "300px", d.height = "400px",d.sandbox="allow-scripts allow-top-navigation allow-same-origin"; var f = b.getElementById(a.id); f.innerHTML = "", f.appendChild(d) } a.WxLogin = d }(window, document);
 </script>
+
+5、浏览器复制
+var shareUrl = 'something';
+var $input = $('<input type="text" style="position:fixed;left:-1000px;top:50%;" ></input>');
+$('body').append($input);
+$input.val(shareUrl);
+if (/ipad|ipod|iphone/i.test(navigator.userAgent)) {
+  //ios复制 pc模拟的全部失效但是也会走这个方法
+  var el = $input[0];
+  var editable = el.contentEditable;
+  var readOnly = el.readOnly;
+  el.contentEditable = true;
+  el.readOnly = true; //设为true可阻止输入法弹出
+  var range = document.createRange();
+  range.selectNodeContents(el);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  el.setSelectionRange(0, 999999);
+  el.contentEditable = editable;
+  el.readOnly = readOnly;
+} else {
+  $input[0].select();
+}
+if (document.execCommand('copy')) { // console.log('copy')
+  document.execCommand('copy');
+  alert('链接复制成功，快发给好友吧！')
+}
+//$input.blur();
+$input.remove();
+
+注意：不可进行异步操作(如ajax请求后进行复制)，否则document.execCommand('copy')会为false，导致复制失败
+参考资料：https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
