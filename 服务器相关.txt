@@ -247,3 +247,9 @@ ssr-安卓版：https://github.com/shadowsocksrr/shadowsocksr-android/releases
 1、在xshell生成秘钥
 2、在谷歌云控制台上 -  Compute Engine - 元数据 - ssh秘钥 - 添加/修改 - 输入xshell生成的秘钥(在后面接上空格 生成秘钥时的登录用户名) - 保存即可
 3、xshell 输入ip 和登录用户名-public-key选择刚填写到谷歌云上的ssh秘钥即可链接
+
+
+
+
+v2ray脚本
+https://github.com/Jrohy/multi-v2ray
