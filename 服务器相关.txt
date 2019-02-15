@@ -251,5 +251,12 @@ ssr-安卓版：https://github.com/shadowsocksrr/shadowsocksr-android/releases
 
 
 
-v2ray脚本
+v2ray服务器脚本
 https://github.com/Jrohy/multi-v2ray
+window客户端
+https://github.com/2dust/v2rayN/releases => v2rayN-Core.zip
+android客户端
+使用v2rayNG
+https://github.com/2dust/v2rayNG/releases
+
+
