@@ -264,7 +264,7 @@ https://github.com/2dust/v2rayNG/releases
 1、更改时区
 cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 2、同步时间
-ntpdate -u pool.ntp.org
+ntpdate -u pool.ntp.org;hwclock -w
 3、定时任务
 crontab -e
 文本编辑输入内容
