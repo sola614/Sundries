@@ -55,3 +55,24 @@ $input.remove();
 
 注意：不可进行异步操作(如ajax请求后进行复制)，否则document.execCommand('copy')会为false，导致复制失败
 参考资料：https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
+
+6、写一个循环每隔1S把当前秒数打印，即第1S打印1S，第2S打印2，...第5S打印5S,注意不是一次性输出
+promise方法
+for (let index = 1; index < 6; index++) {
+  new Promise((resolve, reject) => {
+    setTimeout(function () {
+      resolve(index)
+    }, index * 1000)
+  }).then((i) => {
+    console.log(`${i}S`);
+  })
+}
+普通闭包
+for (var i = 1; i < 6; i++) {
+  (function (j) { 
+    // j = i
+    setTimeout(function () {
+      console.log(`${j}S`);
+    }, j*1000);
+  })(i);
+}
