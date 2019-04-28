@@ -57,6 +57,12 @@ $input.remove();
 参考资料：https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
 
 6、写一个循环每隔1S把当前秒数打印，即第1S打印1S，第2S打印2，...第5S打印5S,注意不是一次性输出
+箭头函数
+for (let index = 1; index < 6; index++) {
+    setTimeout(()=> {
+      console.log(`${index}S`);
+    }, index * 1000)
+}
 promise方法
 for (let index = 1; index < 6; index++) {
   new Promise((resolve, reject) => {
