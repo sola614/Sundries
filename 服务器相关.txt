@@ -23,6 +23,8 @@ screen -r yourname -> 回到yourname这个session
 screen -d yourname -> 远程detach某个session
 screen -d -r yourname -> 结束当前session并回到yourname这个session
 在screen窗口键入C-a d，Screen会给出detached提示,ctrl+a后马上ctrl+d就会挂起
+screen -X -S id quit 杀screen 进程
+
 
 mkdir 创建文件夹
 rm -rf 删除文件
