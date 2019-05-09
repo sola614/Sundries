@@ -291,3 +291,11 @@ awk '{print $1}' /var/log/nginx/blog.access.log|sort | uniq -c |sort -n -k 1 -r|
 cat /var/log/nginx/blog.access.log| sed -n '/14\/Mar\/2015:21/,/14\/Mar\/2015:22/p'|more
 
 
+查看vps回程路由
+mkdir test && cd test && wget https://cdn.ipip.net/17mon/besttrace4linux.zip && unzip besttrace4linux.zip && chmod +x besttrace && ./besttrace -q 1 113.91.55.210
+本地ip自行去ipip.net查询
+
+查看vps去程路由用ipip.net的best trace
+
+
+
