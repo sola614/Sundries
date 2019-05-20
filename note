@@ -91,3 +91,17 @@ async/await 方法
         console.log(i);
     }
 })();
+
+
+7、创建一个指定长度的数组（如长度为100的数组）
+a、Array.from({ length: 100 })
+b、[...Array(100)]
+c、Array.apply(null,{ length: 100 })
+d、[...Array.from({ length: 100 })]
+e、Array.from(new Array(100))
+
+如需赋值
+a、Object.keys(Array.from({ length: 100 }));
+b、[...Array(100).keys()]
+c、Array.from(new Array(100).keys());
+d、[...Array.from({ length: 100 }).keys()]
