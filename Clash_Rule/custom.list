@@ -2,4 +2,4 @@ DOMAIN-SUFFIX,fanicon.net
 DOMAIN-SUFFIX,api.noxinfluencer.com
 DOMAIN-SUFFIX,sdk-api-v1.singular.net
 DOMAIN-SUFFIX,playstove.com
-DOMAIN-SUFFIX,52.196.95.10
+IP-CIDR,52.196.95.10/16
