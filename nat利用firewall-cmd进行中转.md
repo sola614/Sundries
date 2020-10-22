@@ -52,8 +52,8 @@ firewall-cmd --permanent --remove-forward-port=port=本地端口:proto=udp:toadd
 ```
 
 
-3.其他错误问题
-(1)报类似`ERROR: Exception DBusException: org.freedesktop.DBus.Error.AccessDenied: Connection ":1.6" is not allowed to own the service "org.fedoraproject.FirewallD1" due to security policies in the configuration file`错误
-先执行：systemctl restart dbus，然后再restart即可
-(2)如果是`ERROR: Failed to read file "/proc/sys/net/netfilter/nf_conntrack_helper": [Errno 2] No such file or directory: '/proc/sys/net/netfilter/nf_conntrack_helper'`
-直接重启reboot即可
+3.其他错误问题  
+(1)报类似`ERROR: Exception DBusException: org.freedesktop.DBus.Error.AccessDenied: Connection ":1.6" is not allowed to own the service "org.fedoraproject.FirewallD1" due to security policies in the configuration file`错误  
+先执行：systemctl restart dbus，然后再restart即可  
+(2)如果是`ERROR: Failed to read file "/proc/sys/net/netfilter/nf_conntrack_helper": [Errno 2] No such file or directory: '/proc/sys/net/netfilter/nf_conntrack_helper'`  
+直接重启reboot即可  
