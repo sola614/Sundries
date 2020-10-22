@@ -1,0 +1,59 @@
+1.准备
+输入`firewall-cmd --state`查看防火墙状态，如果显示running则表示在运行  
+否则请安装或启动防火墙  
+命令
+```
+安装firewalld 防火墙yum -y install firewalld
+
+开启服务systemctl start firewalld
+
+关闭防火墙systemctl stop firewalld
+
+开机自动启动systemctl enable firewalld
+
+关闭开机制动启动systemctl disable firewalld
+
+```
+开启转发前需要完成的命令
+```
+echo 'net.ipv4.ip_forward = 1' >> /etc/sysctl.conf
+
+sysctl -p
+
+firewall-cmd --permanent --add-masquerade
+```
+2.转发命令 
+
+(1)开启端口  
+```
+firewall-cmd --permanent --add-port=本地nat端口/tcp
+firewall-cmd --permanent --add-port=本地nat端口/udp
+```
+(2)开启转发   
+```
+firewall-cmd --permanent --add-forward-port=port=本地端口:proto=tcp:toaddr=目标地址IP:toport=目标端口
+firewall-cmd --permanent --add-forward-port=port=本地端口:proto=udp:toaddr=目标地址IP:toport=目标端口
+```
+(3)更新配置  
+```
+firewall-cmd --reload
+```
+然后在酸酸乳或者v2填写中转机IP和端口（此端口为nat机官网设置的转发端口，并非上面所填的本地端口）即可使用  
+3.其他  
+查看现有转发规则：
+```
+firewall-cmd --list-all
+```
+移除转发规则  
+将上面开启的add改为remove即可，也就是
+```
+firewall-cmd --permanent --remove-forward-port=port=本地端口:proto=tcp:toaddr=目标地址IP:toport=目标端口
+firewall-cmd --permanent --remove-forward-port=port=本地端口:proto=udp:toaddr=目标地址IP:toport=目标端口
+```
+
+
+3.其他错误问题
+(1)报类似`ERROR: Exception DBusException: org.freedesktop.DBus.Error.AccessDenied: Connection ":1.6" is not allowed to own the service "org.fedoraproject.FirewallD1" due to security policies in the configuration file`错误
+先执行：systemctl restart dbus，然后再restart即可
+(2)如果是`ERROR: Failed to read file "/proc/sys/net/netfilter/nf_conntrack_helper": [Errno 2] No such file or directory: '/proc/sys/net/netfilter/nf_conntrack_helper'`
+直接重启reboot即可
