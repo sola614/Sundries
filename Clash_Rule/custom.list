@@ -1,3 +1,4 @@
+##域名后缀匹配
 DOMAIN-SUFFIX,fanicon.net
 DOMAIN-SUFFIX,twitcasting.tv
 DOMAIN-SUFFIX,pximg.net
@@ -23,4 +24,5 @@ DOMAIN-SUFFIX,fanbox.cc
 DOMAIN-SUFFIX,zowa.app
 DOMAIN-SUFFIX,amazon.jp
 DOMAIN-SUFFIX,goo.gl
-DOMAIN-SUFFIX,s3-ap-northeast-1.amazonaws.com
+##域名匹配
+DOMAIN,s3-ap-northeast-1.amazonaws.com
