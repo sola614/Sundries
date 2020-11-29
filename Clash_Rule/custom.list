@@ -22,6 +22,7 @@ DOMAIN-SUFFIX,amazon.jp
 DOMAIN-SUFFIX,goo.gl
 DOMAIN-SUFFIX,dlsite.com
 DOMAIN-SUFFIX,fantia.jp
+DOMAIN-SUFFIX,getchu.com
 ##域名匹配
 DOMAIN,s3-ap-northeast-1.amazonaws.com
 DOMAIN,ci-en.dlsite.com
