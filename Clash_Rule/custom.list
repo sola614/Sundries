@@ -27,6 +27,7 @@ DOMAIN-SUFFIX,ci-en.jp
 DOMAIN-SUFFIX,nyacdn.com
 DOMAIN-SUFFIX,msecnd.net
 DOMAIN-SUFFIX,microsoft.com
+DOMAIN-SUFFIX,nyahentai.pw
 ##域名匹配
 DOMAIN,s3-ap-northeast-1.amazonaws.com
 DOMAIN,ci-en.dlsite.com
@@ -37,3 +38,4 @@ DOMAIN,fantia.jp
 DOMAIN,ci-en.jp
 DOMAIN,zowa.app
 DOMAIN,nyahentai.com
+DOMAIN,nyahentai.pw
