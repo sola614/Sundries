@@ -28,6 +28,7 @@ DOMAIN-SUFFIX,nyacdn.com
 DOMAIN-SUFFIX,msecnd.net
 DOMAIN-SUFFIX,microsoft.com
 DOMAIN-SUFFIX,nyahentai.pw
+DOMAIN-SUFFIX,bootstrapcdn.com
 ##域名匹配
 DOMAIN,s3-ap-northeast-1.amazonaws.com
 DOMAIN,ci-en.dlsite.com
