@@ -21,7 +21,6 @@ DOMAIN-SUFFIX,zowa.app
 DOMAIN-SUFFIX,amazon.jp
 DOMAIN-SUFFIX,goo.gl
 DOMAIN-SUFFIX,dlsite.com
-DOMAIN-SUFFIX,fantia.jp
 DOMAIN-SUFFIX,getchu.com
 DOMAIN-SUFFIX,ci-en.jp
 DOMAIN-SUFFIX,nyacdn.com
@@ -35,7 +34,6 @@ DOMAIN,ci-en.dlsite.com
 DOMAIN,code.jquery.com
 DOMAIN,payment.pixiv.net
 DOMAIN,origin-a.akamaihd.net
-DOMAIN,fantia.jp
 DOMAIN,ci-en.jp
 DOMAIN,zowa.app
 DOMAIN,nyahentai.com
@@ -44,3 +42,4 @@ DOMAIN,nyahentai.pw
 ##域名关键字匹配
 DOMAIN-KEYWORD,nyahentai
 DOMAIN-KEYWORD,nyacdn
+DOMAIN-KEYWORD,fantia.jp
