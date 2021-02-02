@@ -1,3 +1,7 @@
+##域名关键字匹配
+DOMAIN-KEYWORD,nyahentai
+DOMAIN-KEYWORD,nyacdn
+DOMAIN-KEYWORD,fantia.jp
 ##域名后缀匹配
 DOMAIN-SUFFIX,fanicon.net
 DOMAIN-SUFFIX,twitcasting.tv
@@ -28,6 +32,7 @@ DOMAIN-SUFFIX,msecnd.net
 DOMAIN-SUFFIX,microsoft.com
 DOMAIN-SUFFIX,nyahentai.pw
 DOMAIN-SUFFIX,bootstrapcdn.com
+DOMAIN-SUFFIX,fantia.jp
 ##域名匹配
 DOMAIN,s3-ap-northeast-1.amazonaws.com
 DOMAIN,ci-en.dlsite.com
@@ -39,7 +44,5 @@ DOMAIN,zowa.app
 DOMAIN,nyahentai.com
 DOMAIN,nyacdn.com
 DOMAIN,nyahentai.pw
-##域名关键字匹配
-DOMAIN-KEYWORD,nyahentai
-DOMAIN-KEYWORD,nyacdn
-DOMAIN-KEYWORD,fantia.jp
+DOMAIN,fantia.jp
+
