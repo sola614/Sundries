@@ -1,0 +1,25 @@
+// ==UserScript==
+// @name         B站番剧自动播放下一集
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://www.bilibili.com/bangumi/play/*
+// @grant        none
+// ==/UserScript==
+
+let timer;
+(function() {
+    'use strict';
+    timer = setInterval(()=>{
+        checkItem()
+    },500)
+
+})();
+function checkItem(){
+    const curItem = document.querySelectorAll('.ep-item.cursor')[0]
+    if(curItem){
+      clearInterval(timer)
+      curItem.nextSibling&&curItem.nextSibling.click()
+    }
+}
