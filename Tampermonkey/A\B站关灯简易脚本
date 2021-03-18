@@ -83,5 +83,5 @@ function start(params) {
                 clearInterval(timer)
                 start()
             }
-        }, 1000);
+        }, 3000);
 }
