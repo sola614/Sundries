@@ -33,6 +33,9 @@ DOMAIN-KEYWORD,sbvideocdn.com
 DOMAIN-KEYWORD,yandex.ru
 DOMAIN-KEYWORD,streamsb.net
 DOMAIN-KEYWORD,ninjastream.to
+DOMAIN-KEYWORD,google.com
+DOMAIN-KEYWORD,youtube.com
+DOMAIN-KEYWORD,googlevideo.com
 ##域名后缀匹配
 DOMAIN-SUFFIX,fanicon.net
 DOMAIN-SUFFIX,twitcasting.tv
