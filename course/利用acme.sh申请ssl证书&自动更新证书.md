@@ -64,3 +64,23 @@ acme.sh --upgrade  --auto-upgrade  0
 
 # 其他
 1.其他安装方式请参照：[官方wiki](https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E)
+
+# nginx配置
+```
+server {
+    listen 443 ssl;
+    server_name youdomain;
+    root  /data/nodeapps/tools;
+    ssl_certificate   "你的证书路径/cert.pem";
+    ssl_certificate_key  "你的证书路径/cert.key";
+    ssl_session_timeout 5m;
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        index  index.html;
+        proxy_cache my_cache;
+    }   
+}
+```
