@@ -63,7 +63,7 @@ acme.sh --upgrade  --auto-upgrade  0
 ```
 
 # 其他
-1.其他安装方式请参照：[官方wiki](https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E)
+1.其他安装方式请参照：[官方wiki](https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E)   
 2.CF_Token等可复用的值会保存在`~/.acme.sh/account.conf`
 # nginx配置
 ```
