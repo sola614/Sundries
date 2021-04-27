@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         A/B站关灯简易脚本
+// @name         A/B站关灯,上下集简易脚本
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
@@ -16,15 +16,27 @@
 function start(params) {
         //A站
         if (/acfun/.test(location.href)) {
+            const actionAreaEle = document.querySelectorAll('.action-area .right-area')[0]
             if(document.querySelectorAll('.action-area .right-area')[0]){
+                 const btnstyle = 'margin-left:10px;height:30px;vertical-align:middle;position: relative;z-index: 10;cursor: pointer;'
                 let btnele = document.createElement('button')
+                btnele.innerText='上一集'
+                btnele.style=btnstyle
+                btnele.setAttribute('id','pre-set-btn')
+                actionAreaEle.appendChild(btnele)
+                btnele = document.createElement('button')
                 btnele.innerText='关灯'
-                btnele.style='margin-left:10px;height:30px;vertical-align:middle;position: relative;z-index: 10;'
+                btnele.style=btnstyle
                 btnele.setAttribute('id','turn-off-light-btn')
-                document.querySelectorAll('.action-area .right-area')[0].appendChild(btnele)
-
-                if (document.querySelectorAll('#turn-off-light-btn')[0]) {
-                    document.querySelectorAll('#turn-off-light-btn')[0].onclick=function(params) {
+                actionAreaEle.appendChild(btnele)
+                btnele = document.createElement('button')
+                btnele.innerText='下一集'
+                btnele.style=btnstyle
+                btnele.setAttribute('id','next-set-btn')
+                actionAreaEle.appendChild(btnele)
+                const turnOffLightBtnEle = document.querySelectorAll('#turn-off-light-btn')[0]
+                if (turnOffLightBtnEle) {
+                    turnOffLightBtnEle.onclick=function(params) {
                         let maskEle
                         if (!document.querySelectorAll('.mask')[0]) {
                             maskEle = document.createElement('div')
@@ -35,26 +47,61 @@ function start(params) {
                         if(document.querySelectorAll('.mask')[0].style.display === 'none'){
                             document.querySelectorAll('.mask')[0].style.setProperty('display', 'block');
                             document.querySelectorAll('.player-box')[0].style.setProperty('z-index', '10');
-                            document.querySelectorAll('#turn-off-light-btn')[0].innerText='开灯'
+                            turnOffLightBtnEle.innerText='开灯'
                         }else{
                             document.querySelectorAll('.mask')[0].style.setProperty('display', 'none');
                             document.querySelectorAll('.player-box')[0].style.setProperty('z-index', '1');
-                            document.querySelectorAll('#turn-off-light-btn')[0].innerText='关灯'
+                            turnOffLightBtnEle.innerText='关灯'
+                        }
+                    }
+                }
+                 const nextSetBtnEle = document.querySelectorAll('#next-set-btn')[0]
+                if (nextSetBtnEle) {
+                    nextSetBtnEle.onclick=function(params) {
+                        const curItem = document.querySelectorAll('.single-p.active')[0]
+                        if(curItem&&curItem.nextSibling){
+                            curItem.nextSibling.click()
+                        }else{
+                            alert('没有下一集惹')
+                        }
+                    }
+                }
+                const preSetBtnEle = document.querySelectorAll('#pre-set-btn')[0]
+                if (preSetBtnEle) {
+                    preSetBtnEle.onclick=function(params) {
+                        const curItem = document.querySelectorAll('.single-p.active')[0]
+                        if(curItem&&curItem.previousSibling){
+                            curItem.previousSibling.click()
+                        }else{
+                            alert('没有上一集惹')
                         }
                     }
                 }
             }
         }else if(/bilibili/.test(location.href)){
             //B站
+            const toolbarDom = document.querySelectorAll('#toolbar_module')[0]|| document.querySelectorAll('#arc_toolbar_report')[0]
             setTimeout(() => {
-                if(document.querySelectorAll('#toolbar_module')[0]){
+                if(toolbarDom){
+                    const btnstyle = 'margin-left:10px;height:30px;vertical-align:middle;position: relative;z-index: 1001;border: 1px solid #000;padding: 0 8px;outline: none;cursor: pointer;'
                     let btnele = document.createElement('button')
-                    btnele.innerText='关灯'
-                    btnele.style='margin-left:10px;height:30px;vertical-align:middle;position: relative;z-index: 130;border: 1px solid #000;padding: 0 8px;outline: none;'
+                    btnele.innerText='上一集'
+                    btnele.style=btnstyle
+                    btnele.setAttribute('id','pre-set-btn')
+                    toolbarDom.appendChild(btnele)
+                    btnele = document.createElement('button')
+                    btnele.innerText='关灯&宽屏'
+                    btnele.style=btnstyle
                     btnele.setAttribute('id','turn-off-light-btn')
-                    document.querySelectorAll('#toolbar_module')[0].appendChild(btnele)
-                    if (document.querySelectorAll('#turn-off-light-btn')[0]) {
-                        document.querySelectorAll('#turn-off-light-btn')[0].onclick=function(params) {
+                    toolbarDom.appendChild(btnele)
+                    btnele = document.createElement('button')
+                    btnele.innerText='下一集'
+                    btnele.style=btnstyle
+                    btnele.setAttribute('id','next-set-btn')
+                    toolbarDom.appendChild(btnele)
+                    const turnOffLightBtnEle = document.querySelectorAll('#turn-off-light-btn')[0]
+                    if (turnOffLightBtnEle) {
+                        turnOffLightBtnEle.onclick=function(params) {
                             let maskEle
                             if (!document.querySelectorAll('#heimu')[0]) {
                                 maskEle = document.createElement('div')
@@ -66,12 +113,37 @@ function start(params) {
                                 document.querySelectorAll('#heimu')[0].style.setProperty('display', 'block');
                                 document.querySelectorAll('body')[0].classList.add('player-mode-blackmask')
                                 document.querySelectorAll('#bilibiliPlayer')[0].style.setProperty('box-shadow', 'none');
-                                document.querySelectorAll('#turn-off-light-btn')[0].innerText='开灯'
+                                turnOffLightBtnEle.innerText='开灯&宽屏'
+                                if(!document.querySelectorAll('.bilibili-player-video-btn.bilibili-player-video-btn-widescreen.closed')[0]){
+                                    document.querySelectorAll('.bilibili-player-iconfont-widescreen-off')[0].click()
+                                }
                             }else{
                                 document.querySelectorAll('#heimu')[0].style.setProperty('display', 'none');
                                 document.querySelectorAll('body')[0].classList.remove('player-mode-blackmask')
-                                document.querySelectorAll('#turn-off-light-btn')[0].innerText='关灯'
+                                turnOffLightBtnEle.innerText='关灯&宽屏'
                                 document.querySelectorAll('#bilibiliPlayer')[0].removeAttribute('style')
+                            }
+                        }
+                    }
+                    const nextSetBtnEle = document.querySelectorAll('#next-set-btn')[0]
+                    if (nextSetBtnEle) {
+                        nextSetBtnEle.onclick=function(params) {
+                            const curItem = document.querySelectorAll('.ep-item.cursor')[0]
+                            if(curItem&&curItem.nextSibling){
+                                curItem.nextSibling.click()
+                            }else{
+                                alert('没有下一集惹')
+                            }
+                        }
+                    }
+                    const preSetBtnEle = document.querySelectorAll('#pre-set-btn')[0]
+                    if (preSetBtnEle) {
+                        preSetBtnEle.onclick=function(params) {
+                            const curItem = document.querySelectorAll('.ep-item.cursor')[0]
+                            if(curItem&&curItem.previousSibling){
+                                curItem.previousSibling.click()
+                            }else{
+                                alert('没有上一集惹')
                             }
                         }
                     }
