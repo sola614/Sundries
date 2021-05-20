@@ -37,6 +37,8 @@ DOMAIN-KEYWORD,google.com
 DOMAIN-KEYWORD,youtube.com
 DOMAIN-KEYWORD,googlevideo.com
 DOMAIN-KEYWORD,nicovideo.jp
+DOMAIN-KEYWORD,oraclecloud.com
+DOMAIN-KEYWORD,oracle.com
 ##域名后缀匹配
 DOMAIN-SUFFIX,fanicon.net
 DOMAIN-SUFFIX,twitcasting.tv
