@@ -297,5 +297,8 @@ mkdir test && cd test && wget https://cdn.ipip.net/17mon/besttrace4linux.zip && 
 
 查看vps去程路由用ipip.net的best trace
 
+更改文件所有者
+chown -R username 文件/文件夹路径
+
 
 
