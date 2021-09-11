@@ -57,3 +57,9 @@ firewall-cmd --permanent --remove-forward-port=port=本地端口:proto=udp:toadd
 先执行：systemctl restart dbus，然后再restart即可  
 (2)如果是`ERROR: Failed to read file "/proc/sys/net/netfilter/nf_conntrack_helper": [Errno 2] No such file or directory: '/proc/sys/net/netfilter/nf_conntrack_helper'`  
 直接重启reboot即可  
+
+
+
+iptables
+wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/iptables-pf.sh && chmod +x iptables-pf.sh && bash iptables-pf.sh
+选1安装完后 再运行选4添加规则,nat机最后的本地IP要填内网ip
