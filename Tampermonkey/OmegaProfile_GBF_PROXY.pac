@@ -13,7 +13,7 @@ var FindProxyForURL = function(init, profiles) {
         ;
 function FindProxyForURL(url, host) {
     if (dnsDomainIs(host, ".granbluefantasy.jp")) {
-        return "PROXY iplc-jp1.cloudiplc.com:12366";
+        return "PROXY yourip:yourport";
     }
     return "DIRECT";
 }
