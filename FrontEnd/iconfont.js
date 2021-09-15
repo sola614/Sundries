@@ -1,4 +1,11 @@
-// 下载iconfont文件
+// 下载iconfont文件,需要在package.json添加
+// "icons": [
+//     {
+//       "project": "projectName",
+//       "aliUrl": "iconfontUrl",
+//       "dir": "保存的路径"
+//     }
+//   ]
 const chalk = require('chalk')
 const _ = require('lodash')
 const path = require('path')
