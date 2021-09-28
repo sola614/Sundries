@@ -1,3 +1,10 @@
+# centos8安装mysql
+1.安装:`sudo dnf install mysql-server`   
+2.启动:`sudo systemctl start mysqld.service`   
+3.查询状态:`sudo systemctl status mysqld`   
+4.设置开机启动:`sudo systemctl enable mysqld`
+
+# 常用命令
 1.创建用户:`create user 'name'@'host' identified by 'password';`   
 2.查看权限:`show grants for 'name'@'host';`   
 3.授权某张表给某用户:`grant all privileges on dbname.* to 'name'@'host';`   
