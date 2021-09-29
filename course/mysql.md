@@ -13,5 +13,6 @@
 6.建库:`create database 库名;`   
 7.删库:`drop database 库名;`   
 8.使用库:`use 库名;`   
-8.建表:`create table 表名 (字段设定列表);`(需要使用库后创建)   
-9.删表:`drop table 表名;`(需要使用库后删除)
+9.查看数据库所有表:`show tables;`   
+10.建表:`create table 表名 (字段设定列表);`(需要使用库后创建)   
+11.删表:`drop table 表名;`(需要使用库后删除)
