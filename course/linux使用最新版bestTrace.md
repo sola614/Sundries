@@ -4,6 +4,7 @@
 3.赋予权限:`sudo chmod -R 777 ./besttrace`   
 4.使用命令：`./besttrace/besttrace -q 1 需要测试的ip或域名`   
 
+PS：实际使用的是`traceroute`命令
 
 其他工具:   
 1.流媒体检测脚本:`https://github.com/CoiaPrant/MediaUnlock_Test`   
