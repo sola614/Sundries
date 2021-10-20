@@ -105,3 +105,8 @@ a、Object.keys(Array.from({ length: 100 }));
 b、[...Array(100).keys()]
 c、Array.from(new Array(100).keys());
 d、[...Array.from({ length: 100 }).keys()]
+
+8、利用正则获取字符串中某些值
+如要取出meta里的description值：<meta name="description" content="description值">
+const str = '<meta name="description" content="description值">'
+str.match(/<meta name="description" content="(.*?)">/)[1]
