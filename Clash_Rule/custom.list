@@ -72,6 +72,7 @@ DOMAIN-SUFFIX,microsoft.com
 DOMAIN-SUFFIX,nyahentai.pw
 DOMAIN-SUFFIX,bootstrapcdn.com
 DOMAIN-SUFFIX,fantia.jp
+DOMAIN-SUFFIX,git.io
 ##域名匹配
 DOMAIN,s3-ap-northeast-1.amazonaws.com
 DOMAIN,ci-en.dlsite.com
@@ -85,3 +86,4 @@ DOMAIN,nyacdn.com
 DOMAIN,nyahentai.pw
 DOMAIN,fantia.jp
 DOMAIN,i.pximg.net
+DOMAIN,git.io
