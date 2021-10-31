@@ -40,6 +40,7 @@ DOMAIN-KEYWORD,nicovideo.jp
 DOMAIN-KEYWORD,oraclecloud.com
 DOMAIN-KEYWORD,oracle.com
 DOMAIN-KEYWORD,v2ex.com
+DOMAIN-KEYWORD,git.io
 ##域名后缀匹配
 DOMAIN-SUFFIX,fanicon.net
 DOMAIN-SUFFIX,twitcasting.tv
