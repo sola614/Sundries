@@ -101,7 +101,7 @@ sudo yum install nginx
 sudo systemctl enable nginx
 sudo systemctl start nginx
 ```
-7.安装ngx_stream_module.so
+7.安装ngx_stream_module.so(这一步可以先省略，如果nginx重启提示不存在这个文件再安装)
 ```
 yum install nginx-mod-stream
 ```
@@ -133,3 +133,8 @@ stream {
 }
 ```
 保存，然后执行`nginx -s reload`，剩下步骤和上面一样
+
+# 一些报错解决方案
+1.nginx提示`nginx: [emerg] bind() to 0.0.0.0:8088 failed (13: Permission denied)`   
+这种一般是aws的机器存在，编辑`/etc/selinux/config`，把SELINUX设为disabled即可
+2.提示`ngx_stream_module`已引入，请把nginx.conf引入的那行去除
