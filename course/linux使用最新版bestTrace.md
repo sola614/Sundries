@@ -7,5 +7,5 @@
 PS：实际使用的是`traceroute`命令
 
 其他工具:   
-1.流媒体检测脚本:`https://github.com/CoiaPrant/MediaUnlock_Test`   
-2.探针:`https://www.moerats.com/archives/266/`
+1.流媒体检测脚本:https://github.com/CoiaPrant/MediaUnlock_Test   
+2.探针:https://www.moerats.com/archives/266/
