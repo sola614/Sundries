@@ -133,7 +133,15 @@ stream {
 }
 ```
 保存，然后执行`nginx -s reload`，剩下步骤和上面一样
-
+9.crontab定时重启docker
+```
+crontab -e
+填入以下内容
+0 * * * * docker restart gbf_proxy_1 >/dev/null 2>&1
+20 * * * * docker restart gbf_proxy_2 >/dev/null 2>&1
+40 * * * * docker restart gbf_proxy_3 >/dev/null 2>&1
+ps：这里的gbf_proxy_1是你启动的docker进程，合理安排重启时间段
+```
 # 一些报错解决方案
 1.nginx提示`nginx: [emerg] bind() to 0.0.0.0:8088 failed (13: Permission denied)`   
 这种一般是aws的机器存在，编辑`/etc/selinux/config`，把SELINUX设为disabled即可   
