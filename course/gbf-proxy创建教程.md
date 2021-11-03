@@ -136,5 +136,5 @@ stream {
 
 # 一些报错解决方案
 1.nginx提示`nginx: [emerg] bind() to 0.0.0.0:8088 failed (13: Permission denied)`   
-这种一般是aws的机器存在，编辑`/etc/selinux/config`，把SELINUX设为disabled即可
+这种一般是aws的机器存在，编辑`/etc/selinux/config`，把SELINUX设为disabled即可   
 2.提示`ngx_stream_module`已引入，请把nginx.conf引入的那行去除
