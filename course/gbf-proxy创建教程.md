@@ -58,3 +58,78 @@ function FindProxyForURL(url, host) {
 
 # 如何获取内网ip
 输入`ifconfig`后会有信息出现，eht0 inet 后面那个ip就是了
+
+# Docker+Nginx组合
+1.安装docker
+```
+yum install docker
+systemctl enable docker # 开机自动启动docker
+systemctl start docker # 启动docker
+mkdir ~/gbf_proxy&& cd ~/gbf_proxy && mkdir app && mkdir script
+cd ~/gbf_proxy/app/
+wget https://github.com/Frizz925/gbf-proxy/releases/download/v0.1.0/gbf-proxy-linux-amd64 -O gbf-proxy
+```
+2.创建dockerfile
+```
+cd ~/gbf_proxy/
+echo 'FROM golang
+MAINTAINER  MING
+WORKDIR /go/src/
+COPY . .
+EXPOSE 8088
+CMD ["/bin/bash", "/go/src/script/build.sh"]' >Dockerfile
+```
+3.创建build.sh
+```
+cd ~/gbf_proxy/script
+echo '#!/usr/bin/env bash
+cd /go/src/app/ && chmod +x gbf-proxy && ./gbf-proxy local --host 0.0.0.0 --port 8088' >build.sh
+```
+4.构建
+```
+cd ~/gbf_proxy
+docker build -t gbf-proxy .
+```
+5.启动进程
+```
+docker run -p 自定义端口:8088 --name gbf_proxy -d gbf-proxy
+```
+6.安装nginx
+```
+sudo yum install epel-release
+sudo yum install nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+```
+7.安装ngx_stream_module.so
+```
+yum install nginx-mod-stream
+```
+8.编辑nginx.conf
+```
+vim etc/nginx/nginx.conf   
+改成如下内容：   
+
+load_module /usr/lib64/nginx/modules/ngx_stream_module.so;
+user  nginx;
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+stream {
+
+    upstream gbf {
+        server localhost:自定义端口 weight=1;     # ip:port 有多少个进程填多少
+        server localhost:自定义端口 weight=2;
+        server localhost:自定义端口 weight=3;
+    }
+
+    server {
+        listen 8088;
+        proxy_pass gbf;
+    }
+}
+```
+保存，然后执行`nginx -s reload`，剩下步骤和上面一样
