@@ -83,7 +83,7 @@ function start(params) {
             const toolbarDom = document.querySelectorAll('#toolbar_module')[0]|| document.querySelectorAll('#arc_toolbar_report')[0]
             setTimeout(() => {
                 if(toolbarDom){
-                    const btnstyle = 'margin-left:10px;height:30px;vertical-align:middle;position: relative;z-index: 1001;border: 1px solid #000;padding: 0 8px;outline: none;cursor: pointer;'
+                    const btnstyle = 'margin-left:10px;height:30px;vertical-align:middle;position: relative;z-index: 9999;border: 1px solid #000;padding: 0 8px;outline: none;cursor: pointer;'
                     let btnele = document.createElement('button')
                     btnele.innerText='上一集'
                     btnele.style=btnstyle
