@@ -6,6 +6,8 @@ IP-CIDR,103.170.72.28/24
 DOMAIN,ip.sb
 DOMAIN-KEYWORD,ip.sb
 DOMAIN-KEYWORD,hongdan.tv
+DOMAIN-KEYWORD,footprintdns.com
 ##域名后缀匹配
 DOMAIN-SUFFIX,ip.sb
 DOMAIN-SUFFIX,hongdan.tv
+DOMAIN-SUFFIX,footprintdns.com
