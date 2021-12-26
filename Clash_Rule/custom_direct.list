@@ -7,7 +7,10 @@ DOMAIN,ip.sb
 DOMAIN-KEYWORD,ip.sb
 DOMAIN-KEYWORD,hongdan.tv
 DOMAIN-KEYWORD,footprintdns.com
+DOMAIN-KEYWORD,avalanchestudios.com
+
 ##域名后缀匹配
 DOMAIN-SUFFIX,ip.sb
 DOMAIN-SUFFIX,hongdan.tv
 DOMAIN-SUFFIX,footprintdns.com
+DOMAIN-SUFFIX,avalanchestudios.com
