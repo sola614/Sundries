@@ -132,7 +132,7 @@ stream {
     }
 }
 ```
-保存，然后执行`nginx -s reload`，剩下步骤和上面一样
+保存，然后执行`nginx -s reload`，剩下步骤和上面一样   
 9.crontab定时重启docker
 ```
 crontab -e
