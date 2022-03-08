@@ -34,10 +34,7 @@ acme.sh --issue --dns dns_cf -d youdomain.com
 ## nginx
 使用以下代码：
 ```
-acme.sh --install-cert -d example.com \
---key-file       你的证书存放路径/cert.key  \
---fullchain-file 你的证书存放路径/cert.pem \
---reloadcmd     "service nginx force-reload"
+acme.sh --install-cert -d example.com --key-file  /etc/nginx/cert/main.key --fullchain-file /etc/nginx/cert/main.pem --reloadcmd  "service nginx force-reload"
 ```
 
 # 更新证书
