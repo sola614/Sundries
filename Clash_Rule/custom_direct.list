@@ -4,6 +4,8 @@ IP-CIDR,45.91.81.61/24
 IP-CIDR,216.127.172.13/24
 IP-CIDR,103.170.72.28/24
 DOMAIN,ip.sb
+DOMAIN,store.steampowered.com
+DOMAIN,api.steampowered.com
 DOMAIN-KEYWORD,ip.sb
 DOMAIN-KEYWORD,hongdan.tv
 DOMAIN-KEYWORD,footprintdns.com
