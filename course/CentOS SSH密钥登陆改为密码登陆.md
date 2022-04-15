@@ -9,7 +9,7 @@ b.查找`PasswordAuthentication no`改为`PasswordAuthentication yes`
 3.重启ssh服务或重启服务器`service sshd restart`
 
 
-切换为root密码登录：
+切换为root密码登录：   
 1.切换到root：`sudo -i`   
 2.修改密码&登录方式
 ```
