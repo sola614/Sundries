@@ -23,3 +23,10 @@ server=/example.com/x.x.x.x
 nameserver 127.0.0.1
 ```
 4.重启dnsmasq`systemctl restart dnsmasq`
+
+ps:  
+1、解决iptables重启失效问题
+```
+service iptables save #如果是centos7需要先安装yum install iptables-services -y
+chkconfig iptables on
+```
