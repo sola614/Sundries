@@ -5,6 +5,8 @@
 ROOT_PATH="/usr/mybash"
 SYSTEM_OS=""
 INSTALL_CMD=""
+green='\033[0;32m'
+plain='\033[0m'
 
 show_menu() {
   echo -e "
@@ -19,7 +21,7 @@ show_menu() {
   ${green}6.${plain} iptables转发
   ${green}7.${plain} 查看本机ip
  "
-    echo && read -p "请输入选择 [0-5]: " num
+    echo && read -p "请输入选择 [0-7]: " num
 
     case "${num}" in
     0)
@@ -47,7 +49,7 @@ show_menu() {
       check_ip
       ;;
     *)
-        LOGE "请输入正确的数字 [0-5]"
+        LOGE "请输入正确的数字 [0-7]"
         ;;
     esac
 }
