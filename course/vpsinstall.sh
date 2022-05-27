@@ -86,11 +86,10 @@ start_besttrace(){
   check_command unzip
   if [ $? == 0 ]; then
     $INSTALL_CMD unzip
-  else
-    check_command $ROOT_PATH/besttrace/besttrace
-    if [ $? == 0 ]; then
-      wget https://cdn.ipip.net/17mon/besttrace4linux.zip -P $ROOT_PATH && unzip -o -d $ROOT_PATH/besttrace $ROOT_PATH/besttrace4linux.zip && sudo chmod -R 777 $ROOT_PATH/besttrace
-    fi
+  fi
+  check_command $ROOT_PATH/besttrace/besttrace
+  if [ $? == 0 ]; then
+    wget https://cdn.ipip.net/17mon/besttrace4linux.zip -P $ROOT_PATH && unzip -o -d $ROOT_PATH/besttrace $ROOT_PATH/besttrace4linux.zip && sudo chmod -R 777 $ROOT_PATH/besttrace
   fi
   read -p "请输入需要测试的IP或域名: " host
   $ROOT_PATH/besttrace/besttrace -q 1 $host
