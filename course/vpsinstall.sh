@@ -20,8 +20,14 @@ show_menu() {
   ${green}5.${plain} 流媒体检测
   ${green}6.${plain} iptables转发
   ${green}7.${plain} 查看本机ip
+  ${green}8.${plain} 安装docker
+  ${green}9.${plain} 使用nvm安装nodejs
+  ${green}10.${plain} 下载cf-v4-ddns
+  ${green}11.${plain} DNS解锁
+  
+
  "
-    echo && read -p "请输入选择 [0-7]: " num
+    echo && read -p "请输入选择 [0-11]: " num
 
     case "${num}" in
     0)
@@ -48,8 +54,20 @@ show_menu() {
     7) 
       check_ip
       ;;
+    8) 
+      docker_install
+      ;;
+    9) 
+      install_nodejs_by_nvm
+      ;;
+    10) 
+      download_cf_v4_ddns
+      ;;
+    11) 
+      dns_unblock
+      ;;
     *)
-        LOGE "请输入正确的数字 [0-7]"
+        LOGE "请输入正确的数字 [0-11]"
         ;;
     esac
 }
@@ -131,6 +149,108 @@ check_ip(){
   get_lan_ip
   get_wan_ip
   echo -e "内网IP：$local_ip\n外网IP：$wan_ip"
+}
+docker_install(){
+  check_command docker
+  if [ $? == 0 ]; then
+    $INSTALL_CMD docker
+  fi
+  echo "docker已安装完毕,正在启动:"
+  systemctl start docker
+  read -p "是否设置开机启动(y/n): " type
+  # if [ ! type ]
+  #   type = 'y'
+  # fi
+  # if [ type == 'y' || type == 'Y' ];then
+  #   systemctl enable docker
+  # fi
+  # echo -e "
+  # 常用命令:
+  # docker ps [-a]
+  # docker start/stop/restart/rm [CONTAINER ID or name]
+  # "
+}
+install_nodejs_by_nvm(){
+  # check_command nvm
+  # if [ $? == 0 ]; then
+  #   wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
+  #   echo "nvm脚本下载完成，请自行重启后执行nvm命令即可"
+  # fi
+  # echo -e "
+  #   常用命令:
+  #   nvm install [version or stable] #stable为最新尝鲜版
+  #   nvm use [version] #切换版本
+  #   nvm ls-remote #查看可用的安裝版本
+  #   nvm ls #查看现有配置
+  # "
+}
+download_cf_v4_ddns(){
+  # check_file_status $ROOT_PATH/cf-v4-ddns.sh
+  # if [ $? == 0 ]; then
+  #   wget https://raw.githubusercontent.com/sola614/sola614/master/course/cf-v4-ddns.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/cf-v4-ddns.sh
+  #   echo "文件已下载"
+  # else
+  #   echo "文件已存在"
+  # fi
+  # echo "如需使用请自行修改$ROOT_PATH/cf-v4-ddns.sh中的参数，并设置crontab定时更改"
+}
+dns_unblock(){
+  # read -p "请输入当前机子是否是落地鸡(y/n)，默认y: " flag
+  # if [ ! flag ]
+  #   flag = 'y'
+  # fi
+  # if [ flag == 'y' || flag == 'Y']
+  #   wget --no-check-certificate -O dnsmasq_sniproxy.sh https://raw.githubusercontent.com/sola614/dnsmasq_sniproxy_install/master/dnsmasq_sniproxy.sh && bash dnsmasq_sniproxy.sh -f
+  #   read -p "是否设置白名单(y/n)，默认y: " flag2
+  #   if [ ! flag2 ]
+  #     flag2 = 'y'
+  #   fi
+  #   if [ flag2 == 'y' || flag2 == 'Y']
+  #     iptables -I INPUT -p tcp --dport 53 -j DROP
+  #     set_iptables
+  #     save_iptables
+  #   fi
+  #   get_wan_ip
+  #   echo "落地鸡设置完毕，请在解锁机继续执行本脚本，本机IP为：$wan_ip"
+  # else
+  #   $INSTALL_CMD dnsmasq
+  #   echo -e "
+  #   1、请自行编辑/etc/dnsmasq.conf填入以下内容：
+  #     server=8.8.8.8
+  #     server=/需要解锁的域名/解锁ip
+  #   2、编辑 /etc/resolv.conf：
+  #     nameserver 127.0.0.1
+  #   防止重启后失效可以直接编辑 /etc/sysconfig/network-scripts/ifcfg-eth0：
+  #     DNS1=127.0.0.1
+  #     DNS2=8.8.8.8
+  #   保存然后重启即可生效
+  #   3、重启：systemctl restart dnsmasq
+  #   "
+  # fi
+}
+set_iptables(){
+  read -p "请输入开启白名单的ip: " ip
+  if [ ! ip ]
+    set_iptables
+  else
+    iptables -I INPUT -s $ip -p tcp --dport 53 -j ACCEPT
+    echo "$ip设置成功"
+    read -p "是否继续添加？: " flag
+    if [ flag == 'y' || flag == 'Y' ]
+      set_iptables
+    fi
+  fi
+}
+save_iptables(){
+  read -p "是否保存iptables规则，重启也可生效(y/n): " flag
+  if [ ! flag ]
+      flag = 'y'
+    fi
+    if [ flag == 'y' || flag == 'Y']
+      $INSTALL_CMD iptables-services
+      service iptables save
+      chkconfig iptables on
+    fi
 }
 
 
