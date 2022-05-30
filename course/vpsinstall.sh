@@ -229,7 +229,7 @@ dns_unblock(){
       防止重启后失效可以直接编辑 /etc/sysconfig/network-scripts/ifcfg-eth0：
         DNS1=127.0.0.1
         DNS2=8.8.8.8
-      保存然后重启即可生效
+      保存然后service network restart即可生效
       3、重启：systemctl restart dnsmasq
       ";;
     *)
