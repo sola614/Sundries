@@ -200,10 +200,35 @@ download_cf_v4_ddns(){
   if [ $? == 0 ]; then
     wget https://raw.githubusercontent.com/sola614/sola614/master/course/cf-v4-ddns.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/cf-v4-ddns.sh
     echo "文件已下载"
+    reset_cf_ddns
   else
-    echo "文件已存在"
+    read -p "文件已存在,是否更改配置?: " flag
+    case $flag in
+    Y | y)
+      reset_cf_ddns;;
+    esac
   fi
-  echo "如需使用请自行修改$ROOT_PATH/cf-v4-ddns.sh中的参数，并设置crontab定时更改"
+  
+}
+reset_cf_ddns(){
+  all=".*"
+  read -p "请输入CFKEY(即Global API Key,获取https://dash.cloudflare.com/profile/api-tokens):" cfkey
+  str="CFKEY="
+  sed -i "0,/${str}${all}/s/${str}${all}/${str}${cfkey}/" $ROOT_PATH/cf-v4-ddns.sh
+  read -p "请输入CFUSER(即登陆CF的邮箱):" cfuser
+  str="CFUSER="
+  sed -i "0,/${str}${all}/s/${str}${all}/${str}${cfuser}/" $ROOT_PATH/cf-v4-ddns.sh
+  read -p "请输入CFZONE_NAME(即根域名):" cfzone_name
+  str="CFZONE_NAME="
+  sed -i "0,/${str}${all}/s/${str}${all}/${str}${cfzone_name}/" $ROOT_PATH/cf-v4-ddns.sh
+  read -p "请输入CFRECORD_NAME(即子域名前缀,如a.example.com则填写a):" cfrecord_name
+  str="CFRECORD_NAME="
+  sed -i "0,/${str}${all}/s/${str}${all}/${str}${cfrecord_name}/" $ROOT_PATH/cf-v4-ddns.sh
+  set_crontab "*/2 * * * * $ROOT_PATH/cf-v4-ddns.sh >/dev/null 2>&1"
+  echo "全部配置完毕，已启动crontab定时执行脚本"
+}
+set_crontab(){
+  crontab -l > crontab_conf && echo "$*" >> crontab_conf && crontab crontab_conf && rm -f crontab_conf
 }
 dns_unblock(){
   read -p "请输入当前机子是否是落地鸡(y/n)，默认y: " flag
