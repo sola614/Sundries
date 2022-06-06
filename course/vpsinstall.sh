@@ -228,7 +228,10 @@ reset_cf_ddns(){
   echo "全部配置完毕，已启动crontab定时执行脚本"
 }
 set_crontab(){
-  crontab -l > crontab_conf && echo "$*" >> crontab_conf && crontab crontab_conf && rm -f crontab_conf
+  crontab -l > crontab_conf
+  echo "$*" >> crontab_conf
+  crontab crontab_conf
+  rm -f crontab_conf
 }
 dns_unblock(){
   read -p "请输入当前机子是否是落地鸡(y/n)，默认y: " flag
