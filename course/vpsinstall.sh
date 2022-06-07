@@ -7,27 +7,28 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-
+length='14'
 show_menu() {
   echo -e "
   常用脚本集合
   ${green}0.${plain} 退出脚本
   ————————————————
-  ${green}1.${plain} NEKE家linux网络优化脚本
-  ${green}2.${plain} besttrace
-  ${green}3.${plain} 探针
-  ${green}4.${plain} x-ui
-  ${green}5.${plain} 流媒体检测
-  ${green}6.${plain} iptables转发
-  ${green}7.${plain} 查看本机ip
-  ${green}8.${plain} 安装docker
-  ${green}9.${plain} 使用nvm安装nodejs
+  ${green}1.${plain}  NEKE家linux网络优化脚本
+  ${green}2.${plain}  besttrace
+  ${green}3.${plain}  探针
+  ${green}4.${plain}  x-ui
+  ${green}5.${plain}  流媒体检测
+  ${green}6.${plain}  iptables端口转发
+  ${green}7.${plain}  查看本机ip
+  ${green}8.${plain}  安装docker
+  ${green}9.${plain}  使用nvm安装nodejs
   ${green}10.${plain} 下载cf-v4-ddns
   ${green}11.${plain} DNS解锁
   ${green}12.${plain} iptables屏蔽端口
   ${green}13.${plain} iptables开放端口
+  ${green}14.${plain} 安装nginx
  "
-    echo && read -p "请输入选择 [0-13]: " num
+    echo && read -p "请输入选择 [0-${length}]: " num
 
     case "${num}" in
     0)
@@ -79,8 +80,11 @@ show_menu() {
         unban_iptables $port
       fi
        ;;
+    14)
+      nginx_install
+    ;;
     *)
-      LOGE "请输入正确的数字 [0-11]"
+      LOGE "请输入正确的数字 [0-${length}]"
       ;;
     esac
 }
@@ -320,6 +324,25 @@ unban_iptables(){
   type=${type:='tcp'}
   iptables -I INPUT -p $type --dport $1 -j ACCEPT
   save_iptables
+}
+nginx_install(){
+  check_command nginx
+  if [ $? == 0 ]; then
+    echo "正在安装nginx"
+    $INSTALL_CMD epel-release
+    $INSTALL_CMD nginx
+    echo "正在启动"
+    sudo systemctl start nginx
+    echo "正在设置开机启动"
+    sudo systemctl enable nginx
+  fi
+  echo -e "
+    nginx已存在，请自行修改/etc/nginx目录下的配置文件，然后使用nginx -s reload 重启
+    其他命令：
+      ${green}sudo systemctl start nginx${plain} 启动
+      ${green}sudo systemctl enable nginx${plain} 设置开机启动
+  "
+   echo ""
 }
 
 
