@@ -94,7 +94,7 @@ start(){
     $result"
 }
 settting(){
-  SH_PATH=`pwd`
+  SH_PATH=$(cd "$(dirname "$0")";pwd)
   echo "$SH_PATH"
   all=".*"
   read -p "请填写TG的BOT_TOKEN，获取方法：https://core.telegram.org/bots#3-how-do-i-create-a-bot：" bot_token
