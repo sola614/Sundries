@@ -84,7 +84,7 @@ show_menu() {
     14)
       nginx_install
     ;;
-    14)
+    15)
       ip_test
     ;;
     *)
