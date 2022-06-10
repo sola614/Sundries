@@ -7,11 +7,11 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='14'
+length='15'
 show_menu() {
   echo -e "
   常用脚本集合
-  ${green}0.${plain} 退出脚本
+  ${green}0.${plain} 更新脚本
   ————————————————
   ${green}1.${plain}  NEKE家linux网络优化脚本
   ${green}2.${plain}  besttrace
@@ -27,12 +27,13 @@ show_menu() {
   ${green}12.${plain} iptables屏蔽端口
   ${green}13.${plain} iptables开放端口
   ${green}14.${plain} 安装nginx
+  ${green}15.${plain} 测试ip被ban脚本
  "
     echo && read -p "请输入选择 [0-${length}]: " num
 
     case "${num}" in
     0)
-        exit 0
+        update
         ;;
     1)
         start_neko_linux
@@ -83,6 +84,9 @@ show_menu() {
     14)
       nginx_install
     ;;
+    14)
+      ip_test
+    ;;
     *)
       LOGE "请输入正确的数字 [0-${length}]"
       ;;
@@ -109,6 +113,9 @@ check_folder_status(){
   if [ ! -d "$1" ]; then
   mkdir $1
 fi
+}
+update(){
+  wget -O https://raw.githubusercontent.com/sola614/sola614/master/course/vpsinstall.sh
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
@@ -343,6 +350,15 @@ nginx_install(){
       ${green}sudo systemctl enable nginx${plain} 设置开机启动
   "
    echo ""
+}
+ip_test(){
+  check_file_status $ROOT_PATH/testip.sh
+  if [ $? == 0 ]; then
+    wget https://raw.githubusercontent.com/sola614/sola614/master/course/testip.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/testip.sh
+  else
+   
+  fi
+  $ROOT_PATH/testip.sh
 }
 
 
