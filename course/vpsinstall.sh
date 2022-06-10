@@ -353,10 +353,7 @@ nginx_install(){
    echo ""
 }
 ip_test(){
-  check_file_status $ROOT_PATH/testip.sh
-  if [ $? == 0 ]; then
-    wget https://raw.githubusercontent.com/sola614/sola614/master/course/testip.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/testip.sh
-  fi
+  wget -O $ROOT_PATH/testip.sh https://raw.githubusercontent.com/sola614/sola614/master/course/testip.sh && chmod +x $ROOT_PATH/testip.sh
   $ROOT_PATH/testip.sh
 }
 
