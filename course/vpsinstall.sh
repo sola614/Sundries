@@ -115,7 +115,8 @@ check_folder_status(){
 fi
 }
 update(){
-  wget -O https://raw.githubusercontent.com/sola614/sola614/master/course/vpsinstall.sh
+  echo "正在下载最新文件到当前目录"
+  wget -O https://raw.githubusercontent.com/sola614/sola614/master/course/vpsinstall.sh && chmod +x ./vpsinstall.sh
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
@@ -355,8 +356,6 @@ ip_test(){
   check_file_status $ROOT_PATH/testip.sh
   if [ $? == 0 ]; then
     wget https://raw.githubusercontent.com/sola614/sola614/master/course/testip.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/testip.sh
-  else
-   
   fi
   $ROOT_PATH/testip.sh
 }
