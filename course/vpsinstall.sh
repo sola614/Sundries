@@ -116,7 +116,7 @@ fi
 }
 update(){
   echo "正在下载最新文件到当前目录"
-  wget -O https://raw.githubusercontent.com/sola614/sola614/master/course/vpsinstall.sh && chmod +x ./vpsinstall.sh
+  wget -O vpsinstall.sh https://raw.githubusercontent.com/sola614/sola614/master/course/vpsinstall.sh && chmod +x ./vpsinstall.sh
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
