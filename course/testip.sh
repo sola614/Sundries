@@ -28,9 +28,12 @@ show_menu() {
   ${green}1.${plain}  开始测试
   ${green}2.${plain}  填写配置
  "
-    echo && read -p "请输入选择 [0-${length}]: " num
-
-    case "${num}" in
+  echo && read -p "请输入选择 [0-${length}]: " num
+  select_menu $num
+    
+}
+select_menu(){
+  case "$1" in
     0)
         update
         ;;
@@ -43,7 +46,7 @@ show_menu() {
     *)
       LOGE "请输入正确的数字 [0-${length}]"
       ;;
-    esac
+  esac
 }
 update(){
   echo "正在下载最新文件到当前目录"
@@ -109,4 +112,8 @@ settting(){
   echo "配置完成"
   show_menu
 }
-show_menu
+if [ $1 ];then
+  select_menu $1
+else
+  show_menu
+fi
