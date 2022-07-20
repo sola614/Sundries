@@ -199,6 +199,8 @@ docker_install(){
   常用命令:
   docker ps [-a]
   docker start/stop/restart/rm [CONTAINER ID or name]
+  停止所有容器运行： docker stop $(docker ps -a -q)
+  删除所有停止运行的容器： docker rm $(docker ps -a -q)
   "
 }
 install_nodejs_by_nvm(){
