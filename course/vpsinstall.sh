@@ -34,7 +34,7 @@ show_menu() {
 
     case "${num}" in
     0)
-        update
+        update_sh
         ;;
     1)
         start_neko_linux
@@ -118,9 +118,9 @@ check_folder_status(){
   mkdir $1
 fi
 }
-update(){
+update_sh(){
   echo "正在下载最新文件到当前目录"
-  wget -O vpsinstall.sh https://raw.githubusercontent.com/sola614/sola614/master/course/vpsinstall.sh && chmod +x ./vpsinstall.sh
+  wget -O vpsinstall.sh https://file.meaqua.fun/shell/vpsinstall.sh && chmod +x ./vpsinstall.sh;;
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
