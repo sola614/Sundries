@@ -120,7 +120,8 @@ fi
 }
 update_sh(){
   echo "正在下载最新文件到当前目录"
-  wget -O vpsinstall.sh https://file.meaqua.fun/shell/vpsinstall.sh && chmod +x ./vpsinstall.sh;;
+  wget -O vpsinstall.sh https://file.meaqua.fun/shell/vpsinstall.sh
+  bash ./vpsinstall.sh
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
