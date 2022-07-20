@@ -28,6 +28,7 @@ show_menu() {
   ${green}13.${plain} iptables开放端口
   ${green}14.${plain} 安装nginx
   ${green}15.${plain} 测试ip被ban脚本
+  ${green}16.${plain} 安装wikihost-Looking-glass Server
  "
     echo && read -p "请输入选择 [0-${length}]: " num
 
@@ -86,6 +87,9 @@ show_menu() {
     ;;
     15)
       ip_test
+    ;;
+    16)
+      wikihost_LookingGlass_install
     ;;
     *)
       LOGE "请输入正确的数字 [0-${length}]"
@@ -182,11 +186,15 @@ docker_install(){
   fi
   echo "docker已安装完毕,正在启动:"
   systemctl start docker
-  read -p "是否设置开机启动(y/n): " type
-  type=${type:"y"}
-  if [ $type == 'y' || $type == 'Y' ];then
-    systemctl enable docker
-  fi
+  read -p "是否设置开机启动(y/n): " is_ok
+  is_ok=${is_ok:"y"}
+  
+  case $is_ok in
+    Y | y)
+     systemctl enable docker;;
+    N | n)
+    echo:'不设置开机启动';;
+  esac
   echo -e "
   常用命令:
   docker ps [-a]
@@ -359,6 +367,12 @@ ip_test(){
   fi
   
   $ROOT_PATH/testip.sh
+}
+wikihost_LookingGlass_install(){
+  docker_install
+  read -p "是否自定义端口（默认为80）: " port
+  port=${port:='80'}
+  docker run -d --restart always --name looking-glass -e HTTP_PORT=$port --network host wikihostinc/looking-glass-server
 }
 
 
