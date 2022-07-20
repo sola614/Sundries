@@ -186,10 +186,9 @@ docker_install(){
   fi
   echo "docker已安装完毕,正在启动:"
   systemctl start docker
-  read -p "是否设置开机启动(y/n): " is_ok
-  is_ok=${is_ok:"y"}
-  
-  case $is_ok in
+  read -p "是否设置开机启动(y/n): " flag
+  flag=${flag:='y'}
+  case $flag in
     Y | y)
      systemctl enable docker;;
     N | n)
@@ -369,6 +368,7 @@ ip_test(){
   $ROOT_PATH/testip.sh
 }
 wikihost_LookingGlass_install(){
+  echo '正在安装docker'
   docker_install
   read -p "是否自定义端口（默认为80）: " port
   port=${port:='80'}
