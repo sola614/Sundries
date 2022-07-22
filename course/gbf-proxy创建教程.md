@@ -11,11 +11,15 @@ wget https://github.com/Frizz925/gbf-proxy/releases/download/v0.1.0/gbf-proxy-li
 ```
 chmod +x gbf-proxy
 ```
-3.使用screen后台启动gbf-proxy程序
+3.1.使用screen后台启动gbf-proxy程序
 ```
 yum install screen 
 screen -S gbf
 ./gbf-proxy local --host 0.0.0.0 --port 12345
+```
+3.2 pm2(需自行安装nodejs环境和pm2)
+```
+pm2 start --name gbf-proxy "./gbf-proxy local --host 0.0.0.0 --port 9999"
 ```
 PS：输入完毕之后需要按Ctrl+a再按d退出
 
