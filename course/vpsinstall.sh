@@ -29,6 +29,7 @@ show_menu() {
   ${green}14.${plain} 安装nginx
   ${green}15.${plain} 测试ip被ban脚本
   ${green}16.${plain} 安装wikihost-Looking-glass Server
+  ${green}17.${plain} Rust 版 ServerStatus 云探针
  "
     echo && read -p "请输入选择 [0-${length}]: " num
 
@@ -91,6 +92,9 @@ show_menu() {
     16)
       wikihost_LookingGlass_install
     ;;
+    17)
+      rust_server_status
+    ;;
     *)
       LOGE "请输入正确的数字 [0-${length}]"
       ;;
@@ -141,6 +145,14 @@ start_besttrace(){
   fi
   read -p "请输入需要测试的IP或域名: " host
   $ROOT_PATH/besttrace/besttrace -q 1 $host
+}
+rust_server_status(){
+  check_file_status $ROOT_PATH/rust_status.sh
+  if [ $? == 0 ]; then
+    wget --no-check-certificate -qO $ROOT_PATH/rust_status.sh 'https://raw.githubusercontent.com/zdz/ServerStatus-Rust/master/status.sh'
+  fi
+  bash $ROOT_PATH/rust_status.sh
+  
 }
 start_server_status(){
   check_file_status $ROOT_PATH/status.sh
