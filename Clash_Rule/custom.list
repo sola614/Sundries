@@ -42,6 +42,7 @@ DOMAIN-KEYWORD,oracle.com
 DOMAIN-KEYWORD,v2ex.com
 DOMAIN-KEYWORD,git.io
 DOMAIN-KEYWORD,web.dev
+DOMAIN-KEYWORD,agemys.cc
 ##域名后缀匹配
 DOMAIN-SUFFIX,fanicon.net
 DOMAIN-SUFFIX,twitcasting.tv
