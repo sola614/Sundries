@@ -15,7 +15,7 @@ show_menu() {
   ————————————————
   ${green}1.${plain}  NEKE家linux网络优化脚本
   ${green}2.${plain}  besttrace
-  ${green}3.${plain}  探针
+  ${green}3.${plain}  serverStatus探针
   ${green}4.${plain}  x-ui
   ${green}5.${plain}  流媒体检测
   ${green}6.${plain}  iptables端口转发
@@ -29,7 +29,8 @@ show_menu() {
   ${green}14.${plain} 安装nginx
   ${green}15.${plain} 测试ip被ban脚本
   ${green}16.${plain} 安装wikihost-Looking-glass Server
-  ${green}17.${plain} Rust 版 ServerStatus 云探针
+  ${green}17.${plain} Air-Universe 开源多功能机场后端一键安装脚本
+  ${green}18.${plain} 哪吒监控一键脚本
  "
     echo && read -p "请输入选择 [0-${length}]: " num
 
@@ -93,7 +94,10 @@ show_menu() {
       wikihost_LookingGlass_install
     ;;
     17)
-      rust_server_status
+      Air_Universe_install
+    ;;
+    18)
+      nezha_sh
     ;;
     *)
       LOGE "请输入正确的数字 [0-${length}]"
@@ -146,13 +150,15 @@ start_besttrace(){
   read -p "请输入需要测试的IP或域名: " host
   $ROOT_PATH/besttrace/besttrace -q 1 $host
 }
-rust_server_status(){
-  check_file_status $ROOT_PATH/rust_status.sh
-  if [ $? == 0 ]; then
-    wget --no-check-certificate -qO $ROOT_PATH/rust_status.sh 'https://raw.githubusercontent.com/zdz/ServerStatus-Rust/master/status.sh'
+Air_Universe_install(){
+  bash <(curl -Ls https://raw.githubusercontent.com/crossfw/Air-Universe-install/master/AirU.sh)
+}
+nezha_sh(){
+  check_file_status $ROOT_PATH/nezha.sh
+   if [ $? == 0 ]; then
+    wget https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -O $ROOT_PATH/nezha.sh && chmod +x $ROOT_PATH/nezha.sh
   fi
-  bash $ROOT_PATH/rust_status.sh
-  
+  $ROOT_PATH/nezha.sh
 }
 start_server_status(){
   check_file_status $ROOT_PATH/status.sh
