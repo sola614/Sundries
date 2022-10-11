@@ -104,7 +104,7 @@ show_menu() {
       dns_change
     ;;
     *)
-      LOGE "请输入正确的数字 [0-${length}]"
+      echo "请输入正确的数字 [0-${length}]"
       ;;
     esac
 }
@@ -158,7 +158,10 @@ start_besttrace(){
   case $flag in
     Y | y)
      start_besttrace;;
+    *)
+    exit 1;;
   esac
+
 }
 Air_Universe_install(){
   bash <(curl -Ls https://raw.githubusercontent.com/crossfw/Air-Universe-install/master/AirU.sh)
@@ -445,7 +448,7 @@ elif cat /proc/version | grep -Eqi "centos|red hat|redhat"; then
   SYSTEM_OS="centos"
   INSTALL_CMD="yum install -y"
 else
-    LOGE "未检测到系统版本，请联系脚本作者！\n" && exit 1
+  echo "未检测到系统版本，请联系脚本作者！\n" && exit 1
 fi
 # 判断文件夹是否存在
 if [ ! -d "${ROOT_PATH}" ]; then
