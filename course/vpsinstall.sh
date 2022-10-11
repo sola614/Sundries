@@ -14,9 +14,9 @@ show_menu() {
   ${green}0.${plain} 更新脚本
   ————————————————
   ${green}1.${plain}  NEKE家linux网络优化脚本
-  ${green}2.${plain}  besttrace
+  ${green}2.${plain}  besttrace测试路由
   ${green}3.${plain}  serverStatus探针
-  ${green}4.${plain}  x-ui
+  ${green}4.${plain}  x-ui安装
   ${green}5.${plain}  流媒体检测
   ${green}6.${plain}  iptables端口转发
   ${green}7.${plain}  查看本机ip
@@ -31,6 +31,7 @@ show_menu() {
   ${green}16.${plain} 安装wikihost-Looking-glass Server
   ${green}17.${plain} Air-Universe 开源多功能机场后端一键安装脚本
   ${green}18.${plain} 哪吒监控一键脚本
+  ${green}19.${plain} 永久修改DNS为1.1.1.1和8.8.8.8
  "
     echo && read -p "请输入选择 [0-${length}]: " num
 
@@ -99,6 +100,9 @@ show_menu() {
     18)
       nezha_sh
     ;;
+    19)
+      dns_change
+    ;;
     *)
       LOGE "请输入正确的数字 [0-${length}]"
       ;;
@@ -149,6 +153,12 @@ start_besttrace(){
   fi
   read -p "请输入需要测试的IP或域名: " host
   $ROOT_PATH/besttrace/besttrace -q 1 $host
+  read -p "是否继续测试(y/n): " flag
+  flag=${flag:='y'}
+  case $flag in
+    Y | y)
+     start_besttrace;;
+  esac
 }
 Air_Universe_install(){
   bash <(curl -Ls https://raw.githubusercontent.com/crossfw/Air-Universe-install/master/AirU.sh)
@@ -274,18 +284,18 @@ set_crontab(){
   rm -f crontab_conf
 }
 dns_unblock(){
-  read -p "请输入当前机子是否是落地鸡(y/n)，默认y: " flag
+  read -p "当前vps是否为提供解锁的机器(y/n)，默认y: " flag
   flag=${flag:='y'}
   case $flag in
     Y | y)
       wget --no-check-certificate -O dnsmasq_sniproxy.sh https://raw.githubusercontent.com/sola614/dnsmasq_sniproxy_install/master/dnsmasq_sniproxy.sh && bash dnsmasq_sniproxy.sh -f
-      read -p "是否设置白名单(y/n)，默认y: " flag2
+      read -p "是否设置白名单，即ban掉53端口，需要自行添加可访问的ip(y/n)，默认y: " flag2
       flag2=${flag2:='y'}
       if [ $flag2 == 'y' || $flag2 == 'Y'];then
         ban_iptables 53 tcp
       fi
       get_wan_ip
-      echo "落地鸡设置完毕，请在解锁机继续执行本脚本，本机IP为：$wan_ip";;
+      echo "本机设置完毕，请在需要解锁的vps上执行本脚本，本机IP为：$wan_ip";;
     N | n)
       $INSTALL_CMD dnsmasq
       echo -e "
@@ -394,6 +404,21 @@ wikihost_LookingGlass_install(){
   read -p "是否自定义端口（默认为80）: " port
   port=${port:='80'}
   docker run -d --restart always --name looking-glass -e HTTP_PORT=$port --network host wikihostinc/looking-glass-server
+}
+dns_change(){
+  check_file_status /etc/sysconfig/network-scripts/ifcfg-eth0
+  if [ $? == 0 ]; then
+    echo "不存在配置文件ifcfg-eth0，无法进行操作" && exit 1
+  fi
+  all=".*"
+  dns1=1.1.1.1
+  str="DNS1="
+  sed -i "0,/${str}${all}/s/${str}${all}/${str}${dns1}/" /etc/sysconfig/network-scripts/ifcfg-eth0
+  dns2=8.8.8.8
+  str="DNS2="
+  sed -i "0,/${str}${all}/s/${str}${all}/${str}${dns2}/" /etc/sysconfig/network-scripts/ifcfg-eth0
+  service network restart
+  echo "已设置完成，可执行nslookup xxx.com验证"
 }
 
 
