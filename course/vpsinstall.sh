@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='19'
+length='20'
 show_menu() {
   echo -e "
   常用脚本集合
@@ -19,19 +19,20 @@ show_menu() {
   ${green}4.${plain}  x-ui安装
   ${green}5.${plain}  流媒体检测
   ${green}6.${plain}  iptables端口转发
-  ${green}7.${plain}  查看本机ip
-  ${green}8.${plain}  安装docker
-  ${green}9.${plain}  使用nvm安装nodejs
-  ${green}10.${plain} 下载cf-v4-ddns
-  ${green}11.${plain} DNS解锁
-  ${green}12.${plain} iptables屏蔽端口
-  ${green}13.${plain} iptables开放端口
-  ${green}14.${plain} 安装nginx
-  ${green}15.${plain} 测试ip被ban脚本
-  ${green}16.${plain} 安装wikihost-Looking-glass Server
-  ${green}17.${plain} Air-Universe 开源多功能机场后端一键安装脚本
-  ${green}18.${plain} 哪吒监控一键脚本
-  ${green}19.${plain} 永久修改DNS为1.1.1.1和8.8.8.8
+  ${green}7.${plain}  iptables端口转发(支持域名)
+  ${green}8.${plain}  查看本机ip
+  ${green}9.${plain}  安装docker
+  ${green}10.${plain}  使用nvm安装nodejs
+  ${green}11.${plain} 下载cf-v4-ddns
+  ${green}12.${plain} DNS解锁
+  ${green}13.${plain} iptables屏蔽端口
+  ${green}14.${plain} iptables开放端口
+  ${green}15.${plain} 安装nginx
+  ${green}16.${plain} 测试ip被ban脚本
+  ${green}17.${plain} 安装wikihost-Looking-glass Server
+  ${green}18.${plain} Air-Universe 开源多功能机场后端一键安装脚本
+  ${green}19.${plain} 哪吒监控一键脚本
+  ${green}20.${plain} 永久修改DNS为1.1.1.1和8.8.8.8
  "
     echo && read -p "请输入选择 [0-${length}]: " num
 
@@ -57,50 +58,53 @@ show_menu() {
     6)
         start_iptables
         ;;
-    7) 
+    7)
+        start_iptables2
+        ;;
+    8) 
       check_ip
       ;;
-    8) 
+    9) 
       docker_install
       ;;
-    9) 
+    10) 
       install_nodejs_by_nvm
       ;;
-    10) 
+    11) 
       download_cf_v4_ddns
       ;;
-    11) 
+    12) 
       dns_unblock
       ;;
-    12) 
+    13) 
       read -p "请输入需要屏蔽的端口和协议(默认:tcp): " port protocol
       if [ $port ];then
         echo "$port $protocol"
         ban_iptables $port $protocol
       fi
       ;;
-    13) 
+    14) 
       read -p "请输入需要放开的端口: " port protocol
       if [ $port ];then
         unban_iptables $port
       fi
        ;;
-    14)
+    15)
       nginx_install
     ;;
-    15)
+    16)
       ip_test
     ;;
-    16)
+    17)
       wikihost_LookingGlass_install
     ;;
-    17)
+    18)
       Air_Universe_install
     ;;
-    18)
+    19)
       nezha_sh
     ;;
-    19)
+    20)
       dns_change
     ;;
     *)
@@ -196,9 +200,16 @@ start_check_unlock_media(){
 start_iptables(){
   check_file_status $ROOT_PATH/iptables-pf.sh
   if [ $? == 0 ]; then
-     wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/iptables-pf.sh && chmod +x iptables-pf.sh
+     wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/iptables-pf.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/iptables-pf.sh
   fi
-  bash iptables-pf.sh
+  bash $ROOT_PATH/iptables-pf.sh
+}
+start_iptables2(){
+  check_file_status $ROOT_PATH/natcfg.sh
+  if [ $? == 0 ]; then
+    wget --no-check-certificate https://www.arloor.com/sh/iptablesUtils/natcfg.sh -P $ROOT_PATH
+  fi
+  bash $ROOT_PATH/natcfg.sh
 }
 get_lan_ip(){
   local_ip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
@@ -459,5 +470,4 @@ if [ $? == 0 ]; then
   echo "正在安装wget"
   $INSTALL_CMD wget    
 fi
-
 show_menu
