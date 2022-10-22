@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='20'
+length='21'
 show_menu() {
   echo -e "
   常用脚本集合
@@ -33,6 +33,7 @@ show_menu() {
   ${green}18.${plain} Air-Universe 开源多功能机场后端一键安装脚本
   ${green}19.${plain} 哪吒监控一键脚本
   ${green}20.${plain} 永久修改DNS为1.1.1.1和8.8.8.8
+  ${green}21.${plain} NEKO版流媒体检测（速度更快）
  "
     echo && read -p "请输入选择 [0-${length}]: " num
 
@@ -106,6 +107,9 @@ show_menu() {
     ;;
     20)
       dns_change
+    ;;
+    21)
+      start_neko_unlock_test
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -196,6 +200,10 @@ start_xui(){
 start_check_unlock_media(){
   echo "正在执行流媒体检测脚本，请稍等"
   bash <(curl -L -s check.unlock.media)
+}
+start_neko_unlock_test(){
+  echo "正在执行流媒体检测脚本，请稍等"
+  bash <(curl -Ls unlock.moe)
 }
 start_iptables(){
   check_file_status $ROOT_PATH/iptables-pf.sh
