@@ -30,3 +30,12 @@ ps:
 service iptables save #如果是centos7需要先安装yum install iptables-services -y
 chkconfig iptables on
 ```
+自用配置参考
+```
+server=8.8.8.8 #通用
+server=/api-priconne-redive.cygames.jp/x.x.x.x #PCR解锁
+server=/abema.tv/x.x.x.x #abema解锁
+server=/abema.io/x.x.x.x #abema解锁
+server=/nicovideo.jp/x.x.x.x #nicovideo解锁
+server=/worldflipper.jp/x.x.x.x #弹射世界解锁
+```
