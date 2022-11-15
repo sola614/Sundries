@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='23'
+length='24'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -36,6 +36,7 @@ show_menu() {
   ${green}21.${plain} NEKO版流媒体检测（速度更快）
   ${green}22.${plain} 检测VPS回程国内三网路由工具(https://github.com/zhucaidan/mtr_trace)
   ${green}23.${plain} 快速查询本机IP和区域
+  ${green}24.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -117,8 +118,11 @@ show_menu() {
     22)
       mtr_trace
     ;;
-    22)
+    23)
       check_ip_location
+    ;;
+    24)
+      next_trace
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -457,6 +461,23 @@ dns_change(){
 mtr_trace(){
   echo "正在执行请等待..."
   curl https://raw.githubusercontent.com/zhucaidan/mtr_trace/main/mtr_trace.sh|bash;
+}
+next_trace(){
+  check_command nexttrace
+  if [ $? == 0 ]; then
+    echo "正在安装nexttrace"
+    bash <(curl -Ls https://raw.githubusercontent.com/sjlleo/nexttrace/main/nt_install.sh)
+  fi
+  read -p "请输入需要测试的IP或域名: " host
+  nexttrace $host
+  read -p "是否继续测试(y/n): " flag
+  flag=${flag:='y'}
+  case $flag in
+    Y | y)
+     next_trace;;
+    *)
+    exit 1;;
+  esac
 }
 
 # check os
