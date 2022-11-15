@@ -455,8 +455,8 @@ dns_change(){
   echo "已设置完成，可执行nslookup xxx.com验证"
 }
 mtr_trace(){
-   echo "正在执行请等待..."
-  curl https://raw.githubusercontent.com/zhucaidan/mtr_trace/main/mtr_trace.sh|bash
+  echo "正在执行请等待..."
+  curl https://raw.githubusercontent.com/zhucaidan/mtr_trace/main/mtr_trace.sh|bash;
 }
 
 # check os
