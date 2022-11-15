@@ -7,33 +7,36 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='21'
+length='23'
 show_menu() {
   echo -e "
-  常用脚本集合
+  常用脚本集合(仅在Centos下测试可用)
   ${green}0.${plain} 更新脚本
   ————————————————
   ${green}1.${plain}  NEKE家linux网络优化脚本
   ${green}2.${plain}  besttrace测试路由
   ${green}3.${plain}  serverStatus探针
   ${green}4.${plain}  x-ui安装
-  ${green}5.${plain}  流媒体检测
+  ${green}5.${plain}  流媒体检测(速度较慢)
   ${green}6.${plain}  iptables端口转发
   ${green}7.${plain}  iptables端口转发(支持域名)
   ${green}8.${plain}  查看本机ip
   ${green}9.${plain}  安装docker
-  ${green}10.${plain}  使用nvm安装nodejs
+  ${green}10.${plain} 使用nvm安装nodejs
   ${green}11.${plain} 下载cf-v4-ddns
   ${green}12.${plain} DNS解锁
   ${green}13.${plain} iptables屏蔽端口
   ${green}14.${plain} iptables开放端口
   ${green}15.${plain} 安装nginx
   ${green}16.${plain} 测试ip被ban脚本
-  ${green}17.${plain} 安装wikihost-Looking-glass Server
+  ${green}17.${plain} 安装wikihost-Looking-glass Server(vps测试用)
   ${green}18.${plain} Air-Universe 开源多功能机场后端一键安装脚本
   ${green}19.${plain} 哪吒监控一键脚本
   ${green}20.${plain} 永久修改DNS为1.1.1.1和8.8.8.8
   ${green}21.${plain} NEKO版流媒体检测（速度更快）
+  ${green}22.${plain} 检测VPS回程国内三网路由工具(https://github.com/zhucaidan/mtr_trace)
+  ${green}23.${plain} 快速查询本机IP和区域
+  
  "
     echo && read -p "请输入选择 [0-${length}]: " num
 
@@ -110,6 +113,12 @@ show_menu() {
     ;;
     21)
       start_neko_unlock_test
+    ;;
+    22)
+      mtr_trace
+    ;;
+    22)
+      check_ip_location
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -229,6 +238,9 @@ check_ip(){
   get_lan_ip
   get_wan_ip
   echo -e "内网IP：$local_ip\n外网IP：$wan_ip"
+}
+check_ip_location(){
+  curl 3.0.3.0
 }
 docker_install(){
   check_command docker
@@ -442,7 +454,10 @@ dns_change(){
   service network restart
   echo "已设置完成，可执行nslookup xxx.com验证"
 }
-
+mtr_trace(){
+   echo "正在执行请等待..."
+  curl https://raw.githubusercontent.com/zhucaidan/mtr_trace/main/mtr_trace.sh|bash
+}
 
 # check os
 if [[ -f /etc/redhat-release ]]; then
