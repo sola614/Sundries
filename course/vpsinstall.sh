@@ -24,7 +24,7 @@ show_menu() {
   ${green}9.${plain}  安装docker
   ${green}10.${plain} 使用nvm安装nodejs
   ${green}11.${plain} 下载cf-v4-ddns
-  ${green}12.${plain} DNS解锁
+  ${green}12.${plain} DNS解锁(安装dnsmasq或sniproxy)
   ${green}13.${plain} iptables屏蔽端口
   ${green}14.${plain} iptables开放端口
   ${green}15.${plain} 安装nginx
