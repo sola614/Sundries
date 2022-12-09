@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='24'
+length='25'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -37,6 +37,7 @@ show_menu() {
   ${green}22.${plain} 检测VPS回程国内三网路由工具(https://github.com/zhucaidan/mtr_trace)
   ${green}23.${plain} 快速查询本机IP和区域
   ${green}24.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
+  ${green}25.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -123,6 +124,9 @@ show_menu() {
     ;;
     24)
       next_trace
+    ;;
+    25)
+      warp_go_install
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -478,6 +482,9 @@ next_trace(){
     *)
     exit 1;;
   esac
+}
+warp_go_install(){
+  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh
 }
 
 # check os
