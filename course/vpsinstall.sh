@@ -257,7 +257,7 @@ check_ip_location(){
 docker_install(){
   check_command docker
   if [ $? == 0 ]; then
-    $INSTALL_CMD docker
+    curl -fsSL https://get.docker.com | sh
   fi
   echo "docker已安装完毕,正在启动:"
   systemctl start docker
