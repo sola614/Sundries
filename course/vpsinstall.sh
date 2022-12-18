@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='25'
+length='26'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -38,6 +38,7 @@ show_menu() {
   ${green}23.${plain} 快速查询本机IP和区域
   ${green}24.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
   ${green}25.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
+  ${green}26.${plain} Cloudflare Warp一键脚本(https://github.com/fscarmen/warp)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -127,6 +128,9 @@ show_menu() {
     ;;
     25)
       warp_go_install
+    ;;
+    26)
+      warp_install
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -485,6 +489,9 @@ next_trace(){
 }
 warp_go_install(){
   wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh
+}
+warp_install(){
+  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh
 }
 
 # check os
