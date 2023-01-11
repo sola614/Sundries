@@ -26,7 +26,7 @@ curl  https://get.acme.sh | sh
 ```
 export CF_Token="你准备的CF_Token"
 export CF_Account_ID="你准备的CF_Account_ID"
-acme.sh --issue --dns dns_cf -d youdomain.com
+acme.sh --issue --dns dns_cf -d youdomain.com --server letsencrypt
 ```
 然后就是等待，成功的话你会看到一堆success
 
