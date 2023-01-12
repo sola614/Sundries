@@ -31,7 +31,7 @@ location /你前面设定的路径 {
 ```
 最后重启`systemctl restart au`，然后利用浏览器访问`https://节点域名/路径`若返回`bad request`则部署成功
 
-3、完整nginx配置
+3、centos7利用yum安装nginx完整nginx配置
 ```
 user nginx;
 worker_processes auto;
