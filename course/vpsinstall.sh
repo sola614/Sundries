@@ -169,7 +169,11 @@ fi
 }
 # 检查文件是否包含某字段
 check_file_str(){
-  return grep -c $1 $2
+  if grep -c $1 $2; then
+    return 1
+  else
+    return 0
+  fi
 }
 update_sh(){
   echo "正在下载最新文件到当前目录"
