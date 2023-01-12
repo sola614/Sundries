@@ -509,17 +509,7 @@ ws_tls_install(){
   acme_install $hostname
   echo -e "
     脚本操作已完成，请自行操作以下步骤：
-    1、修改nginx配置，参考：
-       location /chat { 
-          proxy_redirect off;
-          proxy_pass http://127.0.0.1:32576; # 端口为服务端口
-          proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection \"upgrade\";
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      }
+    1、修改nginx配置，参考：https://github.com/sola614/Sundries/blob/master/course/V2board%20Air-Universe%20V2ray%20tls%20ws%20%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B.md
     2、如果使用的是Air-Universe搭建的，需要修改配置，参考：https://github.com/sola614/Sundries/blob/master/course/V2board%20Air-Universe%20V2ray%20tls%20ws%20%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B.md
   " 
 }
