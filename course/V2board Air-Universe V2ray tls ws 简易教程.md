@@ -68,7 +68,7 @@ http {
       listen 443 ssl http2;
       listen [::]:443 ssl http2;
       listen [::]:80;
-      server_name hk-newtudou.nowtime.icu;
+      server_name yourdomain; #修改为自己的
       index index.php index.html index.htm default.php default.htm default.html;
       root /usr/share/nginx/html;
 
@@ -79,8 +79,8 @@ http {
       #   rewrite ^(/.*)$ https://$host$1 permanent;
       #}
       #HTTP_TO_HTTPS_END
-      ssl_certificate    /etc/nginx/cert/main.pem;
-      ssl_certificate_key    /etc/nginx/cert/main.key;
+      ssl_certificate    /etc/nginx/cert/main.pem;#修改为自己的
+      ssl_certificate_key    /etc/nginx/cert/main.key;#修改为自己的
       ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
       ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
       ssl_prefer_server_ciphers on;
@@ -92,7 +92,7 @@ http {
       #v2
       location /chat { 
         proxy_redirect off;
-        proxy_pass http://127.0.0.1:32576; # 端口为服务端口
+        proxy_pass http://127.0.0.1:32576; # 端口为服务端口,修改为自己的
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
