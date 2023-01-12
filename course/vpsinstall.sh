@@ -39,7 +39,7 @@ show_menu() {
   ${green}24.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
   ${green}25.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
   ${green}26.${plain} Cloudflare Warp一键脚本(https://github.com/fscarmen/warp)
-  ${green}27.${plain} 一键搭建WS+TLS
+  ${green}27.${plain} 一键准备nginx和利用acme申请证书
   ${green}28.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
   
  "
@@ -523,11 +523,14 @@ acme_install(){
   else
   read -p "请输入域名: " host
   fi
-  echo "正在下载acme脚本"
-  curl  https://get.acme.sh | sh
-  echo "正在申请"
+  check_command acme.sh
+  if [ $? == 0 ]; then
+    echo "正在下载acme脚本"
+    curl  https://get.acme.sh | sh
+  fi
+  echo "正在申请（如果报错可重启再执行脚本）"
   acme.sh --issue --dns dns_cf -d $host --server letsencrypt
-  echo "正在导出证书"
+  echo "正在导出证书（如果报错可重启再执行脚本）"
   acme.sh --install-cert -d example.com --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
 }
 
