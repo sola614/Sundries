@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='26'
+length='28'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -39,6 +39,8 @@ show_menu() {
   ${green}24.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
   ${green}25.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
   ${green}26.${plain} Cloudflare Warp一键脚本(https://github.com/fscarmen/warp)
+  ${green}27.${plain} 一键搭建WS+TLS
+  ${green}28.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -131,6 +133,12 @@ show_menu() {
     ;;
     26)
       warp_install
+    ;;
+    27)
+      ws_tls_install
+    ;;
+    28)
+      acme_install
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -492,6 +500,45 @@ warp_go_install(){
 }
 warp_install(){
   wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh
+}
+ws_tls_install(){
+  read -p "请输入域名: " hostname
+  echo "正在安装nginx"
+  nginx_install
+  echo "开始申请tls证书"
+  acme_install $hostname
+  echo -e "
+    脚本操作已完成，请自行操作以下步骤：
+    1、修改nginx配置，参考：
+       location /chat { 
+          proxy_redirect off;
+          proxy_pass http://127.0.0.1:32576; # 端口为服务端口
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection \"upgrade\";
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      }
+    2、如果使用的是Air-Universe搭建的，需要修改配置，参考：https://github.com/sola614/Sundries/blob/master/course/V2board%20Air-Universe%20V2ray%20tls%20ws%20%E7%AE%80%E6%98%93%E6%95%99%E7%A8%8B.md
+  " 
+}
+acme_install(){
+  read -p "请输入CF_Token: " cf_token
+  export CF_Token=$cf_token
+  read -p "请输入CF_Account_ID: " cf_account_id
+  export CF_Account_ID=$cf_account_id
+  if [ $1 ];then
+    $host=$1
+  else
+  read -p "请输入域名: " host
+  fi
+  echo "正在下载acme脚本"
+  curl  https://get.acme.sh | sh
+  echo "正在申请"
+  acme.sh --issue --dns dns_cf -d $host --server letsencrypt
+  echo "正在导出证书"
+  acme.sh --install-cert -d example.com --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
 }
 
 # check os
