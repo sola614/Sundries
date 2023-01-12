@@ -523,15 +523,15 @@ acme_install(){
   else
   read -p "请输入域名: " host
   fi
-  check_command acme.sh
+  check_file_status /root/.acme.sh/acme.sh
   if [ $? == 0 ]; then
     echo "正在下载acme脚本"
     curl  https://get.acme.sh | sh
   fi
   echo "正在申请（如果报错可重启再执行脚本）"
-  acme.sh --issue --dns dns_cf -d $host --server letsencrypt
+  /root/.acme.sh/acme.sh --issue --dns dns_cf -d $host --server letsencrypt
   echo "正在导出证书（如果报错可重启再执行脚本）"
-  acme.sh --install-cert -d example.com --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
+  /root/.acme.sh/acme.sh --install-cert -d example.com --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
 }
 
 # check os
