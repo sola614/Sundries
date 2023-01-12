@@ -167,6 +167,10 @@ check_folder_status(){
   mkdir $1
 fi
 }
+# 检查文件是否包含某字段
+check_file_str(){
+  grep -c $1 $2
+}
 update_sh(){
   echo "正在下载最新文件到当前目录"
   wget -O vpsinstall.sh https://file.meaqua.fun/shell/vpsinstall.sh
@@ -514,10 +518,16 @@ ws_tls_install(){
   " 
 }
 acme_install(){
-  read -p "请输入CF_Token: " cf_token
-  export CF_Token=$cf_token
-  read -p "请输入CF_Account_ID: " cf_account_id
-  export CF_Account_ID=$cf_account_id
+  check_file_str SAVED_CF_Token /root/.acme.sh/account.conf
+  if [ $? == 0 ]; then
+    read -p "请输入CF_Token: " cf_token
+    export CF_Token=$cf_token
+  fi
+  check_file_str SAVED_CF_Account_ID /root/.acme.sh/account.conf
+  if [ $? == 0 ]; then
+    read -p "请输入CF_Account_ID: " cf_account_id
+    export CF_Account_ID=$cf_account_id
+  fi
   if [ $1 ];then
     host=$1
   else
