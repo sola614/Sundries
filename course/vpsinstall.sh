@@ -519,9 +519,9 @@ acme_install(){
   read -p "请输入CF_Account_ID: " cf_account_id
   export CF_Account_ID=$cf_account_id
   if [ $1 ];then
-    $host=$1
+    host=$1
   else
-  read -p "请输入域名: " host
+    read -p "请输入域名: " host
   fi
   check_file_status /root/.acme.sh/acme.sh
   if [ $? == 0 ]; then
@@ -531,7 +531,7 @@ acme_install(){
   echo "正在申请（如果报错可重启再执行脚本）"
   /root/.acme.sh/acme.sh --issue --dns dns_cf -d $host --server letsencrypt
   echo "正在导出证书（如果报错可重启再执行脚本）"
-  /root/.acme.sh/acme.sh --install-cert -d example.com --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
+  /root/.acme.sh/acme.sh --install-cert -d $host --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
 }
 
 # check os
