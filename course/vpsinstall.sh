@@ -34,13 +34,14 @@ show_menu() {
   ${green}19.${plain} 哪吒监控一键脚本
   ${green}20.${plain} 永久修改DNS为1.1.1.1和8.8.8.8
   ${green}21.${plain} NEKO版流媒体检测（速度更快）
-  ${green}22.${plain} 检测VPS回程国内三网路由工具(https://github.com/zhucaidan/mtr_trace)
+  ${green}22.${plain} 三网回程路由测试(https://github.com/zhanghanyun/backtrace)
   ${green}23.${plain} 快速查询本机IP和区域
   ${green}24.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
   ${green}25.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
   ${green}26.${plain} Cloudflare Warp一键脚本(https://github.com/fscarmen/warp)
   ${green}27.${plain} 一键准备nginx和利用acme申请证书
   ${green}28.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
+  ${green}29.${plain} node-ddns(https://github.com/sola614/node-ddns)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -139,6 +140,9 @@ show_menu() {
     ;;
     28)
       acme_install
+    ;;
+    29)
+      node_ddns
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -484,7 +488,8 @@ dns_change(){
 }
 mtr_trace(){
   echo "正在执行请等待..."
-  curl https://raw.githubusercontent.com/zhucaidan/mtr_trace/main/mtr_trace.sh|bash;
+  curl https://raw.githubusercontent.com/zhanghanyun/backtrace/main/install.sh -sSf | sh
+  # curl https://raw.githubusercontent.com/zhucaidan/mtr_trace/main/mtr_trace.sh|bash;
 }
 next_trace(){
   check_command nexttrace
@@ -546,6 +551,10 @@ acme_install(){
   /root/.acme.sh/acme.sh --issue --dns dns_cf -d $host --server letsencrypt
   echo "正在导出证书（如果报错可重启再执行脚本）"
   /root/.acme.sh/acme.sh --install-cert -d $host --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
+}
+node_ddns(){
+  git clone https://github.com/sola614/node-ddns.git
+  echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
 }
 
 # check os
