@@ -36,6 +36,7 @@ server=8.8.8.8 #通用
 server=/api-priconne-redive.cygames.jp/x.x.x.x #PCR解锁
 server=/abema.tv/x.x.x.x #abema解锁
 server=/abema.io/x.x.x.x #abema解锁
+server=/abema-tv.com/x.x.x.x #abema解锁
 server=/nicovideo.jp/x.x.x.x #nicovideo解锁
 server=/worldflipper.jp/x.x.x.x #弹射世界解锁
 ```
