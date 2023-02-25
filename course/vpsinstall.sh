@@ -564,7 +564,7 @@ dnsproxy(){
   CPATH=pwd
   SCNAME=dnsproxy
   screen -X -S $SCNAME quit
-  check_folder_status $CPATH/dnsproxy
+  check_file_status $CPATH/dnsproxy/dnsproxy
   if [ $? == 0 ]; then
       echo "正在下载最新版dnsproxy"
       LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/AdguardTeam/dnsproxy/releases/latest)
