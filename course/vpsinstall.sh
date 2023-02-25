@@ -561,7 +561,7 @@ node_ddns(){
   echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
 }
 dnsproxy(){
-  CPATH=pwd
+  CPATH=$(pwd)
   SCNAME=dnsproxy
   screen -X -S $SCNAME quit
   check_file_status $CPATH/dnsproxy/dnsproxy
