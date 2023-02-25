@@ -1,0 +1,13 @@
+[Unit]
+Description=dnsproxy Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/mybash/dnsproxy/start.sh
+
+[Install]
+WantedBy=multi-user.target
