@@ -561,8 +561,6 @@ node_ddns(){
   echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
 }
 dnsproxy(){
-  SCNAME=dnsproxy
-  screen -X -S $SCNAME quit
   check_file_status $ROOT_PATH/dnsproxy/dnsproxy
   if [ $? == 0 ]; then
       echo "正在下载最新版dnsproxy"
@@ -574,21 +572,27 @@ dnsproxy(){
       mv $ROOT_PATH/linux-amd64 $ROOT_PATH/dnsproxy
       # rm -rf $ROOT_PATH/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
   fi 
-  check_file_status 
-  check_command screen
-  read -p "请输入需要使用的dns ip或链接(如8.8.8.8或tls://xxx): " dns_url
-  read -p "请输入端口号(默认53): " dns_port
-  dns_port=${dns_port:='53'}
-  echo "-----$ROOT_PATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port------"
-  echo "#!/bin/sh" > $ROOT_PATH/dnsproxy/start.sh
-  echo "$ROOT_PATH/dnsproxy/dnsproxy -l 127.0.0.1 -u $dns_url --cache -p $dns_port --refuse-any" >> $ROOT_PATH/dnsproxy/start.sh
-  chmod +x $ROOT_PATH/dnsproxy/start.sh
-  wget https://raw.githubusercontent.com/sola614/Sundries/master/course/dnsproxy.service -P /etc/systemd/system/
-  sudo systemctl daemon-reload
-  sudo systemctl restart dnsproxy
-  sudo systemctl enable dnsproxy
-  sudo systemctl status dnsproxy
-  echo "dnsproxy启动完毕"
+  check_file_status $ROOT_PATH/dnsproxy/start.sh
+  if [ $? == 0 ]; then
+    read -p "请输入需要使用的dns ip或链接(如8.8.8.8或tls://xxx): " dns_url
+    read -p "请输入端口号(默认53): " dns_port
+    dns_port=${dns_port:='53'}
+    echo "-----$ROOT_PATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port------"
+    echo "#!/bin/sh" > $ROOT_PATH/dnsproxy/start.sh
+    echo "$ROOT_PATH/dnsproxy/dnsproxy -l 127.0.0.1 -u $dns_url --cache -p $dns_port --refuse-any" >> $ROOT_PATH/dnsproxy/start.sh
+    chmod +x $ROOT_PATH/dnsproxy/start.sh
+  fi 
+  check_file_status /etc/systemd/system/dnsproxy.service
+  if [ $? == 0 ]; then
+    wget https://raw.githubusercontent.com/sola614/Sundries/master/course/dnsproxy.service -P /etc/systemd/system/
+    sudo systemctl daemon-reload
+    sudo systemctl restart dnsproxy
+    sudo systemctl enable dnsproxy
+    sudo systemctl status dnsproxy
+    echo "dnsproxy启动完毕"
+  else
+    echo "dnsproxy服务已存在"
+  fi 
 }
 # check os
 if [[ -f /etc/redhat-release ]]; then
