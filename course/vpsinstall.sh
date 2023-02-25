@@ -42,6 +42,7 @@ show_menu() {
   ${green}27.${plain} 一键准备nginx和利用acme申请证书
   ${green}28.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
   ${green}29.${plain} node-ddns(https://github.com/sola614/node-ddns)
+  ${green}30.${plain} dnsproxy
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -143,6 +144,9 @@ show_menu() {
     ;;
     29)
       node_ddns
+    ;;
+    30)
+      dnsproxy
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -556,7 +560,26 @@ node_ddns(){
   git clone https://github.com/sola614/node-ddns.git
   echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
 }
-
+dnsproxy(){
+  echo "正在下载最新版dnsproxy"
+  LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/account/project/releases/latest)
+  LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+  ARTIFACT_URL="https://github.com/AdguardTeam/dnsproxy/releases/download/$LATEST_VERSION/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz"
+  wget $ARTIFACT_URL
+  tar xvf dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
+  mv linux-amd64 dnsproxy
+  CPATH=pwd
+  check_command screen
+  if [ $? == 0 ]; then
+    echo "正在安装screen"
+    $INSTALL_CMD screen 
+  fi
+  read -p "请输入需要使用的dns ip或链接(如8.8.8.8或tls://xxx): " dns_url
+  read -p "请输入端口号(默认53): " dns_port
+  dns_port=${dns_port:='53'}
+  screen -S dnsproxy -dm $CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port
+  echo "dnsproxy启动完毕"
+}
 # check os
 if [[ -f /etc/redhat-release ]]; then
   SYSTEM_OS="centos"
