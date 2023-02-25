@@ -561,16 +561,20 @@ node_ddns(){
   echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
 }
 dnsproxy(){
+  CPATH=pwd
   SCNAME=dnsproxy
   screen -X -S $SCNAME quit
-  echo "正在下载最新版dnsproxy"
-  LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/AdguardTeam/dnsproxy/releases/latest)
-  LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
-  ARTIFACT_URL="https://github.com/AdguardTeam/dnsproxy/releases/download/$LATEST_VERSION/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz"
-  wget $ARTIFACT_URL
-  tar xvf dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
-  mv linux-amd64 dnsproxy
-  CPATH=pwd
+  check_folder_status $CPATH/dnsproxy
+  if [ $? == 0 ]; then
+      echo "正在下载最新版dnsproxy"
+      LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/AdguardTeam/dnsproxy/releases/latest)
+      LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+      ARTIFACT_URL="https://github.com/AdguardTeam/dnsproxy/releases/download/$LATEST_VERSION/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz"
+      wget $ARTIFACT_URL
+      tar xvf dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
+      mv linux-amd64 dnsproxy
+      rm -rf dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
+  fi 
   check_command screen
   if [ $? == 0 ]; then
     echo "正在安装screen"
