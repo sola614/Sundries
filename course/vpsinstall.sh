@@ -570,24 +570,24 @@ dnsproxy(){
       LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
       ARTIFACT_URL="https://github.com/AdguardTeam/dnsproxy/releases/download/$LATEST_VERSION/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz"
       wget $ARTIFACT_URL -P $ROOT_PATH
-      tar xvf $ROOT_PATH/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
+      tar xvf $ROOT_PATH/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz -C $ROOT_PATH
       mv $ROOT_PATH/linux-amd64 $ROOT_PATH/dnsproxy
-      rm -rf $ROOT_PATH/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
+      # rm -rf $ROOT_PATH/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
   fi 
   check_file_status 
   check_command screen
-  # if [ $? == 0 ]; then
-  #   echo "正在安装screen"
-  #   $INSTALL_CMD screen 
-  # fi
   read -p "请输入需要使用的dns ip或链接(如8.8.8.8或tls://xxx): " dns_url
   read -p "请输入端口号(默认53): " dns_port
   dns_port=${dns_port:='53'}
   echo "-----$ROOT_PATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port------"
-  echo "$ROOT_PATH/dnsproxy/dnsproxy -l 127.0.0.1 -u $dns_url --cache -p $dns_port --refuse-any" > $ROOT_PATH/dnsproxy/start.sh
-  
-  # screen -S $SCNAME -dm $CPATH/dnsproxy/dnsproxy -l 127.0.0.1 -u $dns_url --cache -p $dns_port --refuse-any
-  # echo "dnsproxy启动完毕"
+  echo "#!/bin/sh" > $ROOT_PATH/dnsproxy/start.sh
+  echo "$ROOT_PATH/dnsproxy/dnsproxy -l 127.0.0.1 -u $dns_url --cache -p $dns_port --refuse-any" >> $ROOT_PATH/dnsproxy/start.sh
+  chmod +x $ROOT_PATH/dnsproxy/start.sh
+  wget https://raw.githubusercontent.com/sola614/Sundries/master/course/dnsproxy.service -P /etc/systemd/system/
+  sudo systemctl daemon-reload
+  sudo systemctl restart dnsproxy
+  sudo systemctl status dnsproxy
+  echo "dnsproxy启动完毕"
 }
 # check os
 if [[ -f /etc/redhat-release ]]; then
