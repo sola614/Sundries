@@ -32,7 +32,7 @@ show_menu() {
   ${green}17.${plain} 安装wikihost-Looking-glass Server(vps测试用)
   ${green}18.${plain} Air-Universe 开源多功能机场后端一键安装脚本
   ${green}19.${plain} 哪吒监控一键脚本
-  ${green}20.${plain} 永久修改DNS为1.1.1.1和8.8.8.8
+  ${green}20.${plain} 永久修改DNS
   ${green}21.${plain} NEKO版流媒体检测（速度更快）
   ${green}22.${plain} 三网回程路由测试(https://github.com/zhanghanyun/backtrace)
   ${green}23.${plain} 快速查询本机IP和区域
@@ -480,13 +480,14 @@ dns_change(){
   if [ $? == 0 ]; then
     echo "不存在配置文件ifcfg-eth0，无法进行操作" && exit 1
   fi
+  read -p "请输入需要更换的dnsip: " dns1
+  dns1=${dns1:='1.1.1.1'}
   all=".*"
-  dns1=1.1.1.1
   str="DNS1="
   sed -i "0,/${str}${all}/s/${str}${all}/${str}${dns1}/" /etc/sysconfig/network-scripts/ifcfg-eth0
-  dns2=8.8.8.8
-  str="DNS2="
-  sed -i "0,/${str}${all}/s/${str}${all}/${str}${dns2}/" /etc/sysconfig/network-scripts/ifcfg-eth0
+  # dns2=8.8.8.8
+  # str="DNS2="
+  # sed -i "0,/${str}${all}/s/${str}${all}/${str}${dns2}/" /etc/sysconfig/network-scripts/ifcfg-eth0
   service network restart
   echo "已设置完成，可执行nslookup xxx.com验证"
 }
