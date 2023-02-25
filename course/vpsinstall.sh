@@ -583,6 +583,7 @@ dnsproxy(){
   read -p "请输入需要使用的dns ip或链接(如8.8.8.8或tls://xxx): " dns_url
   read -p "请输入端口号(默认53): " dns_port
   dns_port=${dns_port:='53'}
+  echo "-----$CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port------"
   screen -S $SCNAME -dm $CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port
   echo "dnsproxy启动完毕"
 }
