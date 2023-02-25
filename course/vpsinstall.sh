@@ -586,6 +586,7 @@ dnsproxy(){
   wget https://raw.githubusercontent.com/sola614/Sundries/master/course/dnsproxy.service -P /etc/systemd/system/
   sudo systemctl daemon-reload
   sudo systemctl restart dnsproxy
+  sudo systemctl enable dnsproxy
   sudo systemctl status dnsproxy
   echo "dnsproxy启动完毕"
 }
