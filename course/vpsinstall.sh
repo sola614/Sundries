@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='28'
+length='30'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -561,8 +561,10 @@ node_ddns(){
   echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
 }
 dnsproxy(){
+  SCNAME=dnsproxy
+  screen -X -S $SCNAME quit
   echo "正在下载最新版dnsproxy"
-  LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/account/project/releases/latest)
+  LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/AdguardTeam/dnsproxy/releases/latest)
   LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
   ARTIFACT_URL="https://github.com/AdguardTeam/dnsproxy/releases/download/$LATEST_VERSION/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz"
   wget $ARTIFACT_URL
@@ -577,7 +579,7 @@ dnsproxy(){
   read -p "请输入需要使用的dns ip或链接(如8.8.8.8或tls://xxx): " dns_url
   read -p "请输入端口号(默认53): " dns_port
   dns_port=${dns_port:='53'}
-  screen -S dnsproxy -dm $CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port
+  screen -S $SCNAME -dm $CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port
   echo "dnsproxy启动完毕"
 }
 # check os
