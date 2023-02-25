@@ -584,7 +584,7 @@ dnsproxy(){
   read -p "请输入端口号(默认53): " dns_port
   dns_port=${dns_port:='53'}
   echo "-----$CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port------"
-  screen -S $SCNAME -dm $CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port
+  screen -S $SCNAME -dm $CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port --refuse-any
   echo "dnsproxy启动完毕"
 }
 # check os
