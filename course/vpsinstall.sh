@@ -561,31 +561,33 @@ node_ddns(){
   echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
 }
 dnsproxy(){
-  CPATH=$(pwd)
   SCNAME=dnsproxy
   screen -X -S $SCNAME quit
-  check_file_status $CPATH/dnsproxy/dnsproxy
+  check_file_status $ROOT_PATH/dnsproxy/dnsproxy
   if [ $? == 0 ]; then
       echo "正在下载最新版dnsproxy"
       LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/AdguardTeam/dnsproxy/releases/latest)
       LATEST_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
       ARTIFACT_URL="https://github.com/AdguardTeam/dnsproxy/releases/download/$LATEST_VERSION/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz"
-      wget $ARTIFACT_URL
-      tar xvf dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
-      mv linux-amd64 dnsproxy
-      rm -rf dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
+      wget $ARTIFACT_URL -P $ROOT_PATH
+      tar xvf $ROOT_PATH/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
+      mv $ROOT_PATH/linux-amd64 $ROOT_PATH/dnsproxy
+      rm -rf $ROOT_PATH/dnsproxy-linux-amd64-$LATEST_VERSION.tar.gz
   fi 
+  check_file_status 
   check_command screen
-  if [ $? == 0 ]; then
-    echo "正在安装screen"
-    $INSTALL_CMD screen 
-  fi
+  # if [ $? == 0 ]; then
+  #   echo "正在安装screen"
+  #   $INSTALL_CMD screen 
+  # fi
   read -p "请输入需要使用的dns ip或链接(如8.8.8.8或tls://xxx): " dns_url
   read -p "请输入端口号(默认53): " dns_port
   dns_port=${dns_port:='53'}
-  echo "-----$CPATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port------"
-  screen -S $SCNAME -dm $CPATH/dnsproxy/dnsproxy -l 127.0.0.1 -u $dns_url --cache -p $dns_port --refuse-any
-  echo "dnsproxy启动完毕"
+  echo "-----$ROOT_PATH/dnsproxy/dnsproxy -u $dns_url --cache -p $dns_port------"
+  echo "$ROOT_PATH/dnsproxy/dnsproxy -l 127.0.0.1 -u $dns_url --cache -p $dns_port --refuse-any" > $ROOT_PATH/dnsproxy/start.sh
+  
+  # screen -S $SCNAME -dm $CPATH/dnsproxy/dnsproxy -l 127.0.0.1 -u $dns_url --cache -p $dns_port --refuse-any
+  # echo "dnsproxy启动完毕"
 }
 # check os
 if [[ -f /etc/redhat-release ]]; then
