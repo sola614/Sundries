@@ -476,18 +476,31 @@ wikihost_LookingGlass_install(){
   docker run -d --restart always --name looking-glass -e HTTP_PORT=$port --network host wikihostinc/looking-glass-server
 }
 dns_change(){
-  check_file_status /etc/sysconfig/network-scripts/ifcfg-eth0
+  FILE_PATH=/etc/sysconfig/network-scripts/ifcfg-eth0
+  check_file_status $FILE_PATH
   if [ $? == 0 ]; then
     echo "不存在配置文件ifcfg-eth0，无法进行操作" && exit 1
   fi
-  read -p "请输入需要更换的dnsip: " dns1
-  dns1=${dns1:='1.1.1.1'}
-  all=".*"
-  str="DNS1="
-  sed -i "0,/${str}${all}/s/${str}${all}/${str}${dns1}/" /etc/sysconfig/network-scripts/ifcfg-eth0
-  # dns2=8.8.8.8
-  # str="DNS2="
-  # sed -i "0,/${str}${all}/s/${str}${all}/${str}${dns2}/" /etc/sysconfig/network-scripts/ifcfg-eth0
+  read -p "请输入需要更换的dnsip(多个以;分割): " dns_str
+  dns_str=${dns_str:='1.1.1.1'}
+  #分割字符串
+  IFS=';' read -ra dns_addr <<< "$dns_str"
+  #循环插入||替换
+  for ((i = 0; i < ${#dns_addr[@]}; ++i)); do
+    index=$(( $i + 1 ))
+    name_str="DNS$index="
+    dnsip=${dns_addr[$i]}
+    check_file_str $name_str $FILE_PATH
+    if [ $? == 0 ]; then
+      # 插入
+      echo "$name_str$dnsip" >> $FILE_PATH
+    else 
+      # 替换
+      all=".*"
+      sed -i "0,/${name_str}${all}/s/${name_str}${all}/${name_str}${dnsip}/" $FILE_PATH
+    fi
+  done
+  echo "正在重启网络"
   service network restart
   echo "已设置完成，可执行nslookup xxx.com验证"
 }
