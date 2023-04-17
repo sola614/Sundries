@@ -149,7 +149,7 @@ show_menu() {
     30)
       dnsproxy
     ;;
-    30)
+    31)
       xrayr_install
     ;;
     *)
@@ -235,6 +235,7 @@ xrayr_install(){
     echo "面板地址为空！"
     exit 1
   fi
+  ApiHost=$(echo "$ApiHost" | sed 's/\//\\\//g')#转义//
   read -p "面板通讯密钥: " ApiKey
   if [ -z "$ApiKey" ]; then
     echo "板通讯密钥为空！"
@@ -253,11 +254,11 @@ xrayr_install(){
    echo "正在写入配置信息"
   all=".*"
   CONFIG_PATH=/etc/XrayR/config.yml
-  sed -i "0,/PanelType=${all}/s/PanelType=${all}/PanelType=${PanelType}/" $CONFIG_PATH
-  sed -i "0,/ApiHost=${all}/s/ApiHost=${all}/ApiHost=${ApiHost}/" $CONFIG_PATH
-  sed -i "0,/ApiKey=${all}/s/ApiKey=${all}/ApiKey=${ApiKey}/" $CONFIG_PATH
-  sed -i "0,/NodeID=${all}/s/NodeID=${all}/NodeID=${NodeID}/" $CONFIG_PATH
-  sed -i "0,/NodeType=${all}/s/NodeType=${all}/NodeType=${NodeType}/" $CONFIG_PATH
+  sed -i "s/PanelType: ${all}/PanelType: \"${PanelType}\"/" $CONFIG_PATH
+  sed -i "s/ApiHost: ${all}/ApiHost: \"${ApiHost}\"/" $CONFIG_PATH
+  sed -i "s/ApiKey: ${all}/ApiKey: \"${ApiKey}\"/" $CONFIG_PATH
+  sed -i "s/NodeID: ${all}/NodeID: ${NodeID}/" $CONFIG_PATH
+  sed -i "s/NodeType: ${all}/NodeType: ${NodeType}/" $CONFIG_PATH
   echo "正在启动XrayR"
   XrayR start
 
