@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='30'
+length='31'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -43,6 +43,7 @@ show_menu() {
   ${green}28.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
   ${green}29.${plain} node-ddns(https://github.com/sola614/node-ddns)
   ${green}30.${plain} dnsproxy
+  ${green}31.${plain} 一键安装XrayR后端
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -148,6 +149,9 @@ show_menu() {
     30)
       dnsproxy
     ;;
+    30)
+      xrayr_install
+    ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
       ;;
@@ -218,6 +222,45 @@ start_besttrace(){
 }
 Air_Universe_install(){
   bash <(curl -Ls https://raw.githubusercontent.com/crossfw/Air-Universe-install/master/AirU.sh)
+}
+xrayr_install(){
+  wget -N https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/install.sh && bash install.sh
+  read -p "面板类型(SSpanel, V2board, NewV2board, PMpanel, Proxypanel, V2RaySocks): " PanelType
+  if [ -z "$PanelType" ]; then
+    echo "面板类型为空！"
+    exit 1
+  fi
+  read -p "面板地址(如http(s)://): " ApiHost
+  if [ -z "$ApiHost" ]; then
+    echo "面板地址为空！"
+    exit 1
+  fi
+  read -p "面板通讯密钥: " ApiKey
+  if [ -z "$ApiKey" ]; then
+    echo "板通讯密钥为空！"
+    exit 1
+  fi
+  read -p "节点id: " NodeID
+  if [ -z "$NodeID" ]; then
+    echo "节点id为空！"
+    exit 1
+  fi
+  read -p "节点类型(V2ray, Shadowsocks, Trojan, Shadowsocks-Plugin): " NodeType
+  if [ -z "$NodeType" ]; then
+    echo "节点类型为空！"
+    exit 1
+  fi
+   echo "正在写入配置信息"
+  all=".*"
+  CONFIG_PATH=/etc/XrayR/config.yml
+  sed -i "0,/PanelType=${all}/s/PanelType=${all}/PanelType=${PanelType}/" $CONFIG_PATH
+  sed -i "0,/ApiHost=${all}/s/ApiHost=${all}/ApiHost=${ApiHost}/" $CONFIG_PATH
+  sed -i "0,/ApiKey=${all}/s/ApiKey=${all}/ApiKey=${ApiKey}/" $CONFIG_PATH
+  sed -i "0,/NodeID=${all}/s/NodeID=${all}/NodeID=${NodeID}/" $CONFIG_PATH
+  sed -i "0,/NodeType=${all}/s/NodeType=${all}/NodeType=${NodeType}/" $CONFIG_PATH
+  echo "正在启动XrayR"
+  XrayR start
+
 }
 nezha_sh(){
   check_file_status $ROOT_PATH/nezha.sh
