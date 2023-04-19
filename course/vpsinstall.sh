@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='31'
+length='32'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -44,6 +44,7 @@ show_menu() {
   ${green}29.${plain} node-ddns(https://github.com/sola614/node-ddns)
   ${green}30.${plain} dnsproxy
   ${green}31.${plain} 一键安装XrayR后端
+  ${green}32.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -151,6 +152,9 @@ show_menu() {
     ;;
     31)
       xrayr_install
+    ;;
+    32)
+      hi_hysteria_install
     ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
@@ -263,6 +267,9 @@ xrayr_install(){
   echo "正在启动XrayR"
   XrayR start
 
+}
+hi_hysteria_install(){
+  bash <(curl -fsSL https://git.io/hysteria.sh)
 }
 nezha_sh(){
   check_file_status $ROOT_PATH/nezha.sh
