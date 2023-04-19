@@ -620,7 +620,13 @@ acme_install(){
   echo "正在申请（如果报错可重启再执行脚本）"
   /root/.acme.sh/acme.sh --issue --dns dns_cf -d $host --server letsencrypt
   echo "正在导出证书（如果报错可重启再执行脚本）"
-  /root/.acme.sh/acme.sh --install-cert -d $host --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
+  if [ $1 ];then
+    /root/.acme.sh/acme.sh --install-cert -d $host --key-file  /etc/nginx/cert/$host.key --fullchain-file /etc/nginx/cert/$host.pem --reloadcmd  "service nginx force-reload"
+  else
+    mkdir /root/cert
+    /root/.acme.sh/acme.sh --install-cert -d $host --key-file  /root/cert/$host.key --fullchain-file /root/cert/$host.pem
+    echo "证书导出完毕，路径为：/root/cert"
+  fi
 }
 node_ddns(){
   git clone https://github.com/sola614/node-ddns.git
