@@ -1,13 +1,16 @@
+# > 神姬
+DOMAIN-KEYWORD,kamihimeproject.net
 DOMAIN-SUFFIX,kamihimeproject.net
 DOMAIN-SUFFIX,gsspat.jp
 DOMAIN-SUFFIX,smrtbeat.com
 DOMAIN-SUFFIX,i-mobile.co.jp
 DOMAIN-SUFFIX,octopuspop.com
-DOMAIN-SUFFIX,cygames.jp
-DOMAIN-SUFFIX,mist-train-girls.com
 DOMAIN-SUFFIX,microad.jp
+# > 雾车
+DOMAIN-SUFFIX,mist-train-girls.com
 DOMAIN-SUFFIX,azurefd.net
 DOMAIN,assets.mist-train-girls.com
+# > BA
 DOMAIN-SUFFIX,bluearchiveyostar.com
 DOMAIN,bluearchiveyostar.com
 DOMAIN-KEYWORD,bluearchiveyostar.com
