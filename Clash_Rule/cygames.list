@@ -1,3 +1,17 @@
 DOMAIN-SUFFIX,cygames.jp
 DOMAIN-KEYWORD,cygames.jp
+# PCR
 DOMAIN-KEYWORD,prd-priconne-redive.akamaized.net
+DOMAIN-SUFFIX,prd-priconne-redive.akamaized.net
+DOMAIN-SUFFIX,api-priconne-redive.cygames.jp
+# ウマ娘プリティーダービー
+DOMAIN,api-umamusume.cygames.jp
+DOMAIN-KEYWORD,umamusume.jp
+DOMAIN,prd-storage-app-umamusume.akamaized.net
+DOMAIN,prd-storage-game-umamusume.akamaized.net
+DOMAIN,prd-storage-umamusume.akamaized.net
+# GBF
+DOMAIN-KEYWORD,granbluefantasy.jp
+DOMAIN-KEYWORD,mbga.jp
+# 弹射
+DOMAIN-KEYWORD,worldflipper.jp
