@@ -17,3 +17,5 @@ DOMAIN-SUFFIX,ttvnw.net
 DOMAIN-SUFFIX,ext-twitch.tv
 DOMAIN-SUFFIX,jtvnw.net
 DOMAIN-SUFFIX,twitchsvc.net
+# > twitcasting
+DOMAIN-KEYWORD,twitcasting.tv
