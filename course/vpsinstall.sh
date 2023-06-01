@@ -11,7 +11,8 @@ length='33'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
-  ${green}0.${plain} 更新脚本&初始化安装
+  ${green}0.${plain} 更新脚本
+  ${green}999.${plain} 初始化安装
   ————————————————
   ${green}1.${plain}  NEKE家linux网络优化脚本
   ${green}2.${plain}  besttrace测试路由
@@ -160,6 +161,9 @@ show_menu() {
     33)
       gost_install
     ;;
+    999)
+      vps_install
+    ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
       ;;
@@ -196,11 +200,13 @@ check_file_str(){
   fi
 }
 update_sh(){
-  echo "正在安装vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools"
-  $INSTALL_CMD install vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools -y
   echo "正在下载最新文件到当前目录"
   wget -O vpsinstall.sh https://file.meaqua.fun/shell/vpsinstall.sh
   bash ./vpsinstall.sh
+}
+vps_install(){
+  echo "正在安装vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools"
+  $INSTALL_CMD install vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools -y
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
