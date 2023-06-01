@@ -222,7 +222,7 @@ start_besttrace(){
   fi
   check_command $ROOT_PATH/besttrace/besttrace
   if [ $? == 0 ]; then
-    wget https://cdn.ipip.net/17mon/besttrace4linux.zip -P $ROOT_PATH && unzip -o -d $ROOT_PATH/besttrace $ROOT_PATH/besttrace4linux.zip && sudo chmod -R 777 $ROOT_PATH/besttrace
+    wget https://cdn.ipip.net/17mon/besttrace4linux.zip -P $ROOT_PATH && unzip -o -d $ROOT_PATH/besttrace $ROOT_PATH/besttrace4linux.zip && chmod -R 777 $ROOT_PATH/besttrace
   fi
   read -p "请输入需要测试的IP或域名: " host
   $ROOT_PATH/besttrace/besttrace -q 1 $host
@@ -512,15 +512,15 @@ nginx_install(){
     $INSTALL_CMD epel-release
     $INSTALL_CMD nginx
     echo "正在启动"
-    sudo systemctl start nginx
+    systemctl start nginx
     echo "正在设置开机启动"
-    sudo systemctl enable nginx
+    systemctl enable nginx
   fi
   echo -e "
     nginx已存在，请自行修改/etc/nginx目录下的配置文件，然后使用nginx -s reload 重启
     其他命令：
-      ${green}sudo systemctl start nginx${plain} 启动
-      ${green}sudo systemctl enable nginx${plain} 设置开机启动
+      ${green}systemctl start nginx${plain} 启动
+      ${green}systemctl enable nginx${plain} 设置开机启动
   "
    echo ""
 }
@@ -676,10 +676,10 @@ dnsproxy(){
   check_file_status /etc/systemd/system/dnsproxy.service
   if [ $? == 0 ]; then
     wget https://raw.githubusercontent.com/sola614/Sundries/master/course/dnsproxy.service -P /etc/systemd/system/
-    sudo systemctl daemon-reload
-    sudo systemctl restart dnsproxy
-    sudo systemctl enable dnsproxy
-    sudo systemctl status dnsproxy
+    systemctl daemon-reload
+    systemctl restart dnsproxy
+    systemctl enable dnsproxy
+    systemctl status dnsproxy
     echo "dnsproxy启动完毕"
   else
     echo "dnsproxy服务已存在"
