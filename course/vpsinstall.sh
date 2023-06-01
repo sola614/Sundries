@@ -45,7 +45,7 @@ show_menu() {
   ${green}30.${plain} dnsproxy
   ${green}31.${plain} 一键安装XrayR后端
   ${green}32.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
-  ${green}33.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)
+  ${green}33.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -639,7 +639,11 @@ node_ddns(){
   echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
 }
 gost_install(){
-  wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/gost.sh && chmod +x gost.sh && ./gost.sh
+  check_file_status $ROOT_PATH/gost.sh
+  if [ $? == 0 ]; then
+    wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/gost.sh && chmod +x gost.sh && ./gost.sh
+  fi
+  $ROOT_PATH/gost.sh
 }
 dnsproxy(){
   check_file_status $ROOT_PATH/dnsproxy/dnsproxy
