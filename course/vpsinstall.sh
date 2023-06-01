@@ -7,11 +7,11 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='32'
+length='33'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
-  ${green}0.${plain} 更新脚本
+  ${green}0.${plain} 更新脚本&初始化安装
   ————————————————
   ${green}1.${plain}  NEKE家linux网络优化脚本
   ${green}2.${plain}  besttrace测试路由
@@ -45,6 +45,7 @@ show_menu() {
   ${green}30.${plain} dnsproxy
   ${green}31.${plain} 一键安装XrayR后端
   ${green}32.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
+  ${green}33.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -156,6 +157,9 @@ show_menu() {
     32)
       hi_hysteria_install
     ;;
+    33)
+      gost_install
+    ;;
     *)
       echo "请输入正确的数字 [0-${length}]"
       ;;
@@ -192,6 +196,8 @@ check_file_str(){
   fi
 }
 update_sh(){
+  echo "正在安装vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools"
+  $INSTALL_CMD install vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools -y
   echo "正在下载最新文件到当前目录"
   wget -O vpsinstall.sh https://file.meaqua.fun/shell/vpsinstall.sh
   bash ./vpsinstall.sh
@@ -631,6 +637,9 @@ acme_install(){
 node_ddns(){
   git clone https://github.com/sola614/node-ddns.git
   echo "代码下载完毕，请自行安装nodejs和pm2，完善相应信息再执行该脚本，具体参考：https://github.com/sola614/node-ddns"
+}
+gost_install(){
+  wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/gost.sh && chmod +x gost.sh && ./gost.sh
 }
 dnsproxy(){
   check_file_status $ROOT_PATH/dnsproxy/dnsproxy
