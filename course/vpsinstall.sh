@@ -647,7 +647,7 @@ node_ddns(){
 gost_install(){
   check_file_status $ROOT_PATH/gost.sh
   if [ $? == 0 ]; then
-    wget --no-check-certificate -O gost.sh https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/gost.sh && chmod +x gost.sh && ./gost.sh
+    wget --no-check-certificate -O $ROOT_PATH/gost.sh https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/gost.sh && chmod +x $ROOT_PATH/gost.sh && $ROOT_PATH/gost.sh
   fi
   $ROOT_PATH/gost.sh
 }
