@@ -206,7 +206,7 @@ update_sh(){
 }
 vps_install(){
   echo "正在安装vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools"
-  $INSTALL_CMD install vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools -y
+  $INSTALL_CMD vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools -y
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
