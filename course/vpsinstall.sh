@@ -240,11 +240,10 @@ Air_Universe_install(){
   bash <(curl -Ls https://raw.githubusercontent.com/crossfw/Air-Universe-install/master/AirU.sh)
 }
 xrayr_install(){
-  check_file_status $ROOT_PATH/install.sh
+  check_command xrayr
   if [ $? == 0 ]; then
-    wget -N https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/install.sh -O $ROOT_PATH/xrayr_intall.sh
+    wget -N https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/install.sh && bash install.sh
   fi
-  bash $ROOT_PATH/xrayr_intall.sh
   read -p "面板类型(SSpanel, V2board, NewV2board, PMpanel, Proxypanel, V2RaySocks): " PanelType
   if [ -z "$PanelType" ]; then
     echo "面板类型为空！"
