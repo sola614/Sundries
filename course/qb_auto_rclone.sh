@@ -1,8 +1,8 @@
 #!/bin/sh
 
 qb_version="4.5.3" # 改：改为你的实际qb的版本号
-qb_username="admin" # 改：该为你的qb登录用户名
-qb_password="shana614" # 改：改为你qb登录的密码
+qb_username="" # 改：该为你的qb登录用户名
+qb_password="" # 改：改为你qb登录的密码
 qb_web_url="http://127.0.0.1:7895" # 查：改为qb的登录地址，一般可以不改
 log_dir="/root/logs" # 改：改为你日志运行的路径
 rclone_dest="alist:aliyun" # 运行rclone config查看name字段即可；格式就是"XX:"
