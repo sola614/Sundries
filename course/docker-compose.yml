@@ -1,0 +1,50 @@
+version: "3.2"
+services:
+  qbittorrent:
+    container_name: qBittorrent
+    environment:
+      - TZ=Asia/Shanghai
+      - TemPath=/downloads
+      - SavePath=/downloads
+      - PGID=1000
+      - PUID=1000
+      - WEBUI_PORT=7895
+    volumes:
+      - qb_config:/config
+      - /data/downloads:/downloads # 填入下载绝对路径
+    ports:
+      - 7895:7895
+      - "6881:6881"
+      - "6881:6881/udp"
+    networks:
+      - auto_bangumi
+    restart: unless-stopped
+    image: superng6/qbittorrent
+
+  auto_bangumi:
+    container_name: AutoBangumi
+    environment:
+      - TZ=Asia/Shanghai
+      - PGID=1000
+      - PUID=1000
+      - AB_DOWNLOADER_HOST=qbittorrent:7895
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+    networks:
+      - auto_bangumi
+    ports:
+      - '7892:7892'
+    dns:
+      - 8.8.8.8
+      - 223.5.5.5
+    restart: unless-stopped
+    image: estrellaxd/auto_bangumi:latest
+    depends_on:
+      - qbittorrent
+
+networks:
+  auto_bangumi:
+volumes:
+  qb_config:
+    external: false
