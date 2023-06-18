@@ -2,14 +2,13 @@
 
 qb_version="4.5.3" # 改：改为你的实际qb的版本号
 qb_username="admin" # 改：该为你的qb登录用户名
-qb_password="shana614" # 改：改为你qb登录的密码
+qb_password="1111" # 改：改为你qb登录的密码
 qb_web_url="http://127.0.0.1:7895" # 查：改为qb的登录地址，一般可以不改
 log_dir="/root/logs" # 改：改为你日志运行的路径
 rclone_dest="alist:aliyun" # 运行rclone config查看name字段即可；格式就是"XX:"
 from_dc_tag="" # 存放路径，自动获取
 rclone_parallel="32" # rclone上传线程 默认4
 save_path_prefix=/data #docker qbit下载路径前缀，如qbit的/downloads映射为/data_disk/downloads则填/data_disk
-mv_path=/data/alist/aliyun
 leeching_mode="true"    # 吸血模式，true下载完成后自动删除本地种子和文件
 rclone_bwlimit="off" #限制速率 即8点开始限制为上传2.5m/s下载不限制 23点后不限制
 upload_dir_files_flag="false"
