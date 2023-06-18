@@ -8,12 +8,12 @@ services:
       - SavePath=/downloads
       - PGID=1000
       - PUID=1000
-      - WEBUI_PORT=5246
+      - WEBUI_PORT=7896
     volumes:
       - qb_config:/config
       - /data/downloads:/downloads # 填入下载绝对路径
     ports:
-      - 5246:5246
+      - 7896:7896
       - "6881:6881"
       - "6881:6881/udp"
     networks:
@@ -27,14 +27,14 @@ services:
       - TZ=Asia/Shanghai
       - PGID=1000
       - PUID=1000
-      - AB_DOWNLOADER_HOST=qbittorrent:5246
+      - AB_DOWNLOADER_HOST=qbittorrent:7896
     volumes:
       - ./config:/app/config
       - ./data:/app/data
     networks:
       - auto_bangumi
     ports:
-      - '5245:5245'
+      - '7892:7892'
     dns:
       - 8.8.8.8
       - 223.5.5.5
