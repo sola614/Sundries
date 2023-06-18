@@ -8,12 +8,12 @@ services:
       - SavePath=/downloads
       - PGID=1000
       - PUID=1000
-      - WEBUI_PORT=7895
+      - WEBUI_PORT=5246
     volumes:
       - qb_config:/config
       - /data/downloads:/downloads # 填入下载绝对路径
     ports:
-      - 7895:7895
+      - 5246:5246
       - "6881:6881"
       - "6881:6881/udp"
     networks:
@@ -27,14 +27,14 @@ services:
       - TZ=Asia/Shanghai
       - PGID=1000
       - PUID=1000
-      - AB_DOWNLOADER_HOST=qbittorrent:7895
+      - AB_DOWNLOADER_HOST=qbittorrent:5246
     volumes:
       - ./config:/app/config
       - ./data:/app/data
     networks:
       - auto_bangumi
     ports:
-      - '7892:7892'
+      - '5245:5245'
     dns:
       - 8.8.8.8
       - 223.5.5.5
@@ -42,6 +42,19 @@ services:
     image: estrellaxd/auto_bangumi:latest
     depends_on:
       - qbittorrent
+
+  alist:
+    restart: always
+    volumes:
+        - '/etc/alist:/opt/alist/data'
+    ports:
+        - '5244:5244'
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - UMASK=022
+    container_name: alist
+    image: 'xhofe/alist:latest'
 
 networks:
   auto_bangumi:
