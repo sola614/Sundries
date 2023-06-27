@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ash
 
 qb_version="4.5.2" # 改：改为你的实际qb的版本号
 qb_username="admin" # 改：该为你的qb登录用户名
