@@ -10,8 +10,10 @@
 ### END INIT INFO
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
  
-REMOTE='aliyunpan:/影视'
-LOCAL='/volume4/video/aliyunpan_video'
+REMOTE='alist:/'
+LOCAL='/data/alist'
+CACHE='/mnt/sda3/tmp'
+LOG='/root/logs/rclone.log'
 CONFIG='/root/.config/rclone/rclone.conf'
 DEMO='rclone'
  
@@ -29,7 +31,8 @@ start)
   }
   fusermount -zuq $LOCAL >/dev/null 2>&1
   mkdir -p $LOCAL
-  rclone mount $REMOTE $LOCAL --config $CONFIG --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask 000 >/dev/null 2>&1 &
+  rclone -v mount $REMOTE $LOCAL --cache-dir $CACHE --allow-other --vfs-cache-mode writes --allow-non-empty --umask 000 --daemon --log-file $LOG
+  # rclone mount $REMOTE $LOCAL --config $CONFIG --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask 000 >/dev/null 2>&1 &
   sleep 3;
   DEMOPID="$(ps -C $DEMO -o pid=|head -n1 |grep -o '[0-9]\{1,\}')"
   [ -n "$DEMOPID" ] && {
