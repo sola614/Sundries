@@ -24,7 +24,8 @@ Error="${Red_font_prefix}[错误]${Font_color_suffix}"
 RETVAL=0
 
 check_running(){
-	PID="$(ps -C $NAME_BIN -o pid= |head -n1 |grep -o '[0-9]\{1,\}')"
+	# PID="$(ps -C $NAME_BIN -o pid= |head -n1 |grep -o '[0-9]\{1,\}')"
+ 	PID="$(ps | grep "$NAME_BIN" | grep -v grep | awk '{print $1}' | head -n 1)"
 	if [[ ! -z ${PID} ]]; then
 		return 0
 	else
