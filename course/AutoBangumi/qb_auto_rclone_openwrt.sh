@@ -1,14 +1,14 @@
-#!/bin/ash
+#!/bin/sh
 
 qb_version="4.5.2" # 改：改为你的实际qb的版本号
 qb_username="admin" # 改：该为你的qb登录用户名
-qb_password="1111" # 改：改为你qb登录的密码
+qb_password="" # 改：改为你qb登录的密码
 qb_web_url="http://127.0.0.1:7896" # 查：改为qb的登录地址，一般可以不改
 log_dir="/root/logs" # 改：改为你日志运行的路径
 rclone_dest="alist:tianyi" # 运行rclone config查看name字段即可；格式就是"XX:"
 from_dc_tag="" # 存放路径，自动获取
 rclone_parallel="32" # rclone上传线程 默认4
-save_path_prefix=/mnt/sda3 #docker qbit下载路径前缀，如qbit的/downloads映射为/data_disk/downloads则填/data_disk
+save_path_prefix=/mnt/sda3/download #上传目录需替换路径,最终路径为/downloads,如原保存路径为/mnt/sda3/download，需上传到/downloads 则填写/mnt/sda3/download
 leeching_mode="true"    # 吸血模式，true下载完成后自动删除本地种子和文件
 rclone_bwlimit="off" #限制速率 即限制， "08:00,2.5M:off 23:00,off"为8点开始限制为上传2.5m/s下载不限制 23点后不限制
 upload_dir_files_flag="false"
@@ -25,7 +25,7 @@ then
 	mkdir -p ${log_dir}
 fi
 
-version=$(echo ${qb_version} | grep -P -o "([0-9]\.){2}[0-9]" | sed s/\\.//g)
+version=$(echo ${qb_version} | grep -E -o "([0-9]\.){2}[0-9]" | sed s/\\.//g)
 startPat=`date +'%Y-%m-%d %H:%M:%S'`  # 时间计算方案
 start_seconds=$(date --date="$startPat" +%s);
 
@@ -33,7 +33,7 @@ function qb_login(){
 	if [ ${version} -gt 404 ]
 	then
 		qb_v="1"
-		cookie=$(curl -i --header "Referer: ${qb_web_url}" --data "username=${qb_username}&password=${qb_password}" "${qb_web_url}/api/v2/auth/login" | grep -P -o 'SID=\S{32}')
+		cookie=$(curl -i --header "Referer: ${qb_web_url}" --data "username=${qb_username}&password=${qb_password}" "${qb_web_url}/api/v2/auth/login" | grep -E -o 'SID=\S{32}')
 		if [ -n ${cookie} ]
 		then
 			echo "[$(date '+%Y-%m-%d %H:%M:%S')] 登录成功！cookie:${cookie}" 
@@ -44,7 +44,7 @@ function qb_login(){
 	elif [[ ${version} -le 404 && ${version} -ge 320 ]]
 	then
 		qb_v="2"
-		cookie=$(curl -i --header "Referer: ${qb_web_url}" --data "username=${qb_username}&password=${qb_password}" "${qb_web_url}/login" | grep -P -o 'SID=\S{32}')
+		cookie=$(curl -i --header "Referer: ${qb_web_url}" --data "username=${qb_username}&password=${qb_password}" "${qb_web_url}/login" | grep -E -o 'SID=\S{32}')
 		if [ -n ${cookie} ]
 		then
 			echo "[$(date '+%Y-%m-%d %H:%M:%S')] 登录成功！cookie:${cookie}" 
@@ -136,6 +136,7 @@ function rclone_copy(){
     torrent_path=$3
     # tag = 待上传
     # 这里执行上传程序
+echo "----------------${torrent_path}"
     if [ -f "${torrent_path}" ]
     then
         # echo "[$(date '+%Y-%m-%d %H:%M:%S')] 类型：文件"
@@ -199,7 +200,7 @@ function rclone_fin(){
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 上传完成-耗时:${use_min}分${use_sec}秒" >> ${log_dir}/qb.log
     # 发送qq消息
     curl -H "Content-Type:application/json" -s -X POST -d "{\"msgType\":30,\"msg\":\"${fix_torrent_name}已上传完成！耗时:${use_min}分${use_sec}秒\"}" "https://api.meaqua.fun/api/sendMsg"
-    curl -H "Content-Type:application/json" -s -X POST -d "{\"msgType\":30,\"msg\":\"${fix_torrent_name}已上传完成！耗时:${use_min}分${use_sec}秒\",\"qqPojo\":{\"qq_type\":20,\"group_id\":616371493}}" "https://api.meaqua.fun/api/sendMsg"
+  #  curl -H "Content-Type:application/json" -s -X POST -d "{\"msgType\":30,\"msg\":\"${fix_torrent_name}已上传完成！耗时:${use_min}分${use_sec}秒\",\"qqPojo\":{\"qq_type\":20,\"group_id\":616371493}}" "https://api.meaqua.fun/api/sendMsg"
 }
 
 function file_lock(){
@@ -230,9 +231,10 @@ function doUpload(){
     fix_torrent_name="${torrent_name}"
     torrent_hash=$(echo "${torrentInfo}" | jq ".[$i] | .hash" | sed s/\"//g) # 文件hash
     save_path=$(echo "${torrentInfo}" | jq ".[$i] | .save_path" | sed s/\"//g) # 存储路径
-    # save_path=${save_path/\/downloads/} # 替换原有的/downloads
+    #save_path=$(echo "${save_path}" | sed 's/\/mnt\/sda3\/download/\/downloads/') #替换掉/mnt/sda3/download
+    save_path="${save_path/${save_path_prefix//\//\\/}/\/downloads}" #把变量save_path_prefix替换成/download
     content_path=$(echo "${torrentInfo}" | jq ".[$i] | .content_path" | sed s/\"//g) # 最终完整文件路径（包括重命名后）
-    torrent_path="${save_path_prefix}${content_path}" # 这里就是他的本地实际路径，尝试将这里上传上去
+    torrent_path="${content_path}" # 这里就是他的本地实际路径，尝试将这里上传上去
     IFS=$OLD_IFS
 
     can_go_lock
@@ -262,8 +264,8 @@ function qb_get_status(){
 		for((i=0;i<${completed_torrents_num};i++));
 		do
             tag_str=$(curl -s "${qb_web_url}/api/v2/torrents/info?filter=completed" --cookie "${cookie}" | jq ".[$i] | .tags" | sed s/\"//g) # 获取所有标签信息
-            curtag=$(echo "${tag_str}" | sed s/\"//g | grep -P -o "${unfinished_tag}") # 筛选待上传
-                    # curtag=$(curl -s "${qb_web_url}/api/v2/torrents/info?filter=completed" --cookie "${cookie}" | jq ".[$i] | .tags" | sed s/\"//g | grep -P -o "${unfinished_tag}")
+            curtag=$(echo "${tag_str}" | sed s/\"//g | grep -E -o "${unfinished_tag}") # 筛选待上传
+                    # curtag=$(curl -s "${qb_web_url}/api/v2/torrents/info?filter=completed" --cookie "${cookie}" | jq ".[$i] | .tags" | sed s/\"//g | grep -E -o "${unfinished_tag}")
             if [ -z "${tag_str}" ]
             then
                 curtag="无标签"
