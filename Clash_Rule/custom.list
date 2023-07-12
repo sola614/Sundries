@@ -38,6 +38,7 @@ DOMAIN-KEYWORD,nikke-kr.com
 DOMAIN-KEYWORD,bing.com
 DOMAIN-KEYWORD,githubusercontent.com
 DOMAIN-KEYWORD,cloudflareclient.com
+DOMAIN-KEYWORD,themoviedb.org
 ##域名后缀匹配
 DOMAIN-SUFFIX,pximg.net
 DOMAIN-SUFFIX,gitlab.io
