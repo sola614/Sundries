@@ -53,7 +53,7 @@ function check(str, num) {
     //  }
     //}
     //用indexOf
-    const substring = password.slice(i, i + num);
+    const substring = str.slice(i, i + num);
     if (str.indexOf(substring, i + num) !== -1) {
       return true;
     }
