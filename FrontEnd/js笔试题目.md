@@ -45,11 +45,17 @@ const str = '021Abc9Abc1'//Abc有重复，所以返回true是正确答案
 function check(str, num) {
  // return /.*(...)(.*\1)/.test(str) //纯正则
   for (let i = 0; i < str.length - (num - 1); i++) {
-    const s = str.slice(i + num)//截取剩余字符串
-    for (let j = 0; j < s.length - (num - 1); j++) {
-      if (str.slice(i, i + num) === s.slice(j, j + num)) {
-        return true
-      }
+    // for循环
+    //const substring = str.slice(i + num)//截取剩余字符串
+    //for (let j = 0; j < substring.length - (num - 1); j++) {
+    //  if (str.slice(i, i + num) === substring.slice(j, j + num)) {
+    //    return true
+    //  }
+    //}
+    //用indexOf
+    const substring = password.slice(i, i + num);
+    if (str.indexOf(substring, i + num) !== -1) {
+      return true;
     }
   }
   return false
