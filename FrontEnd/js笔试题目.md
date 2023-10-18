@@ -116,7 +116,7 @@ words.map((w)=>{
 })
 arr.shift() // 去除第一个无用数据
 const newArr = []
-arr.sort().map((item)=>{
+arr.map((item)=>{
     if(word.length===item.length&&word!==item){
         // 筛选符合个数的字母出来，如果所有字母都符合长度那表示是它的兄弟单词
        const filters =  words.filter((w)=>{
@@ -129,5 +129,8 @@ arr.sort().map((item)=>{
     }
 })
 console.log(newArr.length)
-console.log(newArr[index-1]?newArr[index-1]:'')
+if(newArr[index-1]){
+    newArr.sort()
+    console.log(newArr[index-1])
+}
 ```
