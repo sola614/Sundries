@@ -96,3 +96,38 @@ function sum(){
 sum()
 
 ```
+
+# 查找兄弟单词
+```
+// 输出word的兄弟单词长度&&输出第一个单词
+let line = "6 cab ad abcd cba abc bca abc 1"
+const arr = line.split(' ')
+const index = arr.pop() //需要输出的索引
+const word = arr.pop() // 需要查找的单词
+const words = word.split('')
+const obj = {}
+//统计出每个字符串出现次数
+words.map((w)=>{
+    if(obj[w]){
+        obj[w]++
+    }else{
+        obj[w]=1
+    }
+})
+arr.shift() // 去除第一个无用数据
+const newArr = []
+arr.sort().map((item)=>{
+    if(word.length===item.length&&word!==item){
+        // 筛选符合个数的字母出来，如果所有字母都符合长度那表示是它的兄弟单词
+       const filters =  words.filter((w)=>{
+            return item.split(w).length-1 === obj[w]
+        })
+        if(filters.length===words.length){
+            newArr.push(item)
+        }
+
+    }
+})
+console.log(newArr.length)
+console.log(newArr[index-1]?newArr[index-1]:'')
+```
