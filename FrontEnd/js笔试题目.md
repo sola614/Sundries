@@ -164,6 +164,7 @@ const newArr2= newArr.filter((str)=>{
 })
 // 判断长度
 if(newArr2.length){
+    //严谨一点这里应该需要一个个去找到最先出现的
     console.log(newArr2[0])
 }else{
     console.log(long)
