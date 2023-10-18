@@ -62,3 +62,10 @@ function check(str, num) {
 }
 console.log(check(str, 3))
 ```
+
+# 十进制数字转二进制并补全
+```
+const a = 123
+console.log(parseInt(a).toString(2).padStart(8,'0'))
+
+```
