@@ -67,5 +67,32 @@ console.log(check(str, 3))
 ```
 const a = 123
 console.log(parseInt(a).toString(2).padStart(8,'0'))
+```
+
+# 矩阵乘法计算量
+```
+A是一个50×10的矩阵，B是10×20的矩阵，C是20×5的矩阵 计算(A(BC))的计算量
+const arr = ["50 10","10 20","20 5"]
+const rule = "(A(BC))"
+function sum(){
+    const a = rule.split('')
+    const queen = []
+    index = 0
+    let count = 0
+    a.map((key)=>{
+        if(/[A-Z]/.test(key)){
+            //检测到是字母则加入待计算的矩阵数据
+            queen.push(arr[index].split(' '))
+            index++
+        }else if(/\)/.test(key)){
+            //检测到)则表示需要进行运算 用倒数第二个的值相乘再乘以最后一个的y值，然后这两个矩阵的最终会得到另一个矩阵，即倒数第二个的x和倒数第一个的y组成一个新矩阵，等待下一次运算
+            const last = queen.pop(),last2 = queen.pop()
+            count+= last2[0]*last2[1]*last[1]
+            queen.push([last2[0],last[1]])
+        }
+    })
+    console.log(count)
+}
+sum()
 
 ```
