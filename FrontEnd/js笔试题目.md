@@ -134,3 +134,38 @@ if(newArr[index-1]){
     console.log(newArr[index-1])
 }
 ```
+# 找出两个字符串的最长子串
+```
+const a = 'efgyiffxoonftmmvd'
+const b = 'exwzdcwjsttuhsxrcpzplpnfqxqsqtlfctdkgacejitayoafucmfxxhkxyixxykndchyjc'
+let main = a, sub = b
+if (b.length < a.length) {
+    main = b
+    sub = a
+}
+const newArr = []//记录两个字符串所有的子串
+for(let i =0;i<main.length;i++){
+    for(let j =i+1;j<=main.length;j++){
+        //从第一位开始截取，如果第二个字串有符合条件的就记录下来
+        const val = main.slice(i,j)
+        if(sub.includes(val)){
+            newArr.push(val)
+        }
+    }
+}
+// 按照字符串长度升序
+newArr.sort((a,b)=>{
+    return a.length-b.length
+})
+const long = newArr.pop()
+// 检查是否存在相同长度的子串 如果有，那就取第一个，否则就是最后一个
+const newArr2= newArr.filter((str)=>{
+    return long.length === str.length
+})
+// 判断长度
+if(newArr2.length){
+    console.log(newArr2[0])
+}else{
+    console.log(long)
+}
+```
