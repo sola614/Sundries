@@ -41,6 +41,8 @@ console.log(arr2.join('\n'))
 
 # 检查一个字符串不能有长度大于N的子串重复
 ```
+思路：对字符串循环遍历截取出N个字符，然后判断剩下的字符串是否还存在相同的
+代码：
 const str = '021Abc9Abc1'//Abc有重复，所以返回true是正确答案
 function check(str, num) {
  // return /.*(...)(.*\1)/.test(str) //纯正则
@@ -71,6 +73,8 @@ console.log(parseInt(a).toString(2).padStart(8,'0'))
 
 # 矩阵乘法计算量
 ```
+思路：对规则字符串转化为数组，然后遍历，碰到大写英文单词（根据题目规则）则在队列中放入一个矩阵数据，碰到)则表明前两个需要运算（计算量运算规则是倒数第二个数值相乘*倒数第一个的y参数），然后还要把运算后的矩阵数据放回队列（倒数第二个的x和倒数第一个的y），以此类推最后就可以得到总的计算量
+代码：
 A是一个50×10的矩阵，B是10×20的矩阵，C是20×5的矩阵 计算(A(BC))的计算量
 const arr = ["50 10","10 20","20 5"]
 const rule = "(A(BC))"
@@ -99,6 +103,8 @@ sum()
 
 # 查找兄弟单词
 ```
+思路：先统计每个字符串出现的次数，然后遍历所有单词根据兄弟单词的规则来判断（长度相同，与原单词不相同，单词里每个字母的长度相同）
+代码：
 // 输出word的兄弟单词长度&&输出第一个单词
 let line = "6 cab ad abcd cba abc bca abc 1"
 const arr = line.split(' ')
@@ -136,6 +142,8 @@ if(newArr[index-1]){
 ```
 # 找出两个字符串的最长子串
 ```
+思路：用最短的字符串从0开始截取，然后用最长的字符串去测试，如果存在则说明是一个子串，得到所有的子串后再按照字符串长度排序，最后判断是否有多个相同长度的子串，有则取第一个，没有就是最后一个
+代码：
 const a = 'efgyiffxoonftmmvd'
 const b = 'exwzdcwjsttuhsxrcpzplpnfqxqsqtlfctdkgacejitayoafucmfxxhkxyixxykndchyjc'
 let main = a, sub = b
@@ -171,6 +179,8 @@ if(newArr2.length){
 ```
 # 称砝码(统计给定的砝码和数量可以称出多少不同的重量数)
 ```
+思路：遍历砝码重量列表与对应数量相乘得出单个砝码的所有组合数据，然后和已有的组合值逐个相加可得到两个不同砝码的组合重量数，最后即可得出不重复的重量数
+代码：
 const weight = [1,2,3,4,5]
 const num = [5,2,5,3,1]
 const set = new Set()
@@ -186,4 +196,27 @@ weight.map((n,i)=>{
   }
 })
 console.log(set.size)
+```
+# 单向链表
+```
+思路：每次获取两个数值，先判断值是否已存在，不存在则在指定值后面插入，直到原来整个数组遍历完成！
+代码：
+const input = '5 2 3 2 4 3 5 2 1 4 3'
+const inputArr = input.split(' ')
+const count = inputArr.shift() //节点总数
+const first = inputArr.shift() //链表开头开头
+const del = inputArr.pop() //需要删除的节点
+const link = [first]
+while (inputArr.length>0) {
+  const arr = inputArr.splice(0,2)//删除原数组的前两位并把它的值保存起来
+  const checkVal = arr[0]
+  const nextHasFlag = link.indexOf(checkVal)
+  // 判断链表里不存在这个值则插入
+  if (nextHasFlag === -1) {
+    const nextIndex = link.indexOf(arr[1])+1 //下一个节点值插入位置
+    link.splice(nextIndex,0,checkVal)
+  }
+}
+link.splice(link.indexOf(del),1)
+console.log(link.join(' '))
 ```
