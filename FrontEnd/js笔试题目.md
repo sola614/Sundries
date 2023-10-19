@@ -169,3 +169,21 @@ if(newArr2.length){
     console.log(long)
 }
 ```
+# 称砝码(统计给定的砝码和数量可以称出多少不同的重量数)
+```
+const weight = [1,2,3,4,5]
+const num = [5,2,5,3,1]
+const set = new Set()
+set.add(0) //包括0，并且用来计算每个砝码单独的情况
+weight.map((n,i)=>{
+  const result = Array.from(set)//获取已存储的结果
+  const max = num[i]
+  for(let j = 0;j<max;j++){
+    const w = n*(j+1)
+    result.map((item)=>{
+      set.add(Number(item)+w) //item已经是前面组合相加的结果，再把当前的加上去即可得到一种新的重量
+    })
+  }
+})
+console.log(set.size)
+```
