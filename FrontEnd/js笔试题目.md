@@ -220,3 +220,33 @@ while (inputArr.length>0) {
 link.splice(link.indexOf(del),1)
 console.log(link.join(' '))
 ```
+# 迷宫问题
+```
+思路：把输入拆成数组，然后从第一列开始遍历，如果遍历到当前节点是可通行则保存并把它的前后左右都进行判断，直到走到最终节点就输出之前所有的值
+代码：
+const size = [5, 5]
+const inputArr = [[0, 1, 0, 0, 0], [0, 1, 0, 1, 0], [0, 0, 0, 0, 1], [0, 1, 1, 1, 0][0, 0, 0, 0, 0]]
+function findway(points = [], x = 0, y = 0) {
+  // 超出临界点判断
+  if (x < 0 || x === size[0]) return
+  if (y < 0 || y === size[1]) return
+  const point = `(${x},${y})`//当前坐标
+  // 当前左边值为0即表示可以走&&集合没有记录则说明是个新坐标，需要判断它上下左右是否继续可走
+  if (inputArr[x][y] === 0 && !points.includes(point)) {
+    // 当前已到临界点
+    if (x === size[0]-1 && y === size[1]-1) {
+      points.map((item) => {
+        console.log(point)
+      })
+      return
+    }
+    const newPoints = [...points, point] //能走通的坐标集合
+    findway(newPoints, x + 1, y)
+    findway(newPoints, x - 1, y)
+    findway(newPoints, x, y + 1)
+    findway(newPoints, x, y - 1)
+  }
+}
+findway()
+```
+
