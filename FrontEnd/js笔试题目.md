@@ -275,8 +275,9 @@ inputArr.map((num) => {
 # 全排列（DFS回溯算法）
 ```
 问题：输出[1,2,3]的全排列
-思路：递归遍历每次添加一个数字进去，如果达标则保存下来，然后回溯，知道所有可能遍历完成
+思路：递归遍历每次添加一个数字进去，如果达标则保存下来，然后回溯，知道所有可能遍历完成（深度），遍历每次取一个值组成新数组，然后用剩下的进行递归遍历，直到剩下的数组长度为0（广度）
 const arr = [1,2,3]
+// 深度优先
 const result = []
 function dfs(path){
   // 符合条件
@@ -295,4 +296,19 @@ function dfs(path){
 }
 dfs([])
 console.log(result)
+// 广度优先
+const bfsResult = []
+function bfs(path, reArr) {
+      if (reArr.length === 0) {
+        return bfsResult.push([...path])
+      }
+      for (let index = 0; index < reArr.length; index++) {
+        const copy = [...reArr]
+        const nums = copy.splice(index, 1)
+        bfs(path.concat(nums), copy)
+      }
+}
+bfs([],arr)
+console.log(bfsResult)
+
 ```
