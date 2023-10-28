@@ -252,9 +252,9 @@ function findway(points = [], x = 0, y = 0) {
 findway()
 ```
 # 汽水瓶兑换问题
+```
 问题：某商店规定：三个空汽水瓶可以换一瓶汽水，允许向老板借空汽水瓶（但是必须要归还）。小张手上有n个空汽水瓶，她想知道自己最多可以喝到多少瓶汽水。
 思路：当n>=3的时候进行遍历，然后统计数量，计算n的值
-```
 const inputArr = [3,10,81]
 inputArr.map((num) => {
     let count = 0
@@ -271,4 +271,28 @@ inputArr.map((num) => {
     }
     console.log(count)
 })
+```
+# 全排列（DFS回溯算法）
+```
+问题：输出[1,2,3]的全排列
+思路：递归遍历每次添加一个数字进去，如果达标则保存下来，然后回溯，知道所有可能遍历完成
+const arr = [1,2,3]
+const result = []
+function dfs(path){
+  // 符合条件
+  if(path.length === arr.length){
+    return result.push([...path])
+  }
+  for(let i = 0;i<arr.length;i++){
+    const value = arr[i]
+    if (path.includes(value)) {
+      continue
+    }
+    path.push(value) // 添加当前路径
+    dfs(path) //递归查找下一个
+    path.pop() //回溯
+  }
+}
+dfs([])
+console.log(result)
 ```
