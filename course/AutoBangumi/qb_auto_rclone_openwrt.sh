@@ -199,8 +199,8 @@ function rclone_fin(){
     use_sec=$((use_seconds%60));
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 上传完成-耗时:${use_min}分${use_sec}秒" >> ${log_dir}/qb.log
     # 发送qq消息
-    curl -H "Content-Type:application/json" -s -X POST -d "{\"msgType\":30,\"msg\":\"${fix_torrent_name}已上传完成！耗时:${use_min}分${use_sec}秒\"}" "https://api.meaqua.fun/api/sendMsg"
-  #  curl -H "Content-Type:application/json" -s -X POST -d "{\"msgType\":30,\"msg\":\"${fix_torrent_name}已上传完成！耗时:${use_min}分${use_sec}秒\",\"qqPojo\":{\"qq_type\":20,\"group_id\":616371493}}" "https://api.meaqua.fun/api/sendMsg"
+    curl -H "Content-Type:application/json" -s -X POST -d "{\"msgType\":30,\"msg\":\"${fix_torrent_name}已上传完成！耗时:${use_min}分${use_sec}秒\"}" "https://xxx/api/sendMsg"
+  #  curl -H "Content-Type:application/json" -s -X POST -d "{\"msgType\":30,\"msg\":\"${fix_torrent_name}已上传完成！耗时:${use_min}分${use_sec}秒\",\"qqPojo\":{\"qq_type\":20,\"group_id\":616371493}}" "https://xxx/api/sendMsg"
 }
 
 function file_lock(){
