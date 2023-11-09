@@ -151,7 +151,6 @@ if (b.length < a.length) {
   main = b
   sub = a
 }
-const newArr = []//记录两个字符串所有的子串
 const len = main.length;
 let maxStr = ''
 for (var j = len; j > 0; j--) {
@@ -159,7 +158,6 @@ for (var j = len; j > 0; j--) {
     const val = main.substr(i, j)
     if (sub.includes(val)) {
       maxStr = val
-      newArr.push(val)
       break
     }
   }
