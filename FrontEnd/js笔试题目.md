@@ -142,40 +142,32 @@ if(newArr[index-1]){
 ```
 # 找出两个字符串的最长子串
 ```
-思路：用最短的字符串从0开始截取，然后用最长的字符串去测试，如果存在则说明是一个子串，得到所有的子串后再按照字符串长度排序，最后判断是否有多个相同长度的子串，有则取第一个，没有就是最后一个
+思路：用最短的字符串从0开始截取到最后，然后用最长的字符串去测试，如果存在则说明是一个子串，即可输出结果
 代码：
-const a = 'efgyiffxoonftmmvd'
-const b = 'exwzdcwjsttuhsxrcpzplpnfqxqsqtlfctdkgacejitayoafucmfxxhkxyixxykndchyjc'
+const a = 'abcdefghijklmnop'
+const b = 'abcsafjklmnopqrstuvw'
 let main = a, sub = b
 if (b.length < a.length) {
-    main = b
-    sub = a
+  main = b
+  sub = a
 }
 const newArr = []//记录两个字符串所有的子串
-for(let i =0;i<main.length;i++){
-    for(let j =i+1;j<=main.length;j++){
-        //从第一位开始截取，如果第二个字串有符合条件的就记录下来
-        const val = main.slice(i,j)
-        if(sub.includes(val)){
-            newArr.push(val)
-        }
+const len = main.length;
+let maxStr = ''
+for (var j = len; j > 0; j--) {
+  for (var i = 0; i < len - j + 1; i++) {
+    const val = main.substr(i, j)
+    if (sub.includes(val)) {
+      maxStr = val
+      newArr.push(val)
+      break
     }
+  }
+  if (maxStr) {
+    break
+  }
 }
-// 按照字符串长度升序
-newArr.sort((a,b)=>{
-    return a.length-b.length
-})
-const long = newArr.pop()
-// 检查是否存在相同长度的子串 如果有，那就取第一个，否则就是最后一个
-const newArr2= newArr.filter((str)=>{
-    return long.length === str.length
-})
-// 判断长度
-if(newArr2.length){
-    console.log(newArr2[0])
-}else{
-    console.log(long)
-}
+console.log(maxStr);
 ```
 # 称砝码(统计给定的砝码和数量可以称出多少不同的重量数)
 ```
