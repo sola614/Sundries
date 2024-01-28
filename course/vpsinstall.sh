@@ -594,10 +594,10 @@ next_trace(){
   esac
 }
 warp_go_install(){
-  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh
+  wget -N https://gitlab.com/fscarmen/warp/-/raw/main/warp-go.sh && bash warp-go.sh
 }
 warp_install(){
-  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh
+  wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
 }
 ws_tls_install(){
   read -p "请输入域名: " hostname
