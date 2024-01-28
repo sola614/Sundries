@@ -284,6 +284,8 @@ xrayr_install(){
   sed -i "s/ApiKey: ${all}/ApiKey: \"${ApiKey}\"/" $CONFIG_PATH
   sed -i "s/NodeID: ${all}/NodeID: ${NodeID}/" $CONFIG_PATH
   sed -i "s/NodeType: ${all}/NodeType: ${NodeType}/" $CONFIG_PATH
+  sed -i "s/EnableREALITY: ${all}/NodeType: false/" $CONFIG_PATH
+  
   echo "正在启动XrayR"
   XrayR start
 
