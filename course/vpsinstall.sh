@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='33'
+length='34'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -47,6 +47,7 @@ show_menu() {
   ${green}31.${plain} 一键安装XrayR后端
   ${green}32.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
   ${green}33.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
+  ${green}34.${plain} warp多功能一键脚本
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -161,6 +162,10 @@ show_menu() {
     33)
       gost_install
     ;;
+    34)
+      bash <(wget -qO- https://gitlab.com/rwkgyg/CFwarp/raw/main/CFwarp.sh 2> /dev/null)
+    ;;
+    
     999)
       vps_install
     ;;
