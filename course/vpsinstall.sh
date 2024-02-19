@@ -619,6 +619,11 @@ ws_tls_install(){
   " 
 }
 acme_install(){
+  check_file_status /root/.acme.sh/acme.sh
+  if [ $? == 0 ]; then
+    echo "正在下载acme脚本"
+    curl  https://get.acme.sh | sh
+  fi
   check_file_str SAVED_CF_Token /root/.acme.sh/account.conf
   if [ $? == 0 ]; then
     read -p "请输入CF_Token: " cf_token
@@ -633,11 +638,6 @@ acme_install(){
     host=$1
   else
     read -p "请输入域名: " host
-  fi
-  check_file_status /root/.acme.sh/acme.sh
-  if [ $? == 0 ]; then
-    echo "正在下载acme脚本"
-    curl  https://get.acme.sh | sh
   fi
   echo "正在申请（如果报错可重启再执行脚本）"
   /root/.acme.sh/acme.sh --issue --dns dns_cf -d $host --server letsencrypt
