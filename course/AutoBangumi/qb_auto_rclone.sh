@@ -197,7 +197,8 @@ function rclone_fin(){
     use_min=$((use_seconds/60));
     use_sec=$((use_seconds%60));
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] 上传完成-耗时:${use_min}分${use_sec}秒" >> ${log_dir}/qb.log
-    // 自定义发送消息
+    #  自定义发送消息 接口地址请自行替换
+    #  curl -H "Content-Type:application/json" -s -X POST -d "{\"msgType\":30,\"msg\":\"${fix_torrent_name}已上传完成！耗时:${use_min}分${use_sec}秒\"}" "https://xxx/api/sendMsg"
 }
 
 function file_lock(){
