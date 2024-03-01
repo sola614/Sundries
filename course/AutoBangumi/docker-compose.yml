@@ -34,7 +34,7 @@ services:
     networks:
       - auto_bangumi
     ports:
-      - '7892:7892'
+      - '6789:7892'
     dns:
       - 8.8.8.8
       - 223.5.5.5
