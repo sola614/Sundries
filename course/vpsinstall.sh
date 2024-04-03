@@ -31,23 +31,22 @@ show_menu() {
   ${green}15.${plain} 安装nginx
   ${green}16.${plain} 测试ip被ban脚本
   ${green}17.${plain} 安装wikihost-Looking-glass Server(vps测试用)
-  ${green}18.${plain} Air-Universe 开源多功能机场后端一键安装脚本
-  ${green}19.${plain} 哪吒监控一键脚本
-  ${green}20.${plain} 永久修改DNS
-  ${green}21.${plain} NEKO版流媒体检测（速度更快）
-  ${green}22.${plain} 三网回程路由测试(https://github.com/zhanghanyun/backtrace)
-  ${green}23.${plain} 快速查询本机IP和区域
-  ${green}24.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
-  ${green}25.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
-  ${green}26.${plain} Cloudflare Warp一键脚本(https://github.com/fscarmen/warp)
-  ${green}27.${plain} 一键准备nginx和利用acme申请证书
-  ${green}28.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
-  ${green}29.${plain} node-ddns(https://github.com/sola614/node-ddns)
-  ${green}30.${plain} dnsproxy
-  ${green}31.${plain} 一键安装XrayR后端
-  ${green}32.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
-  ${green}33.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
-  ${green}34.${plain} warp多功能一键脚本
+  ${green}18.${plain} 哪吒监控一键脚本
+  ${green}19.${plain} 永久修改DNS
+  ${green}20.${plain} NEKO版流媒体检测（速度更快）
+  ${green}21.${plain} 三网回程路由测试(https://github.com/zhanghanyun/backtrace)
+  ${green}22.${plain} 快速查询本机IP和区域
+  ${green}23.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
+  ${green}24.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
+  ${green}25.${plain} Cloudflare Warp一键脚本(https://github.com/fscarmen/warp)
+  ${green}26.${plain} 一键准备nginx和利用acme申请证书
+  ${green}27.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
+  ${green}28.${plain} node-ddns(https://github.com/sola614/node-ddns)
+  ${green}29.${plain} dnsproxy
+  ${green}30.${plain} 一键安装XrayR后端
+  ${green}31.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
+  ${green}32.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
+  ${green}33.${plain} warp多功能一键脚本
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -115,54 +114,51 @@ show_menu() {
       wikihost_LookingGlass_install
     ;;
     18)
-      Air_Universe_install
-    ;;
-    19)
       nezha_sh
     ;;
-    20)
+    19)
       dns_change
     ;;
-    21)
+    20)
       start_neko_unlock_test
     ;;
-    22)
+    21)
       mtr_trace
     ;;
-    23)
+    22)
       check_ip_location
     ;;
-    24)
+    23)
       next_trace
     ;;
-    25)
+    24)
       warp_go_install
     ;;
-    26)
+    25)
       warp_install
     ;;
-    27)
+    26)
       ws_tls_install
     ;;
-    28)
+    27)
       acme_install
     ;;
-    29)
+    28)
       node_ddns
     ;;
-    30)
+    29)
       dnsproxy
     ;;
-    31)
+    30)
       xrayr_install
     ;;
-    32)
+    31)
       hi_hysteria_install
     ;;
-    33)
+    32)
       gost_install
     ;;
-    34)
+    33)
       bash <(wget -qO- https://gitlab.com/rwkgyg/CFwarp/raw/main/CFwarp.sh 2> /dev/null)
     ;;
     
@@ -211,7 +207,7 @@ update_sh(){
 }
 vps_install(){
   echo "正在安装常用软件"
-  $INSTALL_CMD vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools cronie -y
+  $INSTALL_CMD vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools cronie
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
@@ -241,13 +237,15 @@ start_besttrace(){
   esac
 
 }
-Air_Universe_install(){
-  bash <(curl -Ls https://raw.githubusercontent.com/crossfw/Air-Universe-install/master/AirU.sh)
-}
 xrayr_install(){
-  check_command xrayr
-  if [ $? == 0 ]; then
-    wget -N https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/install.sh && bash install.sh
+  # 判断是否是alpine
+  if [ $SYSTEM_OS == 'Alpine' ];then
+    apk add wget sudo curl && wget -N https://github.com/Cd1s/alpineXrayR/releases/download/one-click/install-xrayr.sh && chmod +x install-xrayr.sh && bash install-xrayr.sh
+  else
+    check_command xrayr
+    if [ $? == 0 ]; then
+      wget -N https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/install.sh && bash install.sh
+    fi
   fi
   read -p "面板类型(SSpanel, V2board, NewV2board, PMpanel, Proxypanel, V2RaySocks): " PanelType
   if [ -z "$PanelType" ]; then
@@ -287,8 +285,11 @@ xrayr_install(){
   sed -i "s/EnableREALITY: ${all}/NodeType: false/" $CONFIG_PATH
   
   echo "正在启动XrayR"
-  XrayR start
-
+  if [ $SYSTEM_OS == 'Alpine' ];then
+    /etc/init.d/XrayR restart
+  else
+    XrayR start
+  fi
 }
 hi_hysteria_install(){
   bash <(curl -fsSL https://git.io/hysteria.sh)
@@ -708,6 +709,9 @@ elif cat /etc/issue | grep -Eqi "ubuntu"; then
 elif cat /etc/issue | grep -Eqi "centos|red hat|redhat"; then
   SYSTEM_OS="centos"
   INSTALL_CMD="yum install -y"
+elif cat /etc/issue | grep -Eqi "Alpine"; then
+  SYSTEM_OS="Alpine"
+  INSTALL_CMD="apk add"
 elif cat /proc/version | grep -Eqi "debian"; then
   SYSTEM_OS="debian"
   INSTALL_CMD="apt-get install"
