@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='34'
+length='33'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
