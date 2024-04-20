@@ -27,6 +27,9 @@ DOMAIN-KEYWORD,allchips.ai
 DOMAIN-KEYWORD,test-ipv6.com
 DOMAIN-KEYWORD,tvb.com
 DOMAIN-KEYWORD,cdn.steampowered.com
+DOMAIN-KEYWORD,4vngame.net
+DOMAIN-KEYWORD,azureedge.net
+DOMAIN-KEYWORD,msedge.net
 ##域名后缀匹配
 DOMAIN-SUFFIX,ip.sb
 DOMAIN-SUFFIX,hongdan.tv
