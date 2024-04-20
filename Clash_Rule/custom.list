@@ -39,6 +39,7 @@ DOMAIN-KEYWORD,bing.com
 DOMAIN-KEYWORD,githubusercontent.com
 DOMAIN-KEYWORD,cloudflareclient.com
 DOMAIN-KEYWORD,themoviedb.org
+DOMAIN-KEYWORD,mikanani.me
 ##域名后缀匹配
 DOMAIN-SUFFIX,pximg.net
 DOMAIN-SUFFIX,gitlab.io
@@ -75,4 +76,4 @@ DOMAIN,nyahentai.pw
 DOMAIN,i.pximg.net
 DOMAIN,git.io
 DOMAIN,javtorrent.re
-DOMAIN,mikanani.me
+
