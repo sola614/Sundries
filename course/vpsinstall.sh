@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='33'
+length='34'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -47,6 +47,7 @@ show_menu() {
   ${green}31.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
   ${green}32.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
   ${green}33.${plain} warp多功能一键脚本
+  ${green}34.${plain} centos7升级curl
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -160,6 +161,9 @@ show_menu() {
     ;;
     33)
       bash <(wget -qO- https://gitlab.com/rwkgyg/CFwarp/raw/main/CFwarp.sh 2> /dev/null)
+    ;;
+    34)
+      update_curl_centos7
     ;;
     
     999)
@@ -588,7 +592,18 @@ next_trace(){
   check_command nexttrace
   if [ $? == 0 ]; then
     echo "正在安装nexttrace"
-    bash <(curl -Ls https://raw.githubusercontent.com/sjlleo/nexttrace/main/nt_install.sh)
+    curl nxtrace.org/nt | bash
+  else 
+    new_version=$(wget -qO- -t1 -T2 "https://api.github.com/repos/nxtrace/NTrace-core/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
+    check_version=$(nexttrace -v | grep "$new_version")
+    if [[ -z $check_version ]]; then
+      read -p "检测到有新版本，是否更新(y/n): " update_flag
+      update_flag=${update_flag:='n'}
+      if [ $update_flag == 'y' ]; then
+        echo "正在更新nexttrace"
+        curl nxtrace.org/nt | bash
+      fi
+    fi
   fi
   read -p "请输入需要测试的IP或域名: " host
   nexttrace $host
@@ -695,6 +710,13 @@ dnsproxy(){
   else
     echo "dnsproxy服务已存在"
   fi 
+}
+update_curl_centos7(){
+  yum update
+  rpm -ivh https://mirror.city-fan.org/ftp/contrib/yum-repo/city-fan.org-release-3-11.rhel7.noarch.rpm
+  yum update curl --enablerepo=city-fan.org -y
+  echo "1、如果仓库不存在可以直接https://mirror.city-fan.org/ftp/contrib/yum-repo/ 获取最新版"
+  echo "2、如果更新不成功，请尝试vim /etc/yum.repos.d/city-fan.org.repo 将[city-fan.org]的enable值修改为1然后保存再执行update命令；yum update curl -y"
 }
 # check os
 if [[ -f /etc/redhat-release ]]; then
