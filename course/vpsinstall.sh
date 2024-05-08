@@ -48,7 +48,7 @@ show_menu() {
   ${green}32.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
   ${green}33.${plain} warp多功能一键脚本
   ${green}34.${plain} centos7升级curl
-  ${green}35.${plain} Hysteria2后端
+  ${green}35.${plain} Hysteria2后端(利用acme)(https://github.com/cedar2025/hysteria)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -728,9 +728,11 @@ hysteria2_install(){
     echo "正在安装docker"
     docker_install
   fi
-  CONFIG_PATH=/etc/hysteria/hysteria2.yaml
-  mkdir /etc/hysteria -p
-  wget https://raw.githubusercontent.com/sola614/Sundries/master/course/hysteria2.yaml -O $CONFIG_PATH
+  if [[ -n $(docker ps -q -f "name=^hysteria2$") ]];then
+    echo "hysteria2运行中！"
+    echo "配置文件路径:/etc/hysteria/server.yaml，请自行修改配置文件&restart即可"
+    exit 1
+  fi
   read -p "面板地址(如http(s)://): " ApiHost
   if [ -z "$ApiHost" ]; then
     echo "面板地址为空！"
@@ -748,28 +750,22 @@ hysteria2_install(){
     echo "节点id为空！"
     exit 1
   fi
-  read -p "证书路径(如/root/cert): " sslPath
-  if [ -z "$sslPath" ]; then
-    echo "证书路径为空！"
-    exit 1
-  fi
-  # sslPath=$(echo "$sslPath" | sed 's/\//\\\//g')
-  read -p "证书域名(如*.yyy.com或xxx.yyy.com): " sslHost
-  if [ -z "$sslHost" ]; then
-    echo "证书路径为空！"
+  read -p "证书域名(如xxx.yyy.com): " domain
+  if [ -z "$domain" ]; then
+    echo "证书域名为空！"
     exit 1
   fi
 
-  echo "正在写入配置信息"
-  all=".*"
-  sed -i "s/apiHost: ${all}/apiHost: ${ApiHost}/" $CONFIG_PATH
-  sed -i "s/apiKey: ${all}/apiKey: ${ApiKey}/" $CONFIG_PATH
-  sed -i "s/nodeID: ${all}/nodeID: ${NodeID}/" $CONFIG_PATH
-  sed -i "s/cert: ${all}/cert: \/cert\/${sslHost}.pem/" $CONFIG_PATH
-  sed -i "s/key: ${all}/key: \/cert\/${sslHost}.key/" $CONFIG_PATH
-   echo "正在启动"
-  docker run -dt --network=host --restart=always --name hysteria2 -v /etc/hysteria/:/etc/hysteria/ -v $sslPath/:/cert/  ghcr.io/cedar2025/hysteria server -c $CONFIG_PATH
-  echo "配置文件路径:$CONFIG_PATH"
+  # echo "正在写入配置信息"
+  # all=".*"
+  # sed -i "s/apiHost: ${all}/apiHost: ${ApiHost}/" $CONFIG_PATH
+  # sed -i "s/apiKey: ${all}/apiKey: ${ApiKey}/" $CONFIG_PATH
+  # sed -i "s/nodeID: ${all}/nodeID: ${NodeID}/" $CONFIG_PATH
+  # sed -i "s/cert: ${all}/cert: \/cert\/${sslHost}.pem/" $CONFIG_PATH
+  # sed -i "s/key: ${all}/key: \/cert\/${sslHost}.key/" $CONFIG_PATH
+  echo "正在启动"
+  docker run -itd --restart=always  --network=host -e apiHost=$ApiHost -e apiKey=$ApiKey -e domain=$domain -e nodeID=$NodeID -v /etc/hysteria/:/etc/hysteria/ --name hysteria2 ghcr.io/cedar2025/hysteria:latest
+  echo "配置文件路径:/etc/hysteria/server.yaml"
 }
 # check os
 if [[ -f /etc/redhat-release ]]; then
