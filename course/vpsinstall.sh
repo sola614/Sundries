@@ -739,7 +739,7 @@ hysteria2_install(){
     exit 1
   fi
   #转义//
-  ApiHost=$(echo "$ApiHost" | sed 's/\//\\\//g')
+  # ApiHost=$(echo "$ApiHost" | sed 's/\//\\\//g')
   read -p "面板通讯密钥: " ApiKey
   if [ -z "$ApiKey" ]; then
     echo "板通讯密钥为空！"
