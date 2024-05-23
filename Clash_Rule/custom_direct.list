@@ -31,7 +31,11 @@ DOMAIN-KEYWORD,4vngame.net
 DOMAIN-KEYWORD,azureedge.net
 DOMAIN-KEYWORD,msedge.net
 ##epic游戏下载
+DOMAIN-KEYWORD,epicgames
 DOMAIN-KEYWORD,fastly-edge.com
+DOMAIN-KEYWORD,epicgames.dev
+DOMAIN-KEYWORD,unrealengine.com
+DOMAIN-KEYWORD,epicgames.com
 ##域名后缀匹配
 DOMAIN-SUFFIX,ip.sb
 DOMAIN-SUFFIX,hongdan.tv
