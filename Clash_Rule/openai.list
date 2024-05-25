@@ -1,5 +1,6 @@
-DOMAIN-SUFFIX,openai.com,DIRECT
-DOMAIN-KEYWORD,openai,DIRECT
-DOMAIN-SUFFIX,openaiapi-site.azureedge.net,DIRECT
-DOMAIN-SUFFIX,identrust.com,DIRECT
-DOMAIN-SUFFIX,auth0.com,DIRECT
+DOMAIN-SUFFIX,openai.com
+DOMAIN-KEYWORD,openai
+DOMAIN-SUFFIX,openaiapi-site.azureedge.net
+DOMAIN-SUFFIX,identrust.com
+DOMAIN-SUFFIX,auth0.com
+DOMAIN-KEYWORD,chatgpt
