@@ -13,7 +13,7 @@ b.查找`PasswordAuthentication no`改为`PasswordAuthentication yes`
 1.切换到root：`sudo -i`   
 2.修改密码&登录方式
 ```
-echo root:passwd|sudo chpasswd root
+passwd #修改密码
 sudo sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config;
 sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
 ```
