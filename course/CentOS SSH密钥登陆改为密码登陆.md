@@ -18,3 +18,4 @@ sudo sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_config
 sudo sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
 ```
 3.重启：`sudo service sshd restart`
+注意：某些服务商修改可能不生效，需要查看`/etc/ssh/sshd_config`文件中是否有引入其他文件夹配置文件，如`/etc/ssh/sshd_config.d/*.conf`，这时需要修改这个引入文件才能生效
