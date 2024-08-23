@@ -19,3 +19,5 @@ DOMAIN-SUFFIX,jtvnw.net
 DOMAIN-SUFFIX,twitchsvc.net
 # > twitcasting
 DOMAIN-KEYWORD,twitcasting.tv
+# docker
+DOMAIN-KEYWORD,docker.com
