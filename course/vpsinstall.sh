@@ -723,7 +723,7 @@ update_curl_centos7(){
   echo "2、如果更新不成功，请尝试vim /etc/yum.repos.d/city-fan.org.repo 将[city-fan.org]的enable值修改为1然后保存再执行update命令；yum update curl -y"
 }
 hysteria2_install(){
-  check_command docker
+   check_command docker
   if [ $? == 0 ]; then
     echo "正在安装docker"
     docker_install
@@ -735,6 +735,7 @@ hysteria2_install(){
   fi
   CONFIG_PATH=/etc/hysteria
   mkdir $CONFIG_PATH
+  mkdir $CONFIG_PATH/cert
   CONFIG_FILE=$CONFIG_PATH/server.yaml
   wget https://raw.githubusercontent.com/sola614/Sundries/master/course/hy2/server.yaml -O $CONFIG_FILE
   read -p "面板地址(如http(s)://): " ApiHost
@@ -760,16 +761,19 @@ hysteria2_install(){
     exit 1
   fi
 
-   echo "正在写入配置信息"
-  all=".*"
-  sed -i "s/apiHost: ${all}/apiHost: ${ApiHost}/" $CONFIG_FILE
-  sed -i "s/apiKey: ${all}/apiKey: ${ApiKey}/" $CONFIG_FILE
-  sed -i "s/nodeID: ${all}/nodeID: ${NodeID}/" $CONFIG_FILE
-  sed -i "s/cert: ${all}/cert: \/cert\/${domain}.pem/" $CONFIG_FILE
-  sed -i "s/key: ${all}/key: \/cert\/${domain}.key/" $CONFIG_FILE
+  echo "正在写入配置信息"
+  # 修改 apiHost
+  sed -i "s|^\(\s*apiHost:\).*|\1 ${ApiHost}|" $CONFIG_FILE
+  # 修改 apiKey
+  sed -i "s|^\(\s*apiKey:\).*|\1 ${ApiKey}|" $CONFIG_FILE
+  # 修改 nodeID
+  sed -i "s|^\(\s*nodeID:\).*|\1 ${NodeID}|" $CONFIG_FILE
+  # 修改 xxx.pem
+  sed -i "s|^\(\s*cert:\s*/etc/hysteria/cert/\)[^ ]*|\1${domain}.pem|" $CONFIG_FILE
+  #  修改yyy.key
+  sed -i "s|^\(\s*key:\s*/etc/hysteria/cert/\)[^ ]*|\1${domain}.key|" $CONFIG_FILE
   echo "正在启动"
-  # docker run -itd --restart=always  --network=host -v /etc/hysteria/:/etc/hysteria --name hysteria2 ghcr.io/cedar2025/hysteria:latest
-  # docker run -itd --restart=always  --network=host -e apiHost=$ApiHost -e apiKey=$ApiKey -e domain=$domain -e nodeID=$NodeID -v /etc/hysteria/:/etc/hysteria/ --name hysteria2 ghcr.io/cedar2025/hysteria:latest
+  docker run -itd --restart=unless-stopped  --network=host -v /etc/hysteria:/etc/hysteria --name hysteria2 ghcr.io/cedar2025/hysteria:latest
   echo "配置文件路径:/etc/hysteria/server.yaml"
 }
 # check os
