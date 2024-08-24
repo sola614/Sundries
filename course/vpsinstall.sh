@@ -733,6 +733,10 @@ hysteria2_install(){
     echo "配置文件路径:/etc/hysteria/server.yaml，请自行修改配置文件&restart即可"
     exit 1
   fi
+  CONFIG_PATH=/etc/hysteria
+  mkdir $CONFIG_PATH
+  CONFIG_FILE=$CONFIG_PATH/server.yaml
+  wget https://raw.githubusercontent.com/sola614/Sundries/master/course/hy2/server.yaml -O $CONFIG_FILE
   read -p "面板地址(如http(s)://): " ApiHost
   if [ -z "$ApiHost" ]; then
     echo "面板地址为空！"
@@ -756,15 +760,16 @@ hysteria2_install(){
     exit 1
   fi
 
-  # echo "正在写入配置信息"
-  # all=".*"
-  # sed -i "s/apiHost: ${all}/apiHost: ${ApiHost}/" $CONFIG_PATH
-  # sed -i "s/apiKey: ${all}/apiKey: ${ApiKey}/" $CONFIG_PATH
-  # sed -i "s/nodeID: ${all}/nodeID: ${NodeID}/" $CONFIG_PATH
-  # sed -i "s/cert: ${all}/cert: \/cert\/${sslHost}.pem/" $CONFIG_PATH
-  # sed -i "s/key: ${all}/key: \/cert\/${sslHost}.key/" $CONFIG_PATH
+   echo "正在写入配置信息"
+  all=".*"
+  sed -i "s/apiHost: ${all}/apiHost: ${ApiHost}/" $CONFIG_FILE
+  sed -i "s/apiKey: ${all}/apiKey: ${ApiKey}/" $CONFIG_FILE
+  sed -i "s/nodeID: ${all}/nodeID: ${NodeID}/" $CONFIG_FILE
+  sed -i "s/cert: ${all}/cert: \/cert\/${domain}.pem/" $CONFIG_FILE
+  sed -i "s/key: ${all}/key: \/cert\/${domain}.key/" $CONFIG_FILE
   echo "正在启动"
-  docker run -itd --restart=always  --network=host -e apiHost=$ApiHost -e apiKey=$ApiKey -e domain=$domain -e nodeID=$NodeID -v /etc/hysteria/:/etc/hysteria/ --name hysteria2 ghcr.io/cedar2025/hysteria:latest
+  # docker run -itd --restart=always  --network=host -v /etc/hysteria/:/etc/hysteria --name hysteria2 ghcr.io/cedar2025/hysteria:latest
+  # docker run -itd --restart=always  --network=host -e apiHost=$ApiHost -e apiKey=$ApiKey -e domain=$domain -e nodeID=$NodeID -v /etc/hysteria/:/etc/hysteria/ --name hysteria2 ghcr.io/cedar2025/hysteria:latest
   echo "配置文件路径:/etc/hysteria/server.yaml"
 }
 # check os
