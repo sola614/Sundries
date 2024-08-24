@@ -774,7 +774,7 @@ hysteria2_install(){
   sed -i "s|^\(\s*key:\s*/etc/hysteria/cert/\)[^ ]*|\1${domain}.key|" $CONFIG_FILE
   echo "正在启动"
   docker run -itd --restart=unless-stopped  --network=host -v /etc/hysteria:/etc/hysteria --name hysteria2 ghcr.io/cedar2025/hysteria:latest
-  echo "配置文件路径:/etc/hysteria/server.yaml"
+  echo "请自行准备好证书放在/etc/hysteria/cert下，然后重启服务，配置文件路径:/etc/hysteria/server.yaml"
 }
 # check os
 if [[ -f /etc/redhat-release ]]; then
