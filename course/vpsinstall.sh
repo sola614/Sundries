@@ -755,9 +755,9 @@ hysteria2_install(){
     echo "节点id为空！"
     exit 1
   fi
-  read -p "证书域名(如xxx.yyy.com): " domain
+  read -p "证书名(如xxx.yyy.com): " domain
   if [ -z "$domain" ]; then
-    echo "证书域名为空！"
+    echo "证书名为空！"
     exit 1
   fi
 
