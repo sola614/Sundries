@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='35'
+length='37'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -49,6 +49,7 @@ show_menu() {
   ${green}33.${plain} warp多功能一键脚本
   ${green}34.${plain} centos7升级curl
   ${green}35.${plain} Hysteria2后端(利用acme)(https://github.com/cedar2025/hysteria)
+  ${green}36.${plain} 一键更换系统软件源脚本(https://github.com/SuperManito/LinuxMirrors/)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -168,6 +169,9 @@ show_menu() {
     ;;
     35)
       hysteria2_install
+    ;;
+    35)
+      change_sys_repo
     ;;
     
     999)
@@ -776,6 +780,15 @@ hysteria2_install(){
   docker run -itd --restart=unless-stopped  --network=host -v /etc/hysteria:/etc/hysteria --name hysteria2 ghcr.io/cedar2025/hysteria:latest
   echo "请自行准备好证书放在/etc/hysteria/cert下，然后重启服务，配置文件路径:/etc/hysteria/server.yaml"
 }
+change_sys_repo(){
+  read -p "使用国内源? (y/n): " use_china_mirror
+  if [[ "$use_china_mirror" == "y" || "$use_china_mirror" == "Y" ]]; then
+      bash <(curl -sSL https://linuxmirrors.cn/main.sh)
+  else
+      bash <(curl -sSL https://linuxmirrors.cn/main.sh) --abroad
+  fi
+}
+
 # check os
 if [[ -f /etc/redhat-release ]]; then
   SYSTEM_OS="centos"
