@@ -365,7 +365,7 @@ install_nodejs_by_nvm(){
 download_cf_v4_ddns(){
   check_file_status $ROOT_PATH/cf-v4-ddns.sh
   if [ $? == 0 ]; then
-    wget https://raw.githubusercontent.com/sola614/sola614/master/course/cf-v4-ddns.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/cf-v4-ddns.sh
+    wget https://file.meaqua.fun/shell/cf-v4-ddns.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/cf-v4-ddns.sh
     echo "文件已下载"
     reset_cf_ddns
   else
