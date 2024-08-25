@@ -25,7 +25,7 @@ show_menu() {
   常用脚本集合
   ${green}0.${plain} 更新脚本
   ————————————————
-  ${green}1.${plain}  开始测试
+  ${green}1.${plain}  直接开始测试
   ${green}2.${plain}  填写配置
  "
   echo && read -p "请输入选择 [0-${length}]: " num
