@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='36'
+length='34'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -15,41 +15,39 @@ show_menu() {
   ${green}999.${plain} 初始化安装
   ————————————————
   ${green}1.${plain}  NEKE家linux网络优化脚本
-  ${green}2.${plain}  besttrace测试路由
-  ${green}3.${plain}  serverStatus探针
-  ${green}4.${plain}  x-ui安装
-  ${green}5.${plain}  流媒体检测(速度较慢)
-  ${green}6.${plain}  iptables端口转发
-  ${green}7.${plain}  iptables端口转发(支持域名)
-  ${green}8.${plain}  查看本机ip
-  ${green}9.${plain}  安装docker
-  ${green}10.${plain} 使用nvm安装nodejs
-  ${green}11.${plain} 下载cf-v4-ddns
-  ${green}12.${plain} DNS解锁(安装dnsmasq或sniproxy)
-  ${green}13.${plain} iptables屏蔽端口
-  ${green}14.${plain} iptables开放端口
-  ${green}15.${plain} 安装nginx
-  ${green}16.${plain} 测试ip被ban脚本
-  ${green}17.${plain} 安装wikihost-Looking-glass Server(vps测试用)
-  ${green}18.${plain} 哪吒监控一键脚本
-  ${green}19.${plain} 永久修改DNS
-  ${green}20.${plain} NEKO版流媒体检测（速度更快）
-  ${green}21.${plain} 三网回程路由测试(https://github.com/zhanghanyun/backtrace)
-  ${green}22.${plain} 快速查询本机IP和区域
-  ${green}23.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
-  ${green}24.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
-  ${green}25.${plain} Cloudflare Warp一键脚本(https://github.com/fscarmen/warp)
-  ${green}26.${plain} 一键准备nginx和利用acme申请证书
-  ${green}27.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
-  ${green}28.${plain} node-ddns(https://github.com/sola614/node-ddns)
-  ${green}29.${plain} dnsproxy
-  ${green}30.${plain} 一键安装XrayR后端
-  ${green}31.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
-  ${green}32.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
-  ${green}33.${plain} warp多功能一键脚本
-  ${green}34.${plain} centos7升级curl
-  ${green}35.${plain} Hysteria2后端(利用acme)(https://github.com/cedar2025/hysteria)
-  ${green}36.${plain} 一键更换系统软件源脚本(https://github.com/SuperManito/LinuxMirrors/)
+  ${green}2.${plain}  x-ui安装
+  ${green}3.${plain}  流媒体检测(速度较慢)
+  ${green}4.${plain}  iptables端口转发
+  ${green}5.${plain}  iptables端口转发(支持域名)
+  ${green}6.${plain}  查看本机ip
+  ${green}7.${plain}  安装docker
+  ${green}8.${plain} 使用nvm安装nodejs
+  ${green}9.${plain} 下载cf-v4-ddns
+  ${green}10.${plain} DNS解锁(安装dnsmasq或sniproxy)
+  ${green}11.${plain} iptables屏蔽端口
+  ${green}12.${plain} iptables开放端口
+  ${green}13.${plain} 安装nginx
+  ${green}14.${plain} 测试ip被ban脚本
+  ${green}15.${plain} 安装wikihost-Looking-glass Server(vps测试用)
+  ${green}16.${plain} 哪吒监控脚本
+  ${green}17.${plain} 永久修改DNS
+  ${green}18.${plain} NEKO版流媒体检测（速度更快）
+  ${green}19.${plain} 三网回程路由测试(https://github.com/zhanghanyun/backtrace)
+  ${green}20.${plain} 快速查询本机IP和区域
+  ${green}21.${plain} nexttrace路由跟踪工具(https://github.com/sjlleo/nexttrace)
+  ${green}22.${plain} Cloudflare Warp GO一键脚本(https://maobuni.com/2022/05/08/cloudflare-warp/)
+  ${green}23.${plain} Cloudflare Warp一键脚本(https://github.com/fscarmen/warp)
+  ${green}24.${plain} 一键准备nginx和利用acme申请证书
+  ${green}25.${plain} acme申请证书(CF_DNS模式，准备工作请参考：https://github.com/sola614/Sundries/blob/master/course/%E5%88%A9%E7%94%A8acme.sh%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6%26%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6.md)
+  ${green}26.${plain} node-ddns(https://github.com/sola614/node-ddns)
+  ${green}27.${plain} dnsproxy
+  ${green}28.${plain} 一键安装XrayR后端
+  ${green}29.${plain} Hi Hysteria脚本(https://github.com/emptysuns/Hi_Hysteria)
+  ${green}30.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
+  ${green}31.${plain} warp多功能一键脚本
+  ${green}32.${plain} centos7升级curl
+  ${green}33.${plain} Hysteria2后端(利用acme)(https://github.com/cedar2025/hysteria)
+  ${green}34.${plain} 一键更换系统软件源脚本(https://github.com/SuperManito/LinuxMirrors/)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -62,115 +60,109 @@ show_menu() {
         start_neko_linux
         ;;
     2)
-        start_besttrace
-        ;;
-    3)
-        start_server_status
-        ;;
-    4)
         start_xui
         ;;
-    5)
+    3)
         start_check_unlock_media
         ;;
-    6)
+    4)
         start_iptables
         ;;
-    7)
+    5)
         start_iptables2
         ;;
-    8) 
+    6) 
       check_ip
       ;;
-    9) 
+    7) 
       docker_install
       ;;
-    10) 
+    8) 
       install_nodejs_by_nvm
       ;;
-    11) 
+    9) 
       download_cf_v4_ddns
       ;;
-    12) 
+    10) 
       dns_unblock
       ;;
-    13) 
+    11) 
       read -p "请输入需要屏蔽的端口和协议(默认:tcp): " port protocol
       if [ $port ];then
         echo "$port $protocol"
         ban_iptables $port $protocol
       fi
       ;;
-    14) 
+    12) 
       read -p "请输入需要放开的端口: " port protocol
       if [ $port ];then
         unban_iptables $port
       fi
        ;;
-    15)
+    13)
       nginx_install
     ;;
-    16)
+    14)
       ip_test
     ;;
-    17)
+    15)
       wikihost_LookingGlass_install
     ;;
-    18)
+    16)
       nezha_sh
     ;;
-    19)
+    17)
       dns_change
     ;;
-    20)
+    18)
       start_neko_unlock_test
     ;;
-    21)
+    19)
       mtr_trace
     ;;
-    22)
+    20)
       check_ip_location
     ;;
-    23)
+    21)
       next_trace
     ;;
-    24)
+    22)
       warp_go_install
     ;;
-    25)
+    23)
       warp_install
     ;;
-    26)
+    24)
       ws_tls_install
     ;;
-    27)
+    25)
       acme_install
     ;;
-    28)
+    26)
       node_ddns
     ;;
-    29)
+    27)
       dnsproxy
     ;;
-    30)
+    28)
       xrayr_install
     ;;
-    31)
+    29)
       hi_hysteria_install
     ;;
-    32)
+    30)
       gost_install
     ;;
-    33)
+    31)
       bash <(wget -qO- https://gitlab.com/rwkgyg/CFwarp/raw/main/CFwarp.sh 2> /dev/null)
     ;;
-    34)
+    32)
       update_curl_centos7
     ;;
-    35)
+    33)
       hysteria2_install
     ;;
-    36)
+    34)
       change_sys_repo
     ;;
     
