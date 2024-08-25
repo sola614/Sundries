@@ -1,5 +1,6 @@
 #!/bin/bash
-
+installed_version=0
+latest_version=0
 # 获取操作系统信息
 get_os_info() {
     if [ -f /etc/os-release ]; then
@@ -25,7 +26,6 @@ is_nginx_installed() {
 is_nginx_latest() {
     installed_version=$(nginx -v 2>&1 | grep -o '[0-9.]*')
     latest_version=$(curl -s https://nginx.org/en/download.html | grep -oP 'nginx-\K[0-9.]+(?=\.tar\.gz)' | head -n 1)
-    echo "当前安装版本为：$installed_version，最新版本为：$latest_version"
     if [ "$installed_version" = "$latest_version" ]; then
         echo "true"
     else
@@ -35,6 +35,7 @@ is_nginx_latest() {
 
 # 提示用户是否更新 Nginx
 prompt_update_nginx() {
+    echo "当前安装版本为：$installed_version，最新版本为：$latest_version"
     read -p "Nginx 已安装，但不是最新版本。是否要更新？ (y/n): " choice
     case "$choice" in
         y|Y ) return 0 ;;
