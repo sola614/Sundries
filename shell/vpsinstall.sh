@@ -5,7 +5,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='34'
+length='35'
 
 # 获取操作系统的名称和版本
 if [ -f /etc/os-release ]; then
@@ -87,6 +87,7 @@ show_menu() {
   ${green}32.${plain} centos7升级curl
   ${green}33.${plain} docker安装Hysteria2后端对接xboard(自行准备ssl证书)(https://github.com/cedar2025/hysteria)
   ${green}34.${plain} 一键更换系统软件源脚本(https://github.com/SuperManito/LinuxMirrors/)
+  ${green}35.${plain} OpenAI-Checker(https://github.com/missuo/OpenAI-Checker)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -203,6 +204,9 @@ show_menu() {
     ;;
     34)
       change_sys_repo
+    ;;
+    35)
+      bash <(curl -Ls https://cdn.jsdelivr.net/gh/missuo/OpenAI-Checker/openai.sh)
     ;;
     
     999)
