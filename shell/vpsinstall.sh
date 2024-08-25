@@ -287,58 +287,7 @@ start_besttrace(){
 
 }
 xrayr_install(){
-  # 判断是否是alpine
-  if [ $SYSTEM_OS == 'alpine' ];then
-    apk add wget sudo curl && wget -N https://github.com/Cd1s/alpineXrayR/releases/download/one-click/install-xrayr.sh && chmod +x install-xrayr.sh && bash install-xrayr.sh
-  else
-    check_command xrayr
-    if [ $? == 0 ]; then
-      wget -N https://raw.githubusercontent.com/XrayR-project/XrayR-release/master/install.sh && bash install.sh
-    fi
-  fi
-  read -p "面板类型(SSpanel, V2board, NewV2board, PMpanel, Proxypanel, V2RaySocks): " PanelType
-  if [ -z "$PanelType" ]; then
-    echo "面板类型为空！"
-    exit 1
-  fi
-  read -p "面板地址(如http(s)://): " ApiHost
-  if [ -z "$ApiHost" ]; then
-    echo "面板地址为空！"
-    exit 1
-  fi
-  #转义//
-  ApiHost=$(echo "$ApiHost" | sed 's/\//\\\//g')
-  read -p "面板通讯密钥: " ApiKey
-  if [ -z "$ApiKey" ]; then
-    echo "板通讯密钥为空！"
-    exit 1
-  fi
-  read -p "节点id: " NodeID
-  if [ -z "$NodeID" ]; then
-    echo "节点id为空！"
-    exit 1
-  fi
-  read -p "节点类型(V2ray, Shadowsocks, Trojan, Shadowsocks-Plugin): " NodeType
-  if [ -z "$NodeType" ]; then
-    echo "节点类型为空！"
-    exit 1
-  fi
-   echo "正在写入配置信息"
-  all=".*"
-  CONFIG_PATH=/etc/XrayR/config.yml
-  sed -i "s/PanelType: ${all}/PanelType: \"${PanelType}\"/" $CONFIG_PATH
-  sed -i "s/ApiHost: ${all}/ApiHost: \"${ApiHost}\"/" $CONFIG_PATH
-  sed -i "s/ApiKey: ${all}/ApiKey: \"${ApiKey}\"/" $CONFIG_PATH
-  sed -i "s/NodeID: ${all}/NodeID: ${NodeID}/" $CONFIG_PATH
-  sed -i "s/NodeType: ${all}/NodeType: ${NodeType}/" $CONFIG_PATH
-  sed -i "s/EnableREALITY: ${all}/NodeType: false/" $CONFIG_PATH
-  
-  echo "正在启动XrayR"
-  if [ $SYSTEM_OS == 'alpine' ];then
-    /etc/init.d/XrayR restart
-  else
-    XrayR start
-  fi
+  curl -fsSL "https://file.meaqua.fun/shell/install_xrayr.sh" | bash
 }
 hi_hysteria_install(){
   bash <(curl -fsSL https://git.io/hysteria.sh)
