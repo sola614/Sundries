@@ -82,6 +82,7 @@ if [[ -n $v4 ]]; then
 else
 	v4Status=$(white "IPV4地址：\c" ; red "不存在IPV4地址")
 fi
-
+echo -e "以下结果仅供参考，请以官网实际解锁状态为准"
 echo -e "$v4Status"
 echo -e "$v6Status"
+
