@@ -6,6 +6,53 @@ INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
 length='34'
+
+# 获取操作系统的名称和版本
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    SYSTEM_OS=$ID
+    VERSION=$VERSION_ID
+else
+    echo "无法检测操作系统版本。"
+    exit 1
+fi
+# 根据不同的发行版赋予不同的安装命令
+case $SYSTEM_OS in
+    ubuntu|debian)
+        INSTALL_CMD="apt install -y"
+        ;;
+    centos|rhel|almalinux|rocky)
+        INSTALL_CMD="yum install -y"
+        ;;
+    fedora)
+        INSTALL_CMD="dnf install -y"
+        ;;
+    arch|manjaro)
+        INSTALL_CMD="pacman -Syu"
+        ;;
+    opensuse-leap|opensuse-tumbleweed|sles)
+        INSTALL_CMD="zypper install -y"
+        ;;
+    alpine)
+        INSTALL_CMD="apk add --no-cache"
+        ;;
+    *)
+        echo "未知的操作系统: $OS。无法安装软件。"
+        exit 1
+        ;;
+esac
+echo "检测到:$SYSTEM_OS系统，版本为：$VERSION，软件安装命令为：$INSTALL_CMD"
+# 判断文件夹是否存在
+if [ ! -d "${ROOT_PATH}" ]; then
+  mkdir $ROOT_PATH
+fi
+check_command wget
+if [ $? == 0 ]; then
+  echo "正在安装wget"
+  $INSTALL_CMD wget    
+fi
+show_menu
+
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -241,7 +288,7 @@ start_besttrace(){
 }
 xrayr_install(){
   # 判断是否是alpine
-  if [ $SYSTEM_OS == 'Alpine' ];then
+  if [ $SYSTEM_OS == 'alpine' ];then
     apk add wget sudo curl && wget -N https://github.com/Cd1s/alpineXrayR/releases/download/one-click/install-xrayr.sh && chmod +x install-xrayr.sh && bash install-xrayr.sh
   else
     check_command xrayr
@@ -287,7 +334,7 @@ xrayr_install(){
   sed -i "s/EnableREALITY: ${all}/NodeType: false/" $CONFIG_PATH
   
   echo "正在启动XrayR"
-  if [ $SYSTEM_OS == 'Alpine' ];then
+  if [ $SYSTEM_OS == 'alpine' ];then
     /etc/init.d/XrayR restart
   else
     XrayR start
@@ -778,42 +825,3 @@ change_sys_repo(){
       bash <(curl -sSL https://linuxmirrors.cn/main.sh) --abroad
   fi
 }
-
-# check os
-if [[ -f /etc/redhat-release ]]; then
-  SYSTEM_OS="centos"
-  INSTALL_CMD="yum install -y"
-elif cat /etc/issue | grep -Eqi "debian"; then
-  SYSTEM_OS="debian"
-  INSTALL_CMD="apt-get install"
-elif cat /etc/issue | grep -Eqi "ubuntu"; then
-  SYSTEM_OS="ubuntu"
-  INSTALL_CMD="apt-get install"
-elif cat /etc/issue | grep -Eqi "centos|red hat|redhat"; then
-  SYSTEM_OS="centos"
-  INSTALL_CMD="yum install -y"
-elif cat /etc/issue | grep -Eqi "Alpine"; then
-  SYSTEM_OS="Alpine"
-  INSTALL_CMD="apk add"
-elif cat /proc/version | grep -Eqi "debian"; then
-  SYSTEM_OS="debian"
-  INSTALL_CMD="apt-get install"
-elif cat /proc/version | grep -Eqi "ubuntu"; then
-  SYSTEM_OS="ubuntu"
-  INSTALL_CMD="apt-get install"
-elif cat /proc/version | grep -Eqi "centos|red hat|redhat"; then
-  SYSTEM_OS="centos"
-  INSTALL_CMD="yum install -y"
-else
-  echo "未检测到系统版本，请联系脚本作者！\n" && exit 1
-fi
-# 判断文件夹是否存在
-if [ ! -d "${ROOT_PATH}" ]; then
-  mkdir $ROOT_PATH
-fi
-check_command wget
-if [ $? == 0 ]; then
-  echo "正在安装wget"
-  $INSTALL_CMD wget    
-fi
-show_menu
