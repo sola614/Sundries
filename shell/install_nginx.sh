@@ -35,8 +35,9 @@ is_nginx_latest() {
 
 # 提示用户是否更新 Nginx
 prompt_update_nginx() {
-    echo "当前安装版本为：$installed_version，最新版本为：$latest_version"
-    read -p "Nginx 已安装，但不是最新版本。是否要更新？ (y/n): " choice
+    echo "当前安装版本为：$installed_version，官网最新版本为：$latest_version"
+    echo "请注意，选择更新可能也无法更新到官网最新版，主要看系统支持！"
+    read -p "是否执行更新？ (y/n): " choice
     case "$choice" in
         y|Y ) return 0 ;;
         n|N ) return 1 ;;
