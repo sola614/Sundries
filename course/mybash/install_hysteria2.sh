@@ -12,7 +12,7 @@ start_install() {
     echo "Docker 未安装，正在从远程服务器获取 install_docker.sh 进行安装..."
     
     # 远程脚本的 URL
-    REMOTE_SCRIPT_URL="https://example.com/path/to/install_docker.sh"
+    REMOTE_SCRIPT_URL="https://raw.githubusercontent.com/sola614/Sundries/master/course/mybash/install_docker.sh"
     
     # 下载并执行远程脚本
     curl -fsSL "$REMOTE_SCRIPT_URL" | bash
