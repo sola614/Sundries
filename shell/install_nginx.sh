@@ -25,7 +25,7 @@ is_nginx_installed() {
 # 提示用户是否更新 Nginx
 prompt_update_nginx() {
     echo "当前安装版本为：$installed_version，官网最新版本为：$latest_version"
-    echo "请注意，选择更新可能也无法更新到官网最新版，主要看系统支持！"
+    echo "请注意，本脚本默认更新仓库为稳定版，官网最新版可能为主线版本，选择更新可能也无法更新到官网最新版，主要看系统支持！"
     read -p "是否尝试更新？ (y/n): " choice
     case "$choice" in
         y|Y ) return 0 ;;
