@@ -653,7 +653,7 @@ dnsproxy(){
   fi 
   check_file_status /etc/systemd/system/dnsproxy.service
   if [ $? == 0 ]; then
-    wget https://raw.githubusercontent.com/sola614/Sundries/master/course/dnsproxy.service -P /etc/systemd/system/
+    wget https://raw.githubusercontent.com/sola614/Sundries/master/configFile/dnsproxy.service -P /etc/systemd/system/
     systemctl daemon-reload
     systemctl restart dnsproxy
     systemctl enable dnsproxy
