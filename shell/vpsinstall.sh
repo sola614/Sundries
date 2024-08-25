@@ -696,6 +696,6 @@ change_sys_repo(){
 check_command wget
 if [ $? == 0 ]; then
   echo "正在安装wget"
-  $INSTALL_CMD wget    
+  $INSTALL_CMD wget
 fi
 show_menu
