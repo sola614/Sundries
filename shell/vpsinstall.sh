@@ -288,7 +288,7 @@ start_besttrace(){
 
 }
 xrayr_install(){
-  curl -fsSL "https://file.meaqua.fun/shell/install_xrayr.sh" | bash
+    bash <(curl -fsSL https://file.meaqua.fun/shell/install_xrayr.sh)
 }
 hi_hysteria_install(){
   bash <(curl -fsSL https://git.io/hysteria.sh)
@@ -354,7 +354,7 @@ check_ip_location(){
   # curl 3.0.3.0
 }
 docker_install(){
-  curl -fsSL "https://file.meaqua.fun/shell/install_docker.sh" | bash
+  bash <(curl -fsSL https://file.meaqua.fun/shell/install_docker.sh)
 }
 install_nodejs_by_nvm(){
   check_command nvm
@@ -497,7 +497,7 @@ unban_iptables(){
   save_iptables
 }
 nginx_install(){
-  curl -fsSL https://file.meaqua.fun/shell/install_nginx.sh | bash
+    bash <(curl -fsSL https://file.meaqua.fun/shell/install_nginx.sh)
 }
 ip_test(){
   check_file_status $ROOT_PATH/testip.sh
@@ -552,7 +552,7 @@ next_trace(){
   check_command nexttrace
   if [ $? == 0 ]; then
     echo "正在安装nexttrace"
-    curl nxtrace.org/nt | bash
+    bash <(curl -fsSL nxtrace.org/nt)
   else 
     new_version=$(wget -qO- -t1 -T2 "https://api.github.com/repos/nxtrace/NTrace-core/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g')
     check_version=$(nexttrace -v | grep "$new_version")
@@ -561,7 +561,7 @@ next_trace(){
       update_flag=${update_flag:='n'}
       if [ $update_flag == 'y' ]; then
         echo "正在更新nexttrace"
-        curl nxtrace.org/nt | bash
+        bash <(curl -fsSL nxtrace.org/nt)
       fi
     fi
   fi
@@ -679,7 +679,7 @@ update_curl_centos7(){
   echo "2、如果更新不成功，请尝试vim /etc/yum.repos.d/city-fan.org.repo 将[city-fan.org]的enable值修改为1然后保存再执行update命令；yum update curl -y"
 }
 hysteria2_install(){
-   curl -fsSL https://file.meaqua.fun/shell/install_hysteria2.sh | bash
+    bash <(curl -fsSL https://file.meaqua.fun/shell/install_hysteria2.sh)
 }
 change_sys_repo(){
   read -p "使用国内源? (y/n): " use_china_mirror
