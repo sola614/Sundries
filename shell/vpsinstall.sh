@@ -46,12 +46,6 @@ echo "检测到:$SYSTEM_OS系统，版本为：$VERSION，软件安装命令为�
 if [ ! -d "${ROOT_PATH}" ]; then
   mkdir $ROOT_PATH
 fi
-check_command wget
-if [ $? == 0 ]; then
-  echo "正在安装wget"
-  $INSTALL_CMD wget    
-fi
-show_menu
 
 show_menu() {
   echo -e "
@@ -687,3 +681,10 @@ change_sys_repo(){
       bash <(curl -sSL https://linuxmirrors.cn/main.sh) --abroad
   fi
 }
+
+check_command wget
+if [ $? == 0 ]; then
+  echo "正在安装wget"
+  $INSTALL_CMD wget    
+fi
+show_menu
