@@ -403,7 +403,7 @@ check_ip_location(){
   curl 3.0.3.0
 }
 docker_install(){
-  curl -fsSL "https://raw.githubusercontent.com/sola614/Sundries/master/shell/install_docker.sh" | bash
+  curl -fsSL "https://file.meaqua.fun/shell/install_docker.sh" | bash
 }
 install_nodejs_by_nvm(){
   check_command nvm
@@ -546,7 +546,7 @@ unban_iptables(){
   save_iptables
 }
 nginx_install(){
-  curl -fsSL https://raw.githubusercontent.com/sola614/Sundries/master/shell/install_nginx.sh | bash
+  curl -fsSL https://file.meaqua.fun/shell/install_nginx.sh | bash
 }
 ip_test(){
   check_file_status $ROOT_PATH/testip.sh
@@ -728,7 +728,7 @@ update_curl_centos7(){
   echo "2、如果更新不成功，请尝试vim /etc/yum.repos.d/city-fan.org.repo 将[city-fan.org]的enable值修改为1然后保存再执行update命令；yum update curl -y"
 }
 hysteria2_install(){
-   curl -fsSL https://raw.githubusercontent.com/sola614/Sundries/master/shell/install_hysteria2.sh | bash
+   curl -fsSL https://file.meaqua.fun/shell/install_hysteria2.sh | bash
 }
 change_sys_repo(){
   read -p "使用国内源? (y/n): " use_china_mirror
