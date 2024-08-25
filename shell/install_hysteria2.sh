@@ -19,7 +19,7 @@ start_install() {
   fi
 
   # 检查 hysteria2 是否已经在运行
-  if docker ps -q -f "name=^hysteria2$" &>/dev/null; then
+  if [[ -n $(docker ps -q -f "name=^hysteria2$") ]];then
     echo "hysteria2 运行中！"
     echo "配置文件路径: /etc/hysteria/server.yaml，请自行修改配置文件并重启服务。"
     exit 1
