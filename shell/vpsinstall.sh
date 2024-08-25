@@ -5,7 +5,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='35'
+length='36'
 
 # 获取操作系统的名称和版本
 if [ -f /etc/os-release ]; then
@@ -88,6 +88,7 @@ show_menu() {
   ${green}33.${plain} docker安装Hysteria2后端对接xboard(自行准备ssl证书)(https://github.com/cedar2025/hysteria)
   ${green}34.${plain} 一键更换系统软件源脚本(https://github.com/SuperManito/LinuxMirrors/)
   ${green}35.${plain} OpenAI-Checker(https://github.com/missuo/OpenAI-Checker)
+  ${green}36.${plain} IPv4/6 Switch(https://github.com/ChellyL/ipv4-6-switch)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -208,7 +209,9 @@ show_menu() {
     35)
       bash <(curl -Ls https://cdn.jsdelivr.net/gh/missuo/OpenAI-Checker/openai.sh)
     ;;
-    
+    36)
+      bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
+    ;;    
     999)
       vps_install
     ;;
@@ -347,7 +350,8 @@ check_ip(){
   echo -e "内网IP：$local_ip\n外网IP：$wan_ip"
 }
 check_ip_location(){
-  curl 3.0.3.0
+    bash <(curl -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
+  # curl 3.0.3.0
 }
 docker_install(){
   curl -fsSL "https://file.meaqua.fun/shell/install_docker.sh" | bash
