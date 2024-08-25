@@ -207,7 +207,10 @@ show_menu() {
       change_sys_repo
     ;;
     35)
+      echo "脚本1开始检测..."
       bash <(curl -Ls https://file.meaqua.fun/shell/check_gpt.sh)
+      echo "脚本2开始检测..."
+      bash <(curl -Ls https://cdn.jsdelivr.net/gh/missuo/OpenAI-Checker/openai.sh)
     ;;
     36)
       bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
