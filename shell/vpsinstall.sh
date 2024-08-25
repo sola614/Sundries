@@ -259,8 +259,8 @@ update_sh(){
   bash ./vpsinstall.sh
 }
 vps_install(){
-  echo "正在安装常用软件"
-  $INSTALL_CMD vim wget unzip tar bind-utils mtr curl crontabs socat iptables-services net-tools cronie
+  echo "正在安装常用软件..."
+  $INSTALL_CMD vim wget unzip tar mtr curl crontabs socat iptables-services net-tools cronie bind-utils
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
@@ -302,14 +302,6 @@ nezha_sh(){
     wget https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -O $ROOT_PATH/nezha.sh && chmod +x $ROOT_PATH/nezha.sh
   fi
   $ROOT_PATH/nezha.sh
-}
-start_server_status(){
-  check_file_status $ROOT_PATH/status.sh
-  if [ $? == 0 ]; then
-    wget https://raw.githubusercontent.com/CokeMine/ServerStatus-Hotaru/master/status.sh -P $ROOT_PATH && chmod +x $ROOT_PATH/status.sh
-  fi
-  read -p "请输入需要执行客户端还是服务端(c/s)，默认c: " type
-  $ROOT_PATH/status.sh ${type:=c}
 }
 start_xui(){
   check_command x-ui
