@@ -80,6 +80,33 @@ install_nginx_centos_rhel() {
     echo "检测到 $OS 系统，使用 yum 安装最新的 Nginx..."
     sudo yum install -y epel-release
     sudo yum install -y yum-utils
+    # 定义文件路径
+    REPO_FILE="/etc/yum.repos.d/nginx.repo"
+    
+    # 检查文件是否存在
+    if [ -f "$REPO_FILE" ]; then
+        echo "文件 $REPO_FILE 已存在，开始安装..."
+    else
+        # 创建文件并写入内容
+        cat <<EOF | sudo tee "$REPO_FILE"
+    [nginx-stable]
+    name=nginx stable repo
+    baseurl=http://nginx.org/packages/centos/\$releasever/\$basearch/
+    gpgcheck=1
+    enabled=1
+    gpgkey=https://nginx.org/keys/nginx_signing.key
+    
+    [nginx-mainline]
+    name=nginx mainline repo
+    baseurl=http://nginx.org/packages/mainline/centos/\$releasever/\$basearch/
+    gpgcheck=1
+    enabled=0
+    gpgkey=https://nginx.org/keys/nginx_signing.key
+    EOF
+    
+        echo "nginx.repo 文件已成功创建并写入内容，开始安装..."
+    fi
+    # 使用默认版本仓库
     sudo yum-config-manager --enable nginx-mainline
     sudo yum install -y nginx
 }
