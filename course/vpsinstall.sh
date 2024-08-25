@@ -1,6 +1,4 @@
 #!/bin/bash
-. /etc/profile
-. ~/.bash_profile
 
 ROOT_PATH="/usr/mybash"
 SYSTEM_OS=""
