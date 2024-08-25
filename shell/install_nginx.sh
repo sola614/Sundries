@@ -88,21 +88,24 @@ install_nginx_centos_rhel() {
         echo "文件 $REPO_FILE 已存在，开始安装..."
     else
         # 创建文件并写入内容
-        sudo tee "$REPO_FILE" > /dev/null <<EOF
+        cat>"$REPO_FILE"<<EOF
         [nginx-stable]
         name=nginx stable repo
-        baseurl=http://nginx.org/packages/centos/\$releasever/\$basearch/
+        baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
         gpgcheck=1
         enabled=1
         gpgkey=https://nginx.org/keys/nginx_signing.key
+        module_hotfixes=true
         
         [nginx-mainline]
         name=nginx mainline repo
-        baseurl=http://nginx.org/packages/mainline/centos/\$releasever/\$basearch/
+        baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
         gpgcheck=1
         enabled=0
         gpgkey=https://nginx.org/keys/nginx_signing.key
+        module_hotfixes=true
         EOF
+        
         echo "nginx.repo 文件已成功创建并写入内容，开始安装..."
     fi
     # 使用默认版本仓库
