@@ -12,7 +12,7 @@ start_install() {
     echo "Docker 未安装，正在从远程服务器获取 install_docker.sh 进行安装..."
     
     # 远程脚本的 URL
-    REMOTE_SCRIPT_URL="https://raw.githubusercontent.com/sola614/Sundries/master/course/mybash/install_docker.sh"
+    REMOTE_SCRIPT_URL="https://raw.githubusercontent.com/sola614/Sundries/master/shell/install_docker.sh"
     
     # 下载并执行远程脚本
     curl -fsSL "$REMOTE_SCRIPT_URL" | bash
@@ -31,7 +31,7 @@ start_install() {
   CONFIG_FILE="$CONFIG_PATH/server.yaml"
 
   # 下载默认配置文件
-  wget https://raw.githubusercontent.com/sola614/Sundries/master/course/hy2/server.yaml -O "$CONFIG_FILE"
+  wget https://raw.githubusercontent.com/sola614/Sundries/master/configFile/hy2/server.yaml -O "$CONFIG_FILE"
 
   # 收集用户输入
   read -p "面板地址 (如 http(s)://): " ApiHost
