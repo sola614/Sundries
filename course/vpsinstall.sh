@@ -7,7 +7,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='37'
+length='36'
 show_menu() {
   echo -e "
   常用脚本集合(仅在Centos下测试可用)
@@ -170,7 +170,7 @@ show_menu() {
     35)
       hysteria2_install
     ;;
-    35)
+    36)
       change_sys_repo
     ;;
     
