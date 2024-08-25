@@ -1,6 +1,4 @@
 #!/bin/bash
-. /etc/profile
-. ~/.bash_profile
 
 BOT_TOKEN=
 CHAN_ID=
