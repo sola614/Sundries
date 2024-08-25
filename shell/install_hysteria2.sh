@@ -19,17 +19,26 @@ start_install() {
   fi
 
   # 检查 hysteria2 是否已经在运行
-  if [[ -n $(docker ps -q -f "name=^hysteria2$") ]];then
-    echo "hysteria2 运行中！"
-    echo "配置文件路径: /etc/hysteria/server.yaml，请自行修改配置文件并重启服务。"
-    exit 1
+  # 检查 Docker 是否正在运行
+  if ! docker info >/dev/null 2>&1; then
+      echo "Docker 服务未运行或无法访问 Docker。"
+      exit 1
   fi
-
+  
+  # 获取正在运行的容器的名称
+  container_name=$(docker ps --filter "name=hysteria2" --format "{{.Names}}")
+  
   # 配置文件路径
   CONFIG_PATH=/etc/hysteria
   mkdir -p "$CONFIG_PATH/cert"
   CONFIG_FILE="$CONFIG_PATH/server.yaml"
-
+  # 判断是否找到名为 hysteria2 的容器
+  if [ "$container_name" = "hysteria2" ]; then
+      echo "hysteria2 服务运行中！修改配置并重启服务即可生效"
+      echo "配置文件路径: $CONFIG_FILE"
+      exit 1
+  fi
+  
   # 下载默认配置文件
   wget https://raw.githubusercontent.com/sola614/Sundries/master/configFile/hy2/server.yaml -O "$CONFIG_FILE"
 
