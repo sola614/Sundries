@@ -46,7 +46,7 @@ show_menu() {
   ${green}30.${plain} gost脚本(https://github.com/KANIKIG/Multi-EasyGost)(可实现ipv4流量转发到ipv6地址)
   ${green}31.${plain} warp多功能一键脚本
   ${green}32.${plain} centos7升级curl
-  ${green}33.${plain} Hysteria2后端(利用acme)(https://github.com/cedar2025/hysteria)
+  ${green}33.${plain} docker安装Hysteria2后端对接xboard(自行准备ssl证书)(https://github.com/cedar2025/hysteria)
   ${green}34.${plain} 一键更换系统软件源脚本(https://github.com/SuperManito/LinuxMirrors/)
   
  "
