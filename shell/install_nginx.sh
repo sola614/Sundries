@@ -22,22 +22,11 @@ is_nginx_installed() {
     fi
 }
 
-# 检查 Nginx 是否为最新版本
-is_nginx_latest() {
-    installed_version=$(nginx -v 2>&1 | grep -o '[0-9.]*')
-    latest_version=$(curl -s https://nginx.org/en/download.html | grep -oP 'nginx-\K[0-9.]+(?=\.tar\.gz)' | head -n 1)
-    if [ "$installed_version" = "$latest_version" ]; then
-        echo "true"
-    else
-        echo "false"
-    fi
-}
-
 # 提示用户是否更新 Nginx
 prompt_update_nginx() {
     echo "当前安装版本为：$installed_version，官网最新版本为：$latest_version"
     echo "请注意，选择更新可能也无法更新到官网最新版，主要看系统支持！"
-    read -p "是否执行更新？ (y/n): " choice
+    read -p "是否尝试更新？ (y/n): " choice
     case "$choice" in
         y|Y ) return 0 ;;
         n|N ) return 1 ;;
@@ -49,7 +38,10 @@ prompt_update_nginx() {
 install_or_update_nginx() {
     if [ "$(is_nginx_installed)" = "true" ]; then
         echo "Nginx 已安装，正在检查版本..."
-        if [ "$(is_nginx_latest)" = "true" ]; then
+        installed_version=$(nginx -v 2>&1 | grep -o '[0-9.]*')
+        latest_version=$(curl -s https://nginx.org/en/download.html | grep -oP 'nginx-\K[0-9.]+(?=\.tar\.gz)' | head -n 1)
+        # 检查 Nginx 是否为最新版本
+        if [ "$installed_version" = "$latest_version" ]; then
             echo "Nginx 已是最新版本，无需重复安装"
             return
         else
