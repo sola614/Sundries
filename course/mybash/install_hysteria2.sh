@@ -5,43 +5,17 @@ check_command() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# 安装 Docker
-docker_install() {
-  if ! check_command docker; then
-    echo "正在安装 Docker..."
-    curl -fsSL https://get.docker.com | bash
-    echo "Docker 已安装完毕，正在启动..."
-    systemctl start docker
-
-    read -p "是否设置 Docker 开机启动 (y/n): " flag
-    flag=${flag:='y'}
-    case $flag in
-      Y | y)
-        systemctl enable docker
-        echo "已设置 Docker 开机启动。"
-        ;;
-      N | n)
-        echo "不设置 Docker 开机启动。"
-        ;;
-      *)
-        echo "无效选项，跳过设置。"
-        ;;
-    esac
-
-    echo -e "\n常用 Docker 命令:\n"
-    echo "docker ps [-a]"
-    echo "docker start/stop/restart/rm [CONTAINER ID or name]"
-    echo "停止所有容器运行： docker stop \$(docker ps -a -q)"
-    echo "删除所有停止运行的容器： docker rm \$(docker ps -a -q)"
-  else
-    echo "Docker 已经安装。"
-  fi
-}
-
 # 主安装流程
 start_install() {
+  # 检查 Docker 是否已安装，未安装则从远程服务器获取 install_docker.sh 并执行
   if ! check_command docker; then
-    docker_install
+    echo "Docker 未安装，正在从远程服务器获取 install_docker.sh 进行安装..."
+    
+    # 远程脚本的 URL
+    REMOTE_SCRIPT_URL="https://example.com/path/to/install_docker.sh"
+    
+    # 下载并执行远程脚本
+    curl -fsSL "$REMOTE_SCRIPT_URL" | bash
   fi
 
   # 检查 hysteria2 是否已经在运行
