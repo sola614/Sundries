@@ -494,7 +494,7 @@ nginx_install(){
 ip_test(){
   check_file_status $ROOT_PATH/testip.sh
   if [ $? == 0 ]; then
-    wget -O $ROOT_PATH/testip.sh https://raw.githubusercontent.com/sola614/sola614/master/course/testip.sh && chmod +x $ROOT_PATH/testip.sh
+    wget -O $ROOT_PATH/testip.sh https://file.meaqua.fun/shell/testip.sh && chmod +x $ROOT_PATH/testip.sh
   fi
   
   $ROOT_PATH/testip.sh
