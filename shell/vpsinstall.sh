@@ -87,7 +87,7 @@ show_menu() {
   ${green}32.${plain} centos7升级curl
   ${green}33.${plain} docker安装Hysteria2后端对接xboard(自行准备ssl证书)(https://github.com/cedar2025/hysteria)
   ${green}34.${plain} 一键更换系统软件源脚本(https://github.com/SuperManito/LinuxMirrors/)
-  ${green}35.${plain} OpenAI-Checker(https://github.com/missuo/OpenAI-Checker)
+  ${green}35.${plain} 一键检测Netflix和ChatGPT解锁状态(https://linux.do/t/topic/85895/2)
   ${green}36.${plain} IPv4/6 Switch(https://github.com/ChellyL/ipv4-6-switch)
   
  "
@@ -207,7 +207,7 @@ show_menu() {
       change_sys_repo
     ;;
     35)
-      bash <(curl -Ls https://cdn.jsdelivr.net/gh/missuo/OpenAI-Checker/openai.sh)
+      bash <(curl -Ls https://file.meaqua.fun/shell/check_gpt.sh)
     ;;
     36)
       bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
