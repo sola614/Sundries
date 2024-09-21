@@ -354,7 +354,7 @@ docker_install(){
 install_nodejs_by_nvm(){
   check_command nvm
   if [ $? == 0 ]; then
-    wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
+    wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | bash
     echo "nvm脚本下载完成，请自行重启后执行nvm命令即可"
   fi
   echo -e "
