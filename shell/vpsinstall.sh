@@ -5,7 +5,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='36'
+length='37'
 
 # 获取操作系统的名称和版本
 if [ -f /etc/os-release ]; then
@@ -89,6 +89,7 @@ show_menu() {
   ${green}34.${plain} 一键更换系统软件源脚本(https://github.com/SuperManito/LinuxMirrors/)
   ${green}35.${plain} 一键检测Netflix和ChatGPT解锁状态
   ${green}36.${plain} IPv4/6 Switch(https://github.com/ChellyL/ipv4-6-switch)
+  ${green}37.${plain} 一键DD系统脚本(https://github.com/bin456789/reinstall)
   
  "
     echo && read -p "请输入选择 [0-${length}]: " num
@@ -214,7 +215,11 @@ show_menu() {
     ;;
     36)
       bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
-    ;;    
+    ;; 
+    37)
+      echo "正在下载脚本，默认为国外版链接，如果长时间下载不下来，请使用国内版命令：curl -O https://jihulab.com/bin456789/reinstall/-/raw/main/reinstall.sh"
+      curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh
+    ;; 
     999)
       vps_install
     ;;
