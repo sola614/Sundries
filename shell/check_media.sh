@@ -60,8 +60,8 @@ check4(){
   bash <(curl -sL Media.Check.Place)
 }
 
-if [[ $1 =~ ^[0-9]+$ ]] && (( $1 >= 0 && $1 <= MENU_MAX_OPTION )); then
-  select_menu "$1"
+if [ $1 ];then
+  select_menu $1
 else
   show_menu
 fi
