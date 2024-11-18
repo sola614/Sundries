@@ -5,7 +5,7 @@ SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
-length='37'
+MENU_MAX_OPTION='36'
 
 # 获取操作系统的名称和版本
 if [ -f /etc/os-release ]; then
@@ -91,7 +91,7 @@ show_menu() {
   ${green}36.${plain} 一键DD系统脚本(https://github.com/bin456789/reinstall)
   
  "
-    echo && read -p "请输入选择 [0-${length}]: " num
+    echo && read -p "请输入选择 [0-${MENU_MAX_OPTION}]: " num
 
     case "${num}" in
     0)
@@ -188,7 +188,7 @@ show_menu() {
       vps_install
     ;;
     *)
-      echo "请输入正确的数字 [0-${length}]"
+      echo "请输入正确的数字 [0-${MENU_MAX_OPTION}]"
       ;;
     esac
 }
