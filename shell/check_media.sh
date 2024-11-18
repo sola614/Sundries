@@ -1,12 +1,13 @@
 #!/bin/bash
 
 MENU_MAX_OPTION="4"
-green="\033[32m"
+green='\033[0;32m'
+plain='\033[0m'
 
 show_menu() {
   echo -e "
-  常用脚本集合
-  ${green}0.${plain} 更新脚本
+  常用流媒体检测脚本集合
+  ${green}0.${plain} 更新本脚本
   ————————————————
   ${green}1.${plain} 脚本1(https://github.com/lmc999/RegionRestrictionCheck)
   ${green}2.${plain} 脚本2(https://github.com/nkeonkeo/MediaUnlockTest)
