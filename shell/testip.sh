@@ -48,7 +48,7 @@ select_menu(){
 }
 update(){
   echo "正在下载最新文件到当前目录"
-  wget -O vpsinstall.sh https://raw.githubusercontent.com/sola614/sola614/master/course/vpsinstall.sh && chmod +x ./vpsinstall.sh
+  wget -O testip.sh https://raw.githubusercontent.com/sola614/Sundries/refs/heads/master/shell/testip.sh && chmod +x ./testip.sh
 }
 start(){
   if [ ! $BOT_TOKEN ]; then
