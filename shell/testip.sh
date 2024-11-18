@@ -17,6 +17,7 @@ length="2"
 count=0
 max_count=0
 text_result=''
+ROOT_PATH="/usr/mybash"
 
 show_menu() {
   echo -e "
@@ -47,8 +48,8 @@ select_menu(){
   esac
 }
 update(){
-  echo "正在下载最新文件到当前目录"
-  wget -O testip.sh https://raw.githubusercontent.com/sola614/Sundries/refs/heads/master/shell/testip.sh && chmod +x ./testip.sh
+  echo "正在下载最新文件到$ROOT_PATH"
+  wget -O $ROOT_PATH/testip.sh https://file.meaqua.fun/shell/testip.sh && chmod +x $ROOT_PATH/testip.sh
 }
 start(){
   if [ ! $BOT_TOKEN ]; then
