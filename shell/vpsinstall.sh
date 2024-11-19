@@ -225,8 +225,7 @@ check_file_str(){
 update_sh(){
   echo "正在下载最新文件到当前目录"
   wget -O vpsinstall.sh https://file.meaqua.fun/shell/vpsinstall.sh
-  sed -i 's/\r$//' vpsinstall.sh
-  bash ./vpsinstall.sh
+  sed -i 's/\r$//' ./vpsinstall.sh && bash ./vpsinstall.sh
 }
 vps_install(){
   echo "正在安装依赖..."
