@@ -17,23 +17,17 @@ fi
 # 根据不同的发行版赋予不同的安装命令
 case $SYSTEM_OS in
     ubuntu|debian)
-        INSTALL_CMD="apt install -y"
-        ;;
+        INSTALL_CMD="apt install -y";;
     centos|rhel|almalinux|rocky)
-        INSTALL_CMD="yum install -y"
-        ;;
+        INSTALL_CMD="yum install -y";;
     fedora)
-        INSTALL_CMD="dnf install -y"
-        ;;
+        INSTALL_CMD="dnf install -y";;
     arch|manjaro)
-        INSTALL_CMD="pacman -Syu"
-        ;;
+        INSTALL_CMD="pacman -Syu";;
     opensuse-leap|opensuse-tumbleweed|sles)
-        INSTALL_CMD="zypper install -y"
-        ;;
+        INSTALL_CMD="zypper install -y";;
     alpine)
-        INSTALL_CMD="apk add --no-cache"
-        ;;
+        INSTALL_CMD="apk add --no-cache";;
     *)
         echo "未知的操作系统: $OS。无法安装软件。"
         exit 1
