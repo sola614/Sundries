@@ -1,12 +1,10 @@
 #!/bin/bash
-
 ROOT_PATH="/usr/mybash"
 SYSTEM_OS=""
 INSTALL_CMD=""
 green='\033[0;32m'
 plain='\033[0m'
 MENU_MAX_OPTION='36'
-
 # 获取操作系统的名称和版本
 if [ -f /etc/os-release ]; then
     . /etc/os-release
