@@ -26,6 +26,7 @@ DOMAIN,music.youtube.com
 
 # > Twitch
 DOMAIN-KEYWORD,ttvnw
+DOMAIN-KEYWORD,twitch
 DOMAIN-SUFFIX,ext-twitch.tv
 DOMAIN-SUFFIX,jtvnw.net
 DOMAIN-SUFFIX,ttvnw.net
@@ -35,6 +36,4 @@ DOMAIN-SUFFIX,twitchcdn.net
 
 # > twitcasting
 DOMAIN-KEYWORD,twitcasting.tv
-
-# docker
-DOMAIN-KEYWORD,docker.com
+DOMAIN-KEYWORD,twitcasting
