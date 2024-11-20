@@ -17,5 +17,6 @@ DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,stripe.com
 
 # Claude
+DOMAIN-KEYWORD,claude.ai
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,anthropic.com
