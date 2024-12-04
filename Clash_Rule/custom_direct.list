@@ -39,9 +39,11 @@ DOMAIN-KEYWORD,fastly-edge.com
 DOMAIN-KEYWORD,epicgames.dev
 DOMAIN-KEYWORD,unrealengine.com
 DOMAIN-KEYWORD,epicgames.com
+DOMAIN-KEYWORD,steamcontent.com
 ##域名后缀匹配
 DOMAIN-SUFFIX,ip.sb
 DOMAIN-SUFFIX,hongdan.tv
 DOMAIN-SUFFIX,footprintdns.com
 DOMAIN-SUFFIX,avalanchestudios.com
 DOMAIN-SUFFIX,azure.com
+DOMAIN-SUFFIX,steamcontent.com
