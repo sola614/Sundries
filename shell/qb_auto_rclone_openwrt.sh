@@ -1,9 +1,9 @@
 #!/bin/sh
+
 # 注意：本脚本只支持qb 4.0.4及以上版本
 qb_username="" # 改：该为你的qb登录用户名
 qb_password="" # 改：改为你qb登录的密码
 qb_web_url="http://127.0.0.1:7896" # 查：改为qb的登录地址，一般可以不改
-cookie=""
 log_dir="/mnt/logs" # 改：改为你日志运行的路径
 rclone_dest="alist:tianyi" # 运行rclone config查看name字段即可；格式就是"XX:"
 rclone_dest_quark="alist:quark" # 夸克盘
@@ -12,7 +12,7 @@ from_dc_tag="" # 存放路径，自动获取
 rclone_parallel="32" # rclone上传线程 默认4
 pan_save_perfix=/downloads # 网盘保存路径
 save_path_prefix=/mnt/usbdisk/downloads #填写本地保存地址前缀，如一个文件保存在"/mnt/usbdisk/downloads/Bangumi/更新中"下需要上传到某网盘目录的/downloads下，则填写"/mnt/usbdisk/downloads"，最终会替换成/downloads，然后保存在对应网盘的"/downloads/Bangumi/更新中"目录下
-base_prefix_path="/mnt/usbdisk" # 前缀路径，用于判断路径是否时完整路径，如果用anirss下载的番剧，获取到的路径不完整，无法获取正确的文件路径，需要填写正确才可上传
+base_prefix_path="/mnt/usbdisk" # 前缀路径，用于判断路径是否时完整路径，如果用anirss的话路径不完整，无法获取正确的文件路径，需自行填充才可上传
 leeching_mode="true"    # 上传完毕并且分享率达到全局设置时自动删除任务
 rclone_bwlimit="off" #限制速率 即限制， "08:00,2.5M:off 23:00,off"为8点开始限制为上传2.5m/s下载不限制 23点后不限制
 upload_dir_files_flag="false"
@@ -217,10 +217,11 @@ function doUpload(){
     fix_torrent_name="${torrent_name}"
     torrent_hash=$(echo "${torrentInfo}" | jq ".[$i] | .hash" | sed s/\"//g) # 文件hash
     save_path=$(echo "${torrentInfo}" | jq ".[$i] | .save_path" | sed s/\"//g) # 存储路径
+    # save_path="${save_path/${save_path_prefix//\//\\/}/\/downloads}" #把变量save_path_prefix替换成/downloads
     save_path_prefix2="${save_path_prefix//\//\\/}"
     pan_save_perfix2="${pan_save_perfix//\//\\/}"
     save_path="${save_path/$save_path_prefix2/$pan_save_perfix2}"  #把变量save_path_prefix替换成变量pan_save_perfix
-    echo "上传保存目录：【${save_path}】" >> ${log_dir}/qb.log
+    # echo "上传保存目录：【${save_path}】" >> ${log_dir}/qb.log
     content_path=$(echo "${torrentInfo}" | jq ".[$i] | .content_path" | sed s/\"//g) # 最终完整文件路径（包括重命名后）
     torrent_path="${content_path}" # 这里就是他的本地实际路径，尝试将这里上传上去
     # 如果不是以 $base_prefix_path 开头，则添加 $base_prefix_path
