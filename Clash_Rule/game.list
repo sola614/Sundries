@@ -22,6 +22,7 @@ DOMAIN-KEYWORD,playerinfinite.com
 DOMAIN-KEYWORD,intlgame.com
 DOMAIN-KEYWORD,fleetlogd.com
 DOMAIN-KEYWORD,rumt-sg.com
+DOMAIN-KEYWORD,jupiterlauncher.com
 DOMAIN,global-lobby.nikke-kr.com
 DOMAIN,cloud.nikke-kr.com
 DOMAIN,sg-vas.intlgame.com
@@ -33,6 +34,7 @@ IP-CIDR,43.152.114.31/32,no-resolve
 DOMAIN-SUFFIX,nikke-kr.com
 DOMAIN-SUFFIX,intlgame.com
 DOMAIN-SUFFIX,iegcom.com
+DOMAIN-SUFFIX,jupiterlauncher.com
 
 #ACE
 DOMAIN,down.anticheatexpert.com
