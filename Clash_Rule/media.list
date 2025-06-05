@@ -39,3 +39,8 @@ DOMAIN-KEYWORD,twitcasting.tv
 DOMAIN-KEYWORD,twitcasting
 
 DOMAIN-KEYWORD,skylinewebcams
+
+# > rplay
+DOMAIN-KEYWORD,rplay
+DOMAIN-SUFFIX,rplay.live
+DOMAIN-SUFFIX,rplay-cdn.com
