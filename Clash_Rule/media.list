@@ -44,3 +44,10 @@ DOMAIN-KEYWORD,skylinewebcams
 DOMAIN-KEYWORD,rplay
 DOMAIN-SUFFIX,rplay.live
 DOMAIN-SUFFIX,rplay-cdn.com
+
+# > DAZN
+DOMAIN-KEYWORD,dazn
+DOMAIN,dca-ak-livedazn.akamaized.net
+
+# > akamaized CDN
+DOMAIN-SUFFIX,akamaized.net
