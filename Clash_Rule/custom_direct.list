@@ -40,13 +40,20 @@ DOMAIN-KEYWORD,fastly-edge.com
 DOMAIN-KEYWORD,epicgames.dev
 DOMAIN-KEYWORD,unrealengine.com
 DOMAIN-KEYWORD,epicgames.com
-DOMAIN-KEYWORD,steamcontent.com
 ##域名后缀匹配
 DOMAIN-SUFFIX,ip.sb
 DOMAIN-SUFFIX,hongdan.tv
 DOMAIN-SUFFIX,footprintdns.com
 DOMAIN-SUFFIX,avalanchestudios.com
 DOMAIN-SUFFIX,azure.com
-DOMAIN-SUFFIX,steamcontent.com
-DOMAIN-SUFFIX,steamstatic.com
-DOMAIN-SUFFIX,steamserver.net
+
+## DRG
+DOMAIN-KEYWORD,ghostship
+DOMAIN-KEYWORD,deeparc
+DOMAIN-SUFFIX,ghostship.dk
+DOMAIN-SUFFIX,deeparc.net
+DOMAIN,drg.ghostship.dk
+DOMAIN,services.ghostship.dk
+DOMAIN,telemetry.deeparc.net
+
+
