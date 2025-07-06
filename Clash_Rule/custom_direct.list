@@ -48,3 +48,5 @@ DOMAIN-SUFFIX,footprintdns.com
 DOMAIN-SUFFIX,avalanchestudios.com
 DOMAIN-SUFFIX,azure.com
 DOMAIN-SUFFIX,steamcontent.com
+DOMAIN-SUFFIX,steamstatic.com
+DOMAIN-SUFFIX,steamserver.net
