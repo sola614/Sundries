@@ -11,19 +11,30 @@ DOMAIN-SUFFIX,mist-train-girls.com
 DOMAIN-SUFFIX,azurefd.net
 DOMAIN,assets.mist-train-girls.com
 # > BA
+DOMAIN-KEYWORD,yostar
+DOMAIN-KEYWORD,bluearchive
 DOMAIN-SUFFIX,bluearchiveyostar.com
 DOMAIN,bluearchiveyostar.com
-DOMAIN-KEYWORD,bluearchiveyostar.com
-DOMAIN-KEYWORD,bluearchive.jp
-DOMAIN-KEYWORD,yo-star.com
-DOMAIN-KEYWORD,yostarplat.com
+DOMAIN-SUFFIX,bluearchiveyostar.com
+DOMAIN-SUFFIX,bluearchive.jp
+DOMAIN-SUFFIX,yo-star.com
+DOMAIN-SUFFIX,yostarplat.com
 # > NIKKE
-DOMAIN-KEYWORD,nikke-kr.com
-DOMAIN-KEYWORD,playerinfinite.com
-DOMAIN-KEYWORD,intlgame.com
-DOMAIN-KEYWORD,fleetlogd.com
-DOMAIN-KEYWORD,rumt-sg.com
-DOMAIN-KEYWORD,jupiterlauncher.com
+DOMAIN-KEYWORD,nikke
+DOMAIN-KEYWORD,nikke-kr
+DOMAIN-SUFFIX,nikke-en.com
+DOMAIN-SUFFIX,nikke-jp.com
+DOMAIN-SUFFIX,midasbuy.com
+DOMAIN-SUFFIX,truekex.com
+DOMAIN-SUFFIX,jupiterlauncher.com
+DOMAIN-SUFFIX,harvestsharp.com
+DOMAIN-SUFFIX,nikke-kr.com
+DOMAIN-SUFFIX,playerinfinite.com
+DOMAIN-SUFFIX,intlgame.com
+DOMAIN-SUFFIX,fleetlogd.com
+DOMAIN-SUFFIX,rumt-sg.com
+DOMAIN-SUFFIX,jupiterlauncher.com
+DOMAIN-SUFFIX,iegcom.com
 DOMAIN,global-lobby.nikke-kr.com
 DOMAIN,cloud.nikke-kr.com
 DOMAIN,sg-vas.intlgame.com
@@ -31,11 +42,6 @@ DOMAIN,aws-na-dr.intlgame.com
 DOMAIN,data-aws-na.intlgame.com
 DOMAIN,pc.crashsight-us.iegcom.com
 IP-CIDR,43.152.114.31/32,no-resolve
-
-DOMAIN-SUFFIX,nikke-kr.com
-DOMAIN-SUFFIX,intlgame.com
-DOMAIN-SUFFIX,iegcom.com
-DOMAIN-SUFFIX,jupiterlauncher.com
 
 #ACE
 DOMAIN,down.anticheatexpert.com
