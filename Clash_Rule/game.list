@@ -37,15 +37,16 @@ DOMAIN-SUFFIX,fleetlogd.com
 DOMAIN-SUFFIX,rumt-sg.com
 DOMAIN-SUFFIX,jupiterlauncher.com
 DOMAIN-SUFFIX,iegcom.com
+DOMAIN-SUFFIX,wetest.net
 DOMAIN,global-lobby.nikke-kr.com
 DOMAIN,cloud.nikke-kr.com
 DOMAIN,sg-vas.intlgame.com
 DOMAIN,aws-na-dr.intlgame.com
 DOMAIN,data-aws-na.intlgame.com
 DOMAIN,pc.crashsight-us.iegcom.com
+DOMAIN,pc.crashsight.wetest.net
 IP-CIDR,43.152.114.31/32,no-resolve
-
-#ACE
+# > ACE
 DOMAIN,down.anticheatexpert.com
 DOMAIN-SUFFIX,anticheatexpert.com
 
