@@ -40,6 +40,9 @@ DOMAIN-SUFFIX,iegcom.com
 DOMAIN-SUFFIX,wetest.net
 DOMAIN-SUFFIX,appsflyersdk.com
 DOMAIN-SUFFIX,levelinfinite.com
+DOMAIN,nikke-en.com
+DOMAIN,nikke-kr.com
+DOMAIN,nikke-jp.com
 DOMAIN,sg-vas.intlgame.com
 DOMAIN,aws-na-dr.intlgame.com
 DOMAIN,data-aws-na.intlgame.com
