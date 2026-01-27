@@ -1,0 +1,8 @@
+; 1. 规则部分
+ruleset=🎮 游戏加速,[]PROCESS-NAME,Steam.exe
+ruleset=🎮 游戏加速,[]PROCESS-NAME,cs2.exe
+ruleset=🎮 游戏加速,[]PROCESS-NAME,r5apex.exe
+ruleset=🎮 游戏加速,[]PROCESS-NAME,LeagueClient.exe
+
+; 2. 分组部分
+custom_proxy_group=🎮 游戏加速`select`[]延迟最低`[]香港节点`[]日本节点`.*
