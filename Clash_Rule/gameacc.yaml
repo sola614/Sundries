@@ -4,6 +4,8 @@ ruleset=游戏加速,[]PROCESS-NAME,EpicGamesLauncher.exe
 ruleset=游戏加速,[]PROCESS-NAME,r5apex.exe
 ruleset=游戏加速,[]PROCESS-NAME,WinStore.App.exe
 ruleset=游戏加速,[]PROCESS-NAME,wwz.exe
+ruleset=游戏加速,[]PROCESS-NAME,wwzRetailEgs.exe
+ruleset=游戏加速,[]IP-CIDR,172.0.0.0/8,no-resolve
 
 
 ; --- 2. 分组部分 ---
