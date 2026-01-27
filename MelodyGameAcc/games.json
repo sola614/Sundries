@@ -3,12 +3,12 @@
     "name": "战地风云 6",
     "englishName": "Battlefield 6",
     "processName": "bf6.exe",
-    "coverUrl": "https://example.com/bf6-cover.jpg"
+    "coverUrl": "https://github.com/sola614/Sundries/blob/master/MelodyGameAcc/bf6.jpg"
   },
   {
-    "name": "Apex Legends",
-    "englishName": "Apex Legends",
-    "processName": "r5apex_dx12.exe",
-    "coverUrl": "https://example.com/apex-cover.jpg"
+    "name": "WWZ",
+    "englishName": "World War Z",
+    "processName": "wwz.exe",
+    "coverUrl": "https://github.com/sola614/Sundries/blob/master/MelodyGameAcc/wwz.jpg"
   }
 ]
