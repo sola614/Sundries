@@ -1,8 +1,10 @@
 ; 1. 规则部分
 ruleset=游戏加速,[]PROCESS-NAME,Steam.exe
-ruleset=游戏加速,[]PROCESS-NAME,cs2.exe
+ruleset=游戏加速,[]PROCESS-NAME,EpicGamesLauncher.exe
 ruleset=游戏加速,[]PROCESS-NAME,r5apex.exe
-ruleset=游戏加速,[]PROCESS-NAME,LeagueClient.exe
+ruleset=游戏加速,[]PROCESS-NAME,WinStore.App.exe
+ruleset=游戏加速,[]PROCESS-NAME,wwz.exe
+
 
 ; --- 2. 分组部分 ---
 ; 游戏加速：默认用“延迟最低”组，备选直连
