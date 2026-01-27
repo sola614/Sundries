@@ -1,14 +1,14 @@
 [
   {
-    "name": "战地风云 6",
-    "englishName": "Battlefield 6",
-    "processName": "bf6.exe",
-    "coverUrl": "https://github.com/sola614/Sundries/blob/master/MelodyGameAcc/bf6.jpg"
+    "name": "Microsoft Store",
+    "englishName": "Microsoft Store",
+    "processName": "WinStore.App.exe",
+    "coverUrl": "https://raw.githubusercontent.com/sola614/Sundries/master/MelodyGameAcc/logo.png"
   },
   {
     "name": "WWZ",
     "englishName": "World War Z",
     "processName": "wwz.exe",
-    "coverUrl": "https://github.com/sola614/Sundries/blob/master/MelodyGameAcc/wwz.jpg"
+    "coverUrl": "https://raw.githubusercontent.com/sola614/Sundries/master/MelodyGameAcc/logo.png"
   }
 ]
