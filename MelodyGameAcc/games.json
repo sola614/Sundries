@@ -6,6 +6,18 @@
     "coverUrl": "https://raw.githubusercontent.com/sola614/Sundries/master/MelodyGameAcc/logo.png"
   },
   {
+    "name": "Steam",
+    "englishName": "Steam",
+    "processName": "Steam.exe",
+    "coverUrl": "https://raw.githubusercontent.com/sola614/Sundries/master/MelodyGameAcc/logo.png"
+  },
+   {
+    "name": "Epic",
+    "englishName": "Epic",
+    "processName": "EpicGamesLauncher.exe",
+    "coverUrl": "https://raw.githubusercontent.com/sola614/Sundries/master/MelodyGameAcc/logo.png"
+  },
+  {
     "name": "WWZ",
     "englishName": "World War Z",
     "processName": "wwz.exe",
