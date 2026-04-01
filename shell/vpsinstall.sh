@@ -30,7 +30,7 @@ case $SYSTEM_OS in
     alpine)
         INSTALL_CMD="apk add --no-cache";;
     *)
-        echo "未知的操作系统: $OS。无法安装软件。"
+        echo "未知的操作系统: $SYSTEM_OS。无法安装软件。"
         exit 1
         ;;
 esac
@@ -319,7 +319,7 @@ vps_install(){
       echo "正在检查 $TOOL..."
       if ! command -v $TOOL &>/dev/null; then
           echo "$TOOL 未安装，尝试安装..."
-          if ! sudo $INSTALL_CMD install -y $TOOL; then
+          if ! sudo $INSTALL_CMD $TOOL; then
               echo "安装 $TOOL 失败，跳过。"
           else
               echo "$TOOL 安装成功。"
@@ -481,7 +481,7 @@ dns_unblock(){
       wget --no-check-certificate -O dnsmasq_sniproxy.sh https://raw.githubusercontent.com/sola614/dnsmasq_sniproxy_install/master/dnsmasq_sniproxy.sh && bash dnsmasq_sniproxy.sh -f
       read -p "是否设置白名单，即ban掉53端口，需要自行添加可访问的ip(y/n)，默认y: " flag2
       flag2=${flag2:='y'}
-      if [ $flag2 == 'y' || $flag2 == 'Y'];then
+      if [[ "$flag2" == 'y' || "$flag2" == 'Y' ]]; then
         ban_iptables 53 tcp
       fi
       get_wan_ip
@@ -527,7 +527,7 @@ set_iptables(){
 }
 set_ip_iptables(){
   read -p "请输入开启白名单的ip: " ip
-  if [ ip ];then
+  if [ "$ip" ];then
     iptables -I INPUT -s $ip -p $2 --dport $1 -j ACCEPT
     echo "$ip设置成功"
     read -p "是否继续添加？(y/n): " flag
