@@ -721,16 +721,45 @@ check_existing_nodes() {
         running_nodes+=("$nid")
     done
 
-    if [ ${#running_nodes[@]} -eq 0 ]; then
+    # 检测独立运行的 xboard-node Docker 容器（包括环境变量模式）
+    local docker_containers=()
+    if command -v docker >/dev/null 2>&1; then
+        while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            docker_containers+=("$line")
+        done < <(docker ps --filter "ancestor=${DOCKER_IMAGE}" --format "{{.Names}}" 2>/dev/null)
+    fi
+
+    if [ ${#running_nodes[@]} -eq 0 ] && [ ${#docker_containers[@]} -eq 0 ]; then
         return 0
     fi
 
     echo ""
     log_warn "Existing node(s) detected:"
     echo ""
+
     for nid in "${running_nodes[@]}"; do
         echo -e "  ${BOLD}Node ${nid}${NC}"
         print_manage_info "$nid"
+        echo ""
+    done
+
+    for cname in "${docker_containers[@]}"; do
+        # 跳过已在配置目录中列出的节点（避免重复）
+        local skip=0
+        for nid in "${running_nodes[@]}"; do
+            if [ "$cname" = "xboard-node-${nid}" ]; then
+                skip=1
+                break
+            fi
+        done
+        if [ "$skip" -eq 1 ]; then
+            continue
+        fi
+        echo -e "  ${BOLD}Docker: ${cname}${NC}"
+        echo "    Logs:    docker logs -f ${cname}"
+        echo "    Stop:    docker stop ${cname}"
+        echo "    Remove:  docker rm -f ${cname}"
         echo ""
     done
 
