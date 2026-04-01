@@ -11,7 +11,7 @@ set -e
 #
 # Interactive:
 #   bash install.sh
-# 1
+#
 # Management:
 #   bash install.sh list
 #   bash install.sh remove <node_id>
