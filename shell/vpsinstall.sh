@@ -313,24 +313,44 @@ update_sh(){
 }
 vps_install(){
   echo "正在安装依赖..."
-  TOOLS=("vim" "wget" "unzip" "tar" "mtr" "curl" "crontabs" "socat" "iptables-services" "net-tools" "cronie" "bind-utils")
-  # 遍历工具列表
-  for TOOL in "${TOOLS[@]}"; do
-      echo "正在检查 $TOOL..."
-      if ! command -v $TOOL &>/dev/null; then
-          echo "$TOOL 未安装，尝试安装..."
-          if ! sudo $INSTALL_CMD $TOOL; then
-              echo "安装 $TOOL 失败，跳过。"
-          else
-              echo "$TOOL 安装成功。"
-          fi
-      else
-          echo "$TOOL 已安装，跳过。"
-      fi
+
+  # 通用工具（各系统包名一致）
+  COMMON_TOOLS=("vim" "wget" "unzip" "tar" "mtr" "curl" "socat")
+
+  # 系统特定工具
+  case $SYSTEM_OS in
+    ubuntu|debian)
+      EXTRA_TOOLS=("cron" "iptables-persistent" "net-tools" "dnsutils")
+      ;;
+    centos|rhel|almalinux|rocky)
+      EXTRA_TOOLS=("crontabs" "iptables-services" "net-tools" "cronie" "bind-utils")
+      ;;
+    fedora)
+      EXTRA_TOOLS=("cronie" "iptables-services" "net-tools" "bind-utils")
+      ;;
+    alpine)
+      EXTRA_TOOLS=("iptables" "net-tools" "bind-tools" "openrc")
+      ;;
+    arch|manjaro)
+      EXTRA_TOOLS=("cronie" "iptables" "net-tools" "bind")
+      ;;
+    *)
+      EXTRA_TOOLS=()
+      ;;
+  esac
+
+  ALL_TOOLS=("${COMMON_TOOLS[@]}" "${EXTRA_TOOLS[@]}")
+
+  for TOOL in "${ALL_TOOLS[@]}"; do
+    echo "正在安装 $TOOL..."
+    if ! $INSTALL_CMD $TOOL >/dev/null 2>&1; then
+      echo "$TOOL 安装失败，跳过。"
+    else
+      echo "$TOOL 安装成功。"
+    fi
   done
 
   echo "所有工具检查和安装完成。如果遇到错误安装不上，请根据自身系统搜索相关安装指令进行安装"
-  # $INSTALL_CMD vim wget unzip tar mtr curl crontabs socat iptables-services net-tools cronie bind-utils
 }
 start_neko_linux(){
   check_file_status $ROOT_PATH/tools.sh
