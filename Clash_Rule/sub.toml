@@ -1,12 +1,9 @@
-[Target]
-; 保持输出为 Clash 格式
-target=clash
-
-[Config]
-; 开启内置规则集和增强功能优化
+[custom]
+; ================== 基础控制参数 ==================
+; 必须开启该项，Subconverter 才会生成符合新版内核的 rule-provider
 generate_rule_provider=true
 
-; ================== 规则集定义 (支持最新的 Provider 格式) ==================
+; ================== 规则集定义 (严格参考官方 type:URL 规范) ==================
 
 ; 1. 拦截类（最优先）
 ruleset=REJECT,clash-classic:https://raw.githubusercontent.com/Loyalsoldier/surge-rules/release/ruleset/reject.txt
@@ -21,7 +18,7 @@ ruleset=BT下载,clash-classic:https://raw.githubusercontent.com/ACL4SSR/ACL4SSR
 ; 3. 强制代理/高优先级代理
 ruleset=通用代理,clash-classic:https://raw.githubusercontent.com/sola614/Sundries/master/Clash_Rule/force_proxy.list
 
-; 4. 精准海外应用/游戏/流媒体分流（确保在 GEOIP 之前命中）
+; 4. 精准海外应用/游戏/流媒体分流（确保在 GEOIP,CN 之前命中）
 ruleset=AI,clash-classic:https://raw.githubusercontent.com/sola614/Sundries/refs/heads/master/Clash_Rule/ai.list
 ruleset=Cygames,clash-classic:https://raw.githubusercontent.com/sola614/sola614/master/Clash_Rule/cygames.list
 ruleset=Game_Global,clash-classic:https://raw.githubusercontent.com/sola614/sola614/master/Clash_Rule/game.list
@@ -38,7 +35,7 @@ ruleset=流媒体,clash-classic:https://raw.githubusercontent.com/ACL4SSR/ACL4SS
 ruleset=流媒体,clash-classic:https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Ruleset/Docker.list
 ruleset=通用代理,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Steam/Steam.list
 
-; 5. 大范围中国流量直连（GeoIP 核心加速）
+; 5. 大范围中国流量直连（GeoIP 内置规则，无特殊前缀，必须用 [] 标记）
 ruleset=DIRECT,[]GEOIP,CN
 
 ; 6. 兜底与大范围海外被墙白名单
@@ -47,7 +44,7 @@ ruleset=通用代理,clash-classic:https://raw.githubusercontent.com/Loyalsoldie
 ruleset=漏网之鱼,[]MATCH
 
 
-; ================== 策略组定义 (Custom Proxy Group) ==================
+; ================== 策略组定义 (格式完全符合官方 ` 符号分割) ==================
 
 custom_proxy_group=通用代理`select`[]延迟最低`[]故障转移`.*
 custom_proxy_group=YouTube|Twitch`select`.*
@@ -66,6 +63,6 @@ custom_proxy_group=流媒体`select`.*
 custom_proxy_group=BT下载`select`[]DIRECT`[]通用代理
 custom_proxy_group=漏网之鱼`select`[]通用代理`[]DIRECT
 
-; 自动测试组
+; 自动健康检查组设置（参照示例调整参数）
 custom_proxy_group=延迟最低`url-test`.*`https://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=故障转移`fallback`.*`https://www.gstatic.com/generate_204`180
