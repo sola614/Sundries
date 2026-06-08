@@ -1,9 +1,6 @@
 # > YouTube & YouTubeMusic
 DOMAIN-KEYWORD,youtube
-DOMAIN,youtubei.googleapis.com
-DOMAIN,yt3.ggpht.com
 DOMAIN-SUFFIX,googlevideo.com
-DOMAIN-SUFFIX,gvt2.com
 DOMAIN-SUFFIX,withyoutube.com
 DOMAIN-SUFFIX,youtu.be
 DOMAIN-SUFFIX,youtube-nocookie.com
@@ -13,7 +10,14 @@ DOMAIN-SUFFIX,youtubegaming.com
 DOMAIN-SUFFIX,youtubekids.com
 DOMAIN-SUFFIX,yt.be
 DOMAIN-SUFFIX,ytimg.com
+DOMAIN-SUFFIX,ggpht.com
+DOMAIN-SUFFIX,gvt1.com
+DOMAIN-SUFFIX,gvt2.com
+DOMAIN-SUFFIX,gvt3.com
 DOMAIN,music.youtube.com
+DOMAIN,googleapis.cn
+DOMAIN,youtubei.googleapis.com
+DOMAIN,yt3.ggpht.com
 
 # > Twitch
 DOMAIN-KEYWORD,ttvnw
