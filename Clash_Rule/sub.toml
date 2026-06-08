@@ -4,6 +4,7 @@ generate_rule_provider=true
 
 ; ================== 规则集定义 (深度合并精简版) ==================
 ; 1. 强制代理/高优先级代理
+ruleset=BT下载,clash-classic:https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Download.list
 ruleset=通用代理,clash-classic:https://raw.githubusercontent.com/sola614/Sundries/master/Clash_Rule/force_proxy.list
 
 ; 2. 本地与特殊直连
@@ -11,7 +12,6 @@ ruleset=DIRECT,clash-classic:https://raw.githubusercontent.com/Loyalsoldier/surg
 ruleset=DIRECT,clash-classic:https://raw.githubusercontent.com/sola614/Sundries/master/Clash_Rule/custom_direct.list
 ruleset=DIRECT,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/SteamCN/SteamCN.list
 ruleset=Bilibili,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.list
-ruleset=BT下载,clash-classic:https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/refs/heads/master/Clash/Download.list
 
 ; 3. 精准海外应用/游戏/流媒体分流（确保在 GEOIP,CN 之前命中）
 ruleset=AI,clash-classic:https://raw.githubusercontent.com/sola614/Sundries/refs/heads/master/Clash_Rule/ai.list
