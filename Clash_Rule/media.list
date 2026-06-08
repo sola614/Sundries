@@ -1,7 +1,4 @@
-# > YouTube
-USER-AGENT,*youtube*
-USER-AGENT,YouTube*
-USER-AGENT,com.google.ios.youtube*
+# > YouTube & YouTubeMusic
 DOMAIN-KEYWORD,youtube
 DOMAIN,youtubei.googleapis.com
 DOMAIN,yt3.ggpht.com
@@ -16,12 +13,6 @@ DOMAIN-SUFFIX,youtubegaming.com
 DOMAIN-SUFFIX,youtubekids.com
 DOMAIN-SUFFIX,yt.be
 DOMAIN-SUFFIX,ytimg.com
-
-# > YouTubeMusic
-USER-AGENT,*YouTubeMusic*
-USER-AGENT,*com.google.ios.youtubemusic*
-USER-AGENT,YouTubeMusic*
-USER-AGENT,com.google.ios.youtubemusic*
 DOMAIN,music.youtube.com
 
 # > Twitch
@@ -38,16 +29,14 @@ DOMAIN-SUFFIX,twitchcdn.net
 DOMAIN-KEYWORD,twitcasting.tv
 DOMAIN-KEYWORD,twitcasting
 
-DOMAIN-KEYWORD,skylinewebcams
-
 # > rplay
 DOMAIN-KEYWORD,rplay
 DOMAIN-SUFFIX,rplay.live
 DOMAIN-SUFFIX,rplay-cdn.com
 
-# > DAZN
+# > DAZN (日本及全球体育流媒体)
 DOMAIN-KEYWORD,dazn
 DOMAIN,dca-ak-livedazn.akamaized.net
 
-# > akamaized CDN
-DOMAIN-SUFFIX,akamaized.net
+# > 专属精准特例
+DOMAIN-KEYWORD,skylinewebcams
