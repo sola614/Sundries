@@ -39,6 +39,8 @@ DOMAIN-KEYWORD,githubusercontent.com
 DOMAIN-KEYWORD,cloudflareclient.com
 DOMAIN-KEYWORD,themoviedb.org
 DOMAIN-KEYWORD,mikanani.me
+DOMAIN-KEYWORD,google
+DOMAIN-KEYWORD,x
 ##域名后缀匹配
 DOMAIN-SUFFIX,pximg.net
 DOMAIN-SUFFIX,gitlab.io
