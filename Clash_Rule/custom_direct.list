@@ -74,3 +74,16 @@ DOMAIN-KEYWORD,qoder
 DOMAIN-SUFFIX,qoder.com
 
 DOMAIN,invite.linuxdo.org
+
+## epic下载
+DOMAIN,egdownload.fastly-edge.com
+DOMAIN,cloudflare.epicgamescdn.com
+DOMAIN,download.epicgames.com
+DOMAIN,download2.epicgames.com
+DOMAIN,download3.epicgames.com
+DOMAIN,download4.epicgames.com
+DOMAIN,epicgames-download1.akamaized.net
+DOMAIN-SUFFIX,download.epicgames.com,DIRECT
+DOMAIN-SUFFIX,epicgames.com.edgesuite.net
+DOMAIN-SUFFIX,download.gamebuilder.epicgames.com
+DOMAIN-KEYWORD,epicgames-download
